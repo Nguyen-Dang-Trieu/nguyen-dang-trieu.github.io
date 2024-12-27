@@ -120,7 +120,6 @@ comments:
     issue_term: # < url | pathname | title | ...>
   # Giscus options › https://giscus.app
   giscus:
-    enabled: true
     repo: "Nguyen-Dang-Trieu/nguyen-dang-trieu.github.io"
     repo_id: "R_kgDONi6yqQ"
     category: "Q&A"
