@@ -108,7 +108,7 @@ social_preview_image: # string, local or CORS resources
 toc: true
 
 comments:
-  active: "giscus"
+  active: giscus
   # Global switch for the post-comment system. Keeping it empty means disabled.
   provider: # [disqus | utterances | giscus]
   # The provider options are as follows:
@@ -120,13 +120,13 @@ comments:
     issue_term: # < url | pathname | title | ...>
   # Giscus options › https://giscus.app
   giscus:
-    repo: "Nguyen-Dang-Trieu/nguyen-dang-trieu.github.io"
-    repo_id: "R_kgDONi6yqQ"
-    category: "Q&A"
-    category_id: "DIC_kwDONi6yqc4CljeV"
-    mapping: "pathname" # optional, default to 'pathname'
-    strict: "0" # optional, default to '0'
-    input_position: "bottom" # optional, default to 'bottom'
+    repo: Nguyen-Dang-Trieu/nguyen-dang-trieu.github.io
+    repo_id: R_kgDONi6yqQ
+    category: Q&A
+    category_id: DIC_kwDONi6yqc4CljeV
+    mapping: pathname # optional, default to 'pathname'
+    strict: 0 # optional, default to '0'
+    input_position: bottom # optional, default to 'bottom'
     lang: # optional, default to the value of `site.lang`
     reactions_enabled: 1 # optional, default to the value of `1`
 
