@@ -108,7 +108,6 @@ social_preview_image: # string, local or CORS resources
 toc: true
 
 comments:
-  active: giscus
   # Global switch for the post-comment system. Keeping it empty means disabled.
   provider: giscus # [disqus | utterances | giscus]
   # The provider options are as follows:
