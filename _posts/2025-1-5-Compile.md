@@ -101,3 +101,20 @@ Trong quá trình này, các tệp đối tượng và các tệp thư viện m�
 Tùy thuộc vào cách liên kết thư viện, quá trình này có thể chia thành hai loại:
 - Liên kết tĩnh (Static Linking): Các thư viện được kết nối trực tiếp vào tệp thực thi trong quá trình biên dịch.
 - Liên kết động (Dynamic Linking): Các thư viện không được liên kết vào tệp thực thi ngay lập tức, mà sẽ được tải và liên kết khi chương trình chạy.
+
+#### Vai trò
+Vai trò của Linking có thể chia thành hai phần chính:
+- **Symbol Resolution**.
+-  **Relocation**.
+
+##### Symbol Resolution
+Symbol Resolution là quá trình quyết định cách liên kết các tham chiếu ký hiệu trong các tệp đối tượng với các định nghĩa ký hiệu. Khi nhiều tệp đối tượng chứa các hàm hoặc biến có cùng tên, quá trình này sẽ xác định hàm hoặc biến nào trong tệp nào sẽ được sử dụng.
+
+##### Relocation
+Reallocation là quá trình sắp xếp lại địa chỉ dữ liệu hoặc địa chỉ tham chiếu bộ nhớ của mã trong tệp đối tượng (object file).
+
+Khi liên kết (Linking) các tệp đối tượng mà trình biên dịch đã tạo thành một tệp thực thi duy nhất, địa chỉ dữ liệu hoặc địa chỉ tham chiếu bộ nhớ của mã trong từng tệp đối tượng sẽ khác với địa chỉ trong tệp thực thi kết hợp. Do đó, nó cần phải được sửa đổi sao cho phù hợp.
+
+Để thực hiện điều này, trong tệp đối tượng có một phần chứa thông tin điều chỉnh (Relocation Information Section).
+
+Trong quá trình liên kết, các phần cùng loại được kết hợp lại, và sau đó thực hiện điều chỉnh lại.
