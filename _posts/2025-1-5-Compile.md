@@ -30,7 +30,7 @@ Mã nguồn sau khi được biên dịch sẽ trở thành một tệp thực t
 
 ## Quá trình Compile
 
-Thêm hình ảnh ở đây
+Thêm hình ảnh ở đây (Image)
 
 Quá trình biên dịch được chia thành 4 bước:
 - Quá trình tiền xử lý (Pre-processing).
