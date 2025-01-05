@@ -46,7 +46,7 @@ Hãy cùng tìm hiểu chi tiết từng bước trong quá trình này.
 
 ### 1. Quá trình tiền xử lý (Pre-processing)
 
-Pre-processing à quá trình chuyển đổi **file source *.c*** thành **file source đã được xử lý *.i*** thông qua **Preprocessor**.
+Pre-processing à quá trình chuyển đổi file source **(*.c)** thành file source đã được xử lý **(*.i)** thông qua **Preprocessor**.
 Trong quá trình này, có ba công việc chính thường được thực hiện:
 - Loại bỏ Comments: Tất cả các chú thích trong mã nguồn sẽ bị loại bỏ. Chú thích chỉ là phần thông tin dành cho con người, không cần thiết cho máy tính hiểu.
 - Chèn *.h: Khi gặp chỉ thị **#include**, **Preprocessor** sẽ tìm *.h tương ứng và sao chép tất cả nội dung trong *.h vào mã nguồn (*.c). File.h không được sử dụng trực tiếp trong quá trình biên dịch mà sẽ được sao chép toàn bộ vào trong tệp mã nguồn. Các khai báo hàm trong *.h sẽ được kết hợp với *.o chứa định nghĩa hàm thực tế trong quá trình liên kết (Linking).
