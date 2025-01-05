@@ -11,6 +11,9 @@ image:
 
 ## Giới thiệu
 
+![Compile](/assets/articles/2025/Compile/2025-1-5-introduce.png){: .normal }
+_Quá trình compile_
+
 Nếu bạn đã từng lập trình bằng C, C++ hoặc Java, chắc hẳn bạn đã từng xây dựng (Build) hoặc biên dịch (Compile) mã nguồn mà mình viết để chạy chương trình, hoặc cũng có thể từng gặp phải lỗi biên dịch do viết sai mã nguồn.
 
 Nếu bạn chưa hiểu rõ quá trình biên dịch thực sự làm những gì và chỉ mơ hồ nghĩ rằng "Biên dịch là kiểm tra cú pháp mã nguồn và thực thi chương trình", thì đây là lúc để tìm hiểu chi tiết hơn.
