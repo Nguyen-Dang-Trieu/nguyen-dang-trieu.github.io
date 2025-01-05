@@ -115,9 +115,9 @@ Lúc này, bảng ký hiệu của tệp đối tượng chỉ chứa thông tin
 ![Linking](/assets/articles/2025/Compile/2025-1-5-linking.png){: .normal }
 _Linking_
 
-Quá trình Liên kết (Linking) là quá trình sử dụng Liên kết viên (Linker) để kết hợp các tệp đối tượng (.o) thành một tệp thực thi.
+Quá trình liên kết là quá trình sử dụng **Linker** để kết hợp các **Object Files (.o)** thành một **Executable File**.
 
-Trong quá trình này, các tệp đối tượng và các tệp thư viện mà chương trình sử dụng sẽ được liên kết lại để tạo thành một tệp thực thi duy nhất.
+Trong quá trình này, các **Object Files (*.o)** và các **Library** mà chương trình sử dụng sẽ được liên kết lại để tạo thành một tệp thực thi duy nhất.
 
 Tùy thuộc vào cách liên kết thư viện, quá trình này có thể chia thành hai loại:
 - Liên kết tĩnh (Static Linking): Các thư viện được kết nối trực tiếp vào tệp thực thi trong quá trình biên dịch.
@@ -127,6 +127,8 @@ Tùy thuộc vào cách liên kết thư viện, quá trình này có thể chia
 Vai trò của Linking có thể chia thành hai phần chính:
 - **Symbol Resolution**.
 -  **Relocation**.
+
+![Role of Linking](/assets/articles/2025/Compile/2025-1-5-roleLinker.png){: .normal }
 
 ##### Symbol Resolution
 Symbol Resolution là quá trình quyết định cách liên kết các tham chiếu ký hiệu trong các tệp đối tượng với các định nghĩa ký hiệu. Khi nhiều tệp đối tượng chứa các hàm hoặc biến có cùng tên, quá trình này sẽ xác định hàm hoặc biến nào trong tệp nào sẽ được sử dụng.
@@ -139,3 +141,5 @@ Khi liên kết (Linking) các tệp đối tượng mà trình biên dịch đ�
 Để thực hiện điều này, trong tệp đối tượng có một phần chứa thông tin điều chỉnh (Relocation Information Section).
 
 Trong quá trình liên kết, các phần cùng loại được kết hợp lại, và sau đó thực hiện điều chỉnh lại.
+
+![](/assets/articles/2025/Compile/2025-1-5-End.png){: .normal }
