@@ -56,9 +56,12 @@ Trong quá trình này, có ba công việc chính thường được thực hi�
 #### Cấu trúc Compiler
 Compiler bao gồm ba giai đoạn (Front-end - Middle-end - Back-end) .
 ##### Front-End
-\- Trong quá trình frontend, các phần liên quan đến từng ngôn ngữ riêng biệt sẽ được xử lý. </br>
-\- Kiểm tra mã nguồn: Quá trình này kiểm tra xem mã nguồn có được viết đúng theo cú pháp và ngữ nghĩa của ngôn ngữ không, bao gồm phân tích từ vựng, cú pháp và ngữ nghĩa. </br>
-\- Tạo cây GIMPLE: Sau khi kiểm tra mã nguồn, một cây GIMPLE sẽ được tạo ra. GIMPLE là một cấu trúc dữ liệu biểu diễn mã nguồn dưới dạng cây, giúp thể hiện chương trình theo cách dễ dàng xử lý hơn. </br?>
+\- Trong quá trình frontend, các phần liên quan đến từng ngôn ngữ riêng biệt sẽ được xử lý. 
+
+\- Kiểm tra mã nguồn: Quá trình này kiểm tra xem mã nguồn có được viết đúng theo cú pháp và ngữ nghĩa của ngôn ngữ không, bao gồm phân tích từ vựng, cú pháp và ngữ nghĩa. 
+
+\- Tạo cây GIMPLE: Sau khi kiểm tra mã nguồn, một cây GIMPLE sẽ được tạo ra. GIMPLE là một cấu trúc dữ liệu biểu diễn mã nguồn dưới dạng cây, giúp thể hiện chương trình theo cách dễ dàng xử lý hơn. 
+
 \-Trong quá trình này, các ngôn ngữ như C, C++, Java sẽ được xử lý theo cách riêng biệt của từng ngôn ngữ, sau đó chuyển thành GIMPLE, một dạng biểu diễn trung gian (IR: Intermediate Representation) chung, giúp xử lý các phần phụ thuộc vào ngôn ngữ. </br>
 
 ##### Middle-End
