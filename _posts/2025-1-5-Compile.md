@@ -46,6 +46,9 @@ Hãy cùng tìm hiểu chi tiết từng bước trong quá trình này.
 
 ### 1. Quá trình tiền xử lý (Pre-processing)
 
+![Pre-processing](/assets/articles/2025/Compile/2025-1-5-Pre_processing.png){: .normal }
+_Tiền xử lí_
+
 Pre-processing à quá trình chuyển đổi file source **(*.c)** thành file source đã được xử lý **(*.i)** thông qua **Preprocessor**.
 Trong quá trình này, có ba công việc chính thường được thực hiện:
 - Loại bỏ Comments: Tất cả các chú thích trong mã nguồn sẽ bị loại bỏ. Chú thích chỉ là phần thông tin dành cho con người, không cần thiết cho máy tính hiểu.
@@ -53,6 +56,10 @@ Trong quá trình này, có ba công việc chính thường được thực hi�
 - Sử dụng macro: Các macro được định nghĩa bằng chỉ thị **#define** sẽ được lưu trữ và khi gặp *các chuỗi giống nhau*, chúng sẽ được thay thế bằng nội dung mà macro đã định nghĩa. Nói một cách đơn giản,**Preprocessor** sẽ tìm kiếm tên của macro và thay thế nó bằng giá trị đã được định nghĩa.
 
 ### 2. Quá trình biên dịch (Compilation)
+
+![Compilation](/assets/articles/2025/Compile/2025-1-5-Compilation.png){: .normal }
+_Biên dịch_
+
 - Compilation là quá trình thông qua trình biên dịch (Compiler) để chuyển đổi tệp mã nguồn đã qua tiền xử lý **(*.i)** thành tệp mã Assembly **(*.s)**.
 - Trong quá trình này, những gì chúng ta thường nghĩ khi nói đến việc biên dịch, đó là kiểm tra cú pháp của ngôn ngữ. Bên cạnh đó, quá trình này còn thực hiện việc cấp phát bộ nhớ cho các khu vực tĩnh **(Data, BSS)**. Những khu vực này chứa dữ liệu và các biến không được khởi tạo, và việc cấp phát bộ nhớ là bước cần thiết để chuẩn bị cho các quá trình tiếp theo.
 
@@ -88,6 +95,9 @@ Việc thực hiện tối ưu hóa phụ thuộc vào kiến trúc sẽ tạo r
 
 ### 3. Quá trình lắp ráp (Assembly)
 
+![Assembler](/assets/articles/2025/Compile/2025-1-5-assembler.png){: .normal }
+_Assembler_
+
 Quá trình Assembly chuyển đổi tệp Assembly **(.s)** thành tệp Object file **(.o)**, tệp đối tượng này sẽ chứa các mã máy (machine code) tương ứng với các lệnh đã được viết trong mã Assembly. Tuy nhiên, tệp đối tượng vẫn cần phải trải qua quá trình liên kết (linking) để kết hợp với các tệp đối tượng khác và thư viện để tạo thành một tệp thực thi hoàn chỉnh.
 
 #### Đinh nghĩa Object file
@@ -101,6 +111,10 @@ Ký hiệu (Symbol) là tên được sử dụng để xác định các hàm h
 Lúc này, bảng ký hiệu của tệp đối tượng chỉ chứa thông tin về các ký hiệu trong chính tệp đối tượng đó, vì vậy không thể lưu trữ thông tin ký hiệu mà các tệp khác tham chiếu.
 
 ### 4. Quá trình liên kết (Linking)
+
+![Linking](/assets/articles/2025/Compile/2025-1-5-linking.png){: .normal }
+_Linking_
+
 Quá trình Liên kết (Linking) là quá trình sử dụng Liên kết viên (Linker) để kết hợp các tệp đối tượng (.o) thành một tệp thực thi.
 
 Trong quá trình này, các tệp đối tượng và các tệp thư viện mà chương trình sử dụng sẽ được liên kết lại để tạo thành một tệp thực thi duy nhất.
