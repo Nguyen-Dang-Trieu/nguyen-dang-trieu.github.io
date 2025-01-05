@@ -58,6 +58,10 @@ Trong quá trình này, có ba công việc chính thường được thực hi�
 
 #### Cấu trúc Compiler
 Compiler bao gồm ba giai đoạn (Front-end - Middle-end - Back-end) .
+
+![Struct of Compiler](/assets/articles/2025/Compile/2025-1-5-structureCompiler.png){: .normal }
+_Cấu trúc Compiler_
+
 ##### Front-End
 \- Trong quá trình frontend, các phần liên quan đến từng ngôn ngữ riêng biệt sẽ được xử lý. 
 
