@@ -9,7 +9,9 @@ image:
   alt: Compile
 ---
 
-## Giới thiệu
+##  🍀 Lời mở đầu 
+
+## I.Giới thiệu
 
 ![Compile](/assets/articles/2025/Compile/2025-1-5-introduce.png){: .normal }
 _Quá trình compile_
@@ -143,3 +145,5 @@ Khi liên kết (Linking) các tệp đối tượng mà trình biên dịch đ�
 Trong quá trình liên kết, các phần cùng loại được kết hợp lại, và sau đó thực hiện điều chỉnh lại.
 
 ![](/assets/articles/2025/Compile/2025-1-5-End.png){: .normal }
+
+##  🍂 Lời Kết 
