@@ -8,6 +8,7 @@ image:
   path: assets/articles/2025/Compile/2025-1-5-headerCompile.png
   alt: Compile
 ---
+<ins>văn bản đánh dấu </ins>
 
 ##  🍀 Lời mở đầu 
 
@@ -35,10 +36,10 @@ Mã nguồn sau khi được biên dịch sẽ trở thành một tệp thực t
 ![Compilation Process](/assets/articles/2025/Compile/2025-1-5-compilationProcess.png){: .normal }
 
 Quá trình biên dịch được chia thành 4 bước:
-- Quá trình tiền xử lý (Pre-processing).
-- Quá trình biên dịch (Compilation).
-- Quá trình lắp ráp (Assembly).
-- Quá trình liên kết (Linking).
+- Quá trình tiền xử lý **(Pre-processing)**.
+- Quá trình biên dịch **(Compilation)**.
+- Quá trình lắp ráp **(Assembly)**.
+- Quá trình liên kết **(Linking)**.
 
 Cả 4 bước này thường được gọi chung là quá trình biên dịch hoặc quá trình xây dựng (build). Đôi khi, quá trình biên dịch và quá trình liên kết được tách riêng ra và gọi tên khác nhau.
 
@@ -54,7 +55,7 @@ _Tiền xử lí_
 Pre-processing là quá trình chuyển đổi Source Code `(*.c)` thành Source Code đã được xử lý `(*.i)` thông qua **Preprocessor**.
 Trong quá trình này, có ba công việc chính thường được thực hiện:
 - Loại bỏ Comments: Tất cả các chú thích trong mã nguồn sẽ bị loại bỏ. Chú thích chỉ là phần thông tin dành cho con người, không cần thiết cho máy tính hiểu.
-- Chèn `(*.h)`: Khi gặp chỉ thị `#include`, **Preprocessor** sẽ tìm `(*.h)` tương ứng và sao chép tất cả nội dung trong `(*.h)` vào Source Code `(*.c)`. `(*.h)` không được sử dụng trực tiếp trong quá trình biên dịch mà sẽ được sao chép toàn bộ vào trong Source Code. Các khai báo hàm trong *.h sẽ được kết hợp với *.o chứa định nghĩa hàm thực tế trong quá trình liên kết (Linking).
+- Chèn `(*.h)`: Khi gặp chỉ thị `#include`, **Preprocessor** sẽ tìm `(*.h)` tương ứng và sao chép tất cả nội dung trong `(*.h)` vào Source Code `(*.c)`. `(*.h)` không được sử dụng trực tiếp trong quá trình biên dịch mà sẽ được sao chép toàn bộ vào trong Source Code. Các khai báo hàm trong `(*.h)` sẽ được kết hợp với `(*.o)` chứa định nghĩa hàm thực tế trong quá trình liên kết **(Linking)**.
 - Sử dụng macro: Các macro được định nghĩa bằng chỉ thị `#define` sẽ được lưu trữ và khi gặp *các chuỗi giống nhau*, chúng sẽ được thay thế bằng nội dung mà macro đã định nghĩa. Nói một cách đơn giản,**Preprocessor** sẽ tìm kiếm tên của macro và thay thế nó bằng giá trị đã được định nghĩa.
 
 ### 2. Quá trình biên dịch (Compilation)
@@ -79,14 +80,14 @@ Trong giai đoạn này, các phần liên quan đến từng ngôn ngữ lập 
 - Kiểm tra mã nguồn: Mã nguồn sẽ được kiểm tra kỹ lưỡng để đảm bảo tuân thủ đúng cú pháp và ngữ nghĩa của ngôn ngữ lập trình. Quá trình này bao gồm phân tích từ vựng (**lexical analysis**), cú pháp (**syntax analysis**), và ngữ nghĩa (**semantic analysis**).
 - Tạo cây **GIMPLE**: Sau khi mã nguồn vượt qua bước kiểm tra, một cây **GIMPLE** sẽ được tạo ra. Đây là một cấu trúc dữ liệu biểu diễn chương trình dưới dạng cây, giúp thể hiện logic của mã nguồn một cách rõ ràng và dễ dàng xử lý hơn.
 
-Chuyển đổi thành biểu diễn trung gian: Mỗi ngôn ngữ lập trình, chẳng hạn như C, C++ hay Java, sẽ được xử lý theo các quy tắc riêng của nó trước khi được chuyển đổi sang GIMPLE – một dạng biểu diễn trung gian **(Intermediate Representation – IR)** chung. GIMPLE đóng vai trò là cầu nối, giúp hệ thống xử lý những phần phụ thuộc vào ngôn ngữ một cách nhất quán và hiệu quả.
+Tóm lại, mỗi ngôn ngữ lập trình, chẳng hạn như C, C++ hay Java, v.v. sẽ được xử lý theo các quy tắc riêng của nó trước khi được chuyển đổi sang **GIMPLE** – một dạng biểu diễn trung gian **(Intermediate Representation – IR)** chung. **GIMPLE** đóng vai trò là cầu nối, giúp hệ thống xử lý những phần phụ thuộc vào ngôn ngữ một cách nhất quán và hiệu quả.
 
 ##### Middle-End
 
-Trong quá trình middle-end, các tối ưu hóa không phụ thuộc vào kiến trúc được thực hiện.
+Trong quá trình Middle-end, các tối ưu hóa không phụ thuộc vào kiến trúc được thực hiện.
 - Tối ưu hóa không phụ thuộc vào kiến trúc có nghĩa là những tối ưu hóa này có thể được áp dụng bất kể kiến trúc CPU là gì (như ARM, x86, v.v.). Các tối ưu hóa này thường liên quan đến việc cải thiện hiệu suất chương trình mà không cần quan tâm đến phần cứng cụ thể.
 
-Sau khi nhận được cây GIMPLE từ Front-end, Middle-end thực hiện các tối ưu hóa không phụ thuộc vào kiến trúc. Sau đó, quá trình này tạo ra **RTL (Register Transfer Language)**, là một dạng biểu diễn trung gian giữa ngôn ngữ cấp cao và mã Assembly. RTL giúp trình biên dịch chuyển đổi mã nguồn thành dạng có thể dễ dàng chuyển thành mã máy cho *kiến trúc cụ thể* trong giai đoạn Back-end.
+Sau khi nhận được cây **GIMPLE** từ Front-end, Middle-end thực hiện các tối ưu hóa không phụ thuộc vào kiến trúc. Sau đó, quá trình này tạo ra **RTL (Register Transfer Language)**, là một dạng biểu diễn trung gian giữa ngôn ngữ cấp cao và mã Assembly. **RTL** giúp trình biên dịch chuyển đổi mã nguồn thành dạng có thể dễ dàng chuyển thành mã máy cho *kiến trúc cụ thể* trong giai đoạn Back-end.
 
 ##### Back-End
 Trong quá trình Back-end, các tối ưu hóa phụ thuộc vào kiến trúc được thực hiện.
@@ -102,16 +103,15 @@ Sau khi nhận được RTL từ Middle-end, Back-end thực hiện tối ưu h�
 ![Assembler](/assets/articles/2025/Compile/2025-1-5-assembler.png){: .normal }
 _Assembler_
 
-Quá trình Assembly chuyển đổi File Assembly `(.s)` thành Object File `(.o)`, Object File này sẽ chứa các mã máy (machine code) tương ứng với các lệnh đã được viết trong mã Assembly. Tuy nhiên, Object File vẫn cần phải trải qua quá trình liên kết (**Linking**) để kết hợp với *các Object File khác và thư viện* để tạo thành một tệp thực thi hoàn chỉnh.
+Quá trình Assembly chuyển đổi File Assembly `(.s)` thành Object File `(.o)`, Object File này sẽ chứa các mã máy **(Machine code)** tương ứng với các lệnh đã được viết trong mã Assembly. Tuy nhiên, Object File vẫn cần phải trải qua quá trình liên kết (**Linking**) để kết hợp với *các Object File khác và thư viện* để tạo thành một tệp thực thi hoàn chỉnh.
 
 #### Đinh nghĩa Object file
-Tệp đối tượng (Object file) là file chứa mã máy đã được biên dịch từ Source COde, nhưng chưa phải là tệp thực thi hoàn chỉnh. File này thường có phần mở rộng `(*.o)` trong môi trường Linux.
+Tệp đối tượng **(Object file)** là file chứa mã máy đã được biên dịch từ Source Code, nhưng chưa phải là tệp thực thi hoàn chỉnh. File này thường có phần mở rộng `(*.o)` trong môi trường Linux.
 - ELF (Executable and Linking Format): Định dạng tệp đối tượng sử dụng trên hệ điều hành Linux.
 
 Phần quan trọng ở đây là phần bảng ký hiệu (**Symbol Table**) và phần thông tin tái phân bố (**Relocation Information**).
 
-Ký hiệu (Symbol) là tên được sử dụng để xác định các hàm hoặc biến, và trong Bảng ký hiệu (Symbol Table), nó chứa thông tin về các ký hiệu được tham chiếu trong tệp đối tượng (như tên và địa chỉ dữ liệu).
-
+Ký hiệu **(Symbol)** là tên được sử dụng để xác định các hàm hoặc biến, và trong Bảng ký hiệu **(Symbol Table)**, nó chứa thông tin về các ký hiệu được tham chiếu trong **Object File** (như tên và địa chỉ dữ liệu).
 
 > Lúc này, Symbol Table của Object File chỉ chứa thông tin về các symbol trong chính Object File đó, vì vậy không thể lưu trữ thông tin symbol mà các File khác tham chiếu.
 {: .prompt-warning }
