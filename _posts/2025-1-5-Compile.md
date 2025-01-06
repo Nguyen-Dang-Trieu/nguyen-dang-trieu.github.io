@@ -127,8 +127,17 @@ Ký hiệu **(Symbol)** là tên được sử dụng để xác định các h�
 > Lúc này, Symbol Table của Object File chỉ chứa thông tin về các symbol trong chính Object File đó, vì vậy không thể lưu trữ thông tin symbol mà các File khác tham chiếu.
 {: .prompt-warning }
 
-**Example**: giả sử một (*.c) sử dụng hàm `printf()` trong `include <stdio.h>`.
+✏️**Example**: Giả sử một `helloworld.c` sử dụng hàm `printf()` trong `include <stdio.h>`.
+![](/assets/articles/2025/Compile/2025-1-6-Example.png){: .normal }
+_Ví dụ_
 
+Chúng ta có thể biên dịch `helloworld.c` để tạo ra một `helloworld.o`.
+
+Tuy nhiên, `helloworld.o` này không thể thực thi độc lập. Bởi vì trong file này không có phần định nghĩa của hàm `printf()`.
+
+Mặc dù quá trình tiền xử lý đã sao chép nguyên mẫu của hàm `printf()` từ `#include <stdio.h>`, nhưng phần định nghĩa thực sự của `printf()` lại không được bao gồm. Như đã nói trong cấu trúc tệp đối tượng (Object File Format), bảng ký hiệu (Symbol table) chỉ chứa thông tin ký hiệu (symbol) của `helloworld.o` mà không có thông tin về ký hiệu (symbol) của hàm `printf()` mà `helloworld.o` tham chiếu từ bên ngoài.
+
+Nói cách khác, để chạy được `helloworld.o`, cần phải kết nối Object File chứa hàm `printf()` là `helloworld.o` với Object File  có định nghĩa hàm `printf()` (thường là tệp đối tượng từ thư viện `libc.a`).
 
 ### 4. Quá trình liên kết (Linking)
 
