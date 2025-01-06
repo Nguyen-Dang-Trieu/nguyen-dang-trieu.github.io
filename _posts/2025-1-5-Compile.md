@@ -11,7 +11,7 @@ image:
 
 ##  🍀 Lời mở đầu 
 
-## 𝕀𝕀. Giới thiệu
+## 𝕀. Giới thiệu
 
 ![Compile](/assets/articles/2025/Compile/2025-1-5-introduce.png){: .normal }
 _Quá trình compile_
