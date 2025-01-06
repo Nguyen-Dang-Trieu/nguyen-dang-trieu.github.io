@@ -42,7 +42,7 @@ Quá trình biên dịch được chia thành 4 bước:
 
 Cả 4 bước này thường được gọi chung là quá trình biên dịch hoặc quá trình xây dựng (build). Đôi khi, quá trình biên dịch và quá trình liên kết được tách riêng ra và gọi tên khác nhau.
 
-Thông thường, quá trình xây dựng được hiểu theo nghĩa rộng hơn, bao gồm cả biên dịch và liên kết (Build = Compile + Link). Tuy nhiên, bạn có thể hiểu theo ngữ cảnh cụ thể tùy thuộc vào tình huống.
+Thông thường, quá trình xây dựng **(build)** được hiểu theo nghĩa rộng hơn, bao gồm cả biên dịch và liên kết **(Build = Compile + Link)**. Tuy nhiên, trong một số tình huống, "Quá trình biên dịch" có thể chỉ đề cập đến bước biên dịch mà không bao gồm liên kết, vì vậy bạn cần hiểu nó theo ngữ cảnh cụ thể.
 
 Hãy cùng tìm hiểu chi tiết từng bước trong quá trình này.
 
@@ -54,7 +54,7 @@ _Tiền xử lí_
 Pre-processing là quá trình chuyển đổi Source Code `(*.c)` thành Source Code đã được xử lý `(*.i)` thông qua **Preprocessor**.
 Trong quá trình này, có ba công việc chính thường được thực hiện:
 - Loại bỏ Comments: Tất cả các chú thích trong mã nguồn sẽ bị loại bỏ. Chú thích chỉ là phần thông tin dành cho con người, không cần thiết cho máy tính hiểu.
-- Chèn `(*.h)`: Khi gặp chỉ thị `#include`, **Preprocessor** sẽ tìm `(*.h)` tương ứng và sao chép tất cả nội dung trong `(*.h)` vào Source Code `(*.c)`. `(*.h)` không được sử dụng trực tiếp trong quá trình biên dịch mà sẽ được sao chép toàn bộ vào trong Source Code. Các khai báo hàm trong `(*.h)` sẽ được kết hợp với `(*.o)` chứa định nghĩa hàm thực tế trong quá trình liên kết **(Linking)**.
+- Chèn `(*.h)`: Khi gặp chỉ thị `#include`, **Preprocessor** sẽ tìm file `(*.h)` tương ứng và sao chép tất cả nội dung trong file đó vào mã nguồn `(*.c)`. File `(*.h)` không được biên dịch trực tiếp mà chỉ là nơi chứa các khai báo, chẳng hạn như khai báo hàm, cấu trúc dữ liệu, hằng số, ... .Những khai báo trong file `(*.h)` sẽ được sử dụng để kết hợp với tệp đối tượng `(*.o)`, chứa phần định nghĩa thực sự của hàm trong quá trình liên kết **(Linking)**.
 - Sử dụng macro: Các macro được định nghĩa bằng chỉ thị `#define` sẽ được lưu trữ và khi gặp *các chuỗi giống nhau*, chúng sẽ được thay thế bằng nội dung mà macro đã định nghĩa. Nói một cách đơn giản,**Preprocessor** sẽ tìm kiếm tên của macro và thay thế nó bằng giá trị đã được định nghĩa.
 
 ### 2. Quá trình biên dịch (Compilation)
