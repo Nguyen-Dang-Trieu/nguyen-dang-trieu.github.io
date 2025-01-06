@@ -8,7 +8,6 @@ image:
   path: assets/articles/2025/Compile/2025-1-5-headerCompile.png
   alt: Compile
 ---
-<ins>văn bản đánh dấu </ins>
 
 ##  🍀 Lời mở đầu 
 
