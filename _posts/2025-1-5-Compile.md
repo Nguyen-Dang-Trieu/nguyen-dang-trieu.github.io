@@ -128,7 +128,7 @@ Ký hiệu **(Symbol)** là tên được sử dụng để xác định các h�
 {: .prompt-warning }
 
 ✏️**Example**: Giả sử một `helloworld.c` sử dụng hàm `printf()` trong `include <stdio.h>`.
-![](/assets/articles/2025/Compile/2025-1-6-Example.png){: .normal }
+![](/assets/articles/2025/Compile/2025-1-6-Example_.png){: .normal }
 _Ví dụ_
 
 Chúng ta có thể biên dịch `helloworld.c` để tạo ra một `helloworld.o`.
