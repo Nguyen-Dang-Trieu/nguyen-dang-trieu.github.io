@@ -113,12 +113,12 @@ Tệp đối tượng **(Object file)** là file chứa mã máy đã được b
 ![Object File Format](/assets/articles/2025/Compile/2025-1-6-formatObjectFile.png){: .normal }
 _Object File Format_
 
-- Object File Header: Phần header chứa thông tin cơ bản về file đối tượng.
-- Text Section: Phần chứa code đã được chuyển đổi thành mã máy (Machine code 01011...).
-- Data Section: Phần chứa dữ liệu như các biến toàn cục (global) và biến tĩnh (static).
-- Symbol Table Section: Phần định nghĩa tên và địa chỉ của các biểu tượng (symbol) được tham chiếu trong mã nguồn.
-- Relocation Information Section: Phần ghi lại những thông tin cần thay đổi vị trí của các biểu tượng (symbol) sau khi vị trí của chúng được xác định trong quá trình liên kết (Linking).
-- Debugging Information Section: Phần chứa thông tin cần thiết cho việc gỡ lỗi (Debugging).
+- **Object File Header**: Phần header chứa thông tin cơ bản về file đối tượng.
+- **Text Section**: Phần chứa code đã được chuyển đổi thành mã máy (Machine code 01011...).
+- **Data Section**: Phần chứa dữ liệu như các biến toàn cục **(Global)** và biến tĩnh **(static)**.
+- **Symbol Table Section**: Phần định nghĩa tên và địa chỉ của các biểu tượng (symbol) được tham chiếu trong mã nguồn.
+- **Relocation Information Section**: Phần ghi lại những thông tin cần thay đổi vị trí của các biểu tượng (symbol) sau khi vị trí của chúng được xác định trong quá trình liên kết (Linking).
+- **Debugging Information Section**: Phần chứa thông tin cần thiết cho việc gỡ lỗi (Debugging).
   
 Phần quan trọng ở đây là phần bảng ký hiệu (**Symbol Table**) và phần thông tin tái phân bố (**Relocation Information**).
 
@@ -131,13 +131,13 @@ Ký hiệu **(Symbol)** là tên được sử dụng để xác định các h�
 ![](/assets/articles/2025/Compile/2025-1-6-Example_.png){: .normal }
 _Ví dụ_
 
-Chúng ta có thể biên dịch `helloworld.c` để tạo ra một `helloworld.o`.
+Chúng ta có thể biên dịch `helloworld.c` để tạo ra một tệp đối tượng `helloworld.o`.
 
-Tuy nhiên, `helloworld.o` này không thể thực thi độc lập. Bởi vì trong file này không có phần định nghĩa của hàm `printf()`.
+Tuy nhiên, `helloworld.o` này không thể thực thi độc lập. Bởi vì trong file này không có phần định nghĩa thực sự của hàm `printf()`.
 
-Mặc dù quá trình tiền xử lý đã sao chép nguyên mẫu của hàm `printf()` từ `#include <stdio.h>`, nhưng phần định nghĩa thực sự của `printf()` lại không được bao gồm. Như đã nói trong cấu trúc tệp đối tượng (Object File Format), bảng ký hiệu (Symbol table) chỉ chứa thông tin ký hiệu (symbol) của `helloworld.o` mà không có thông tin về ký hiệu (symbol) của hàm `printf()` mà `helloworld.o` tham chiếu từ bên ngoài.
+Mặc dù quá trình tiền xử lý đã sao chép nguyên mẫu của hàm `printf()` từ `#include <stdio.h>`, nhưng phần định nghĩa của `printf()` lại không được bao gồm. Như đã nói trong cấu trúc tệp đối tượng **(Object File Format)**, bảng ký hiệu **(Symbol table)** chỉ chứa thông tin ký hiệu **(symbol)** của file `helloworld.o` mà mà không chứa thông tin về hàm `printf()` vì hàm này được tham chiếu từ bên ngoài.
 
-Nói cách khác, để chạy được `helloworld.o`, cần phải kết nối Object File chứa hàm `printf()` là `helloworld.o` với Object File  có định nghĩa hàm `printf()` (thường là tệp đối tượng từ thư viện `libc.a`).
+Nói cách khác, để chạy được `helloworld.o`, chúng ta  cần phải kết nối tệp đối tượng `helloworld.o` với tệp đối tượng có định nghĩa  hàm `printf()` (thường từ thư viện chuẩn `libc.a`).
 
 ### 4. Quá trình liên kết (Linking)
 
