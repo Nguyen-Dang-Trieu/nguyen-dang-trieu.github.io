@@ -11,7 +11,7 @@ image:
 
 ##  🍀 Lời mở đầu 
 
-## I.Giới thiệu
+## 𝕀𝕀. Giới thiệu
 
 ![Compile](/assets/articles/2025/Compile/2025-1-5-introduce.png){: .normal }
 _Quá trình compile_
@@ -22,7 +22,7 @@ Nếu bạn chưa hiểu rõ quá trình biên dịch thực sự làm những g
 
 ※ Hình minh họa hoặc ví dụ sẽ tập trung vào quá trình biên dịch mã C trên môi trường Linux, vì vậy có thể có sự khác biệt tùy thuộc vào ngôn ngữ hoặc môi trường bạn sử dụng.
 
-## Định nghĩa Compile
+## 𝕀𝕀. Định nghĩa Compile
 
 Biên dịch là quá trình chuyển đổi mã nguồn viết bằng ngôn ngữ mà con người có thể hiểu (ngôn ngữ cấp cao như C, C++, Java, v.v.) thành ngôn ngữ mà CPU có thể hiểu được (ngôn ngữ cấp thấp, tức là mã máy).
 
@@ -30,7 +30,7 @@ Mã nguồn mà chúng ta viết bằng C, C++, Java, v.v. không thể được
 
 Mã nguồn sau khi được biên dịch sẽ trở thành một tệp thực thi chứa mã máy. Khi chạy tệp này, nội dung của nó sẽ được nạp vào bộ nhớ thông qua Loader của hệ điều hành và chương trình sẽ được thực thi.
 
-## Quá trình Compile
+## 𝕀𝕀𝕀. Quá trình Compile
 
 ![Compilation Process](/assets/articles/2025/Compile/2025-1-5-compilationProcess.png){: .normal }
 
@@ -104,10 +104,22 @@ _Assembler_
 
 Quá trình Assembly chuyển đổi File Assembly `(.s)` thành Object File `(.o)`, Object File này sẽ chứa các mã máy **(Machine code)** tương ứng với các lệnh đã được viết trong mã Assembly. Tuy nhiên, Object File vẫn cần phải trải qua quá trình liên kết (**Linking**) để kết hợp với *các Object File khác và thư viện* để tạo thành một tệp thực thi hoàn chỉnh.
 
-#### Đinh nghĩa Object file
+#### a. Object file
 Tệp đối tượng **(Object file)** là file chứa mã máy đã được biên dịch từ Source Code, nhưng chưa phải là tệp thực thi hoàn chỉnh. File này thường có phần mở rộng `(*.o)` trong môi trường Linux.
 - ELF (Executable and Linking Format): Định dạng tệp đối tượng sử dụng trên hệ điều hành Linux.
 
+#### b. Object File Format
+
+![Object File Format](/assets/articles/2025/Compile/2025-1-6-formatObjectFile.png){: .normal }
+_Object File Format_
+
+- Object File Header: Phần header chứa thông tin cơ bản về file đối tượng.
+- Text Section: Phần chứa code đã được chuyển đổi thành mã máy (Machine code 01011...).
+- Data Section: Phần chứa dữ liệu như các biến toàn cục (global) và biến tĩnh (static).
+- Symbol Table Section: Phần định nghĩa tên và địa chỉ của các biểu tượng (symbol) được tham chiếu trong mã nguồn.
+- Relocation Information Section: Phần ghi lại những thông tin cần thay đổi vị trí của các biểu tượng (symbol) sau khi vị trí của chúng được xác định trong quá trình liên kết (Linking).
+- Debugging Information Section: Phần chứa thông tin cần thiết cho việc gỡ lỗi (Debugging).
+  
 Phần quan trọng ở đây là phần bảng ký hiệu (**Symbol Table**) và phần thông tin tái phân bố (**Relocation Information**).
 
 Ký hiệu **(Symbol)** là tên được sử dụng để xác định các hàm hoặc biến, và trong Bảng ký hiệu **(Symbol Table)**, nó chứa thông tin về các ký hiệu được tham chiếu trong **Object File** (như tên và địa chỉ dữ liệu).
