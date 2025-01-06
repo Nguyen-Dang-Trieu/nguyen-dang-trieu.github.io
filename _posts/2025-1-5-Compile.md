@@ -127,6 +127,9 @@ Ký hiệu **(Symbol)** là tên được sử dụng để xác định các h�
 > Lúc này, Symbol Table của Object File chỉ chứa thông tin về các symbol trong chính Object File đó, vì vậy không thể lưu trữ thông tin symbol mà các File khác tham chiếu.
 {: .prompt-warning }
 
+**Example**: giả sử một (*.c) sử dụng hàm `printf()` trong `include <stdio.h>`.
+
+
 ### 4. Quá trình liên kết (Linking)
 
 ![Linking](/assets/articles/2025/Compile/2025-1-5-linking.png){: .normal }
