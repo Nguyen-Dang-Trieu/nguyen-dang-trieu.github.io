@@ -139,6 +139,8 @@ Mặc dù quá trình tiền xử lý đã sao chép nguyên mẫu của hàm `p
 
 Nói cách khác, để chạy được `helloworld.o`, chúng ta  cần phải kết nối tệp đối tượng `helloworld.o` với tệp đối tượng có định nghĩa  hàm `printf()` (thường từ thư viện chuẩn `libc.a`).
 
+Quá trình kết nối này được gọi là [liên kết](https://en.wikipedia.org/wiki/Linker_(computing)). Bây giờ, ta sẽ tìm hiểu thêm về nó. 😤😤😤
+
 ### 4. Quá trình liên kết (Linking)
 
 ![Linking](/assets/articles/2025/Compile/2025-1-5-linking.png){: .normal }
