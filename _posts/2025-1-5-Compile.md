@@ -111,7 +111,7 @@ Tệp đối tượng **(Object file)** là file chứa mã máy đã được b
 
 #### b. Object File Format
 
-![Object File Format](/assets/articles/2025/Compile/2025-1-6-formatObjectFile.png){: .normal }
+![Object File Format](/assets/articles/2025/Compile/2025-1-6-formatObjectFile.png){: width="500" height="300" }
 _Object File Format_
 
 - **Object File Header**: Phần header chứa thông tin cơ bản về file đối tượng.
