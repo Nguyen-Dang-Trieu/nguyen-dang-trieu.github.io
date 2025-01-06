@@ -51,11 +51,12 @@ Hãy cùng tìm hiểu chi tiết từng bước trong quá trình này.
 ![Pre-processing](/assets/articles/2025/Compile/2025-1-5-Pre_processing.png){: .normal }
 _Tiền xử lí_
 
-Pre-processing là quá trình chuyển đổi Source Code `(*.c)` thành Source Code đã được xử lý `(*.i)` thông qua **Preprocessor**.
+Pre-processing là quá trình chuyển đổi Source Code `(*.c)` thành Source Code đã được xử lý `(*.i)` thông qua **Pre-processor**.
 Trong quá trình này, có ba công việc chính thường được thực hiện:
 - Loại bỏ Comments: Tất cả các chú thích trong mã nguồn sẽ bị loại bỏ. Chú thích chỉ là phần thông tin dành cho con người, không cần thiết cho máy tính hiểu.
-- Chèn `(*.h)`: Khi gặp chỉ thị `#include`, **Preprocessor** sẽ tìm file `(*.h)` tương ứng và sao chép tất cả nội dung trong file đó vào mã nguồn `(*.c)`. File `(*.h)` không được biên dịch trực tiếp mà chỉ là nơi chứa các khai báo, chẳng hạn như khai báo hàm, cấu trúc dữ liệu, hằng số, ... .Những khai báo trong file `(*.h)` sẽ được sử dụng để kết hợp với tệp đối tượng `(*.o)`, chứa phần định nghĩa thực sự của hàm trong quá trình liên kết **(Linking)**.
-- Sử dụng macro: Các macro được định nghĩa bằng chỉ thị `#define` sẽ được lưu trữ và khi gặp *các chuỗi giống nhau*, chúng sẽ được thay thế bằng nội dung mà macro đã định nghĩa. Nói một cách đơn giản,**Preprocessor** sẽ tìm kiếm tên của macro và thay thế nó bằng giá trị đã được định nghĩa.
+- Chèn `(*.h)`: Khi gặp chỉ thị `#include`, **Pre-processor** sẽ tìm file `(*.h)` tương ứng và sao chép tất cả nội dung trong file đó vào mã nguồn `(*.c)`. File `(*.h)` không được biên dịch trực tiếp mà chỉ là nơi chứa các khai báo, chẳng hạn như khai báo hàm, cấu trúc dữ liệu, hằng số, ... .Những khai báo trong file `(*.h)` sẽ được sử dụng để kết hợp với tệp đối tượng `(*.o)`, chứa phần định nghĩa thực sự của hàm trong quá trình liên kết **(Linking)**.
+- Sử dụng **Macro**: Các **Macro** được định nghĩa bằng chỉ thị `#define` sẽ được tiền xử lý và lưu trữ. Khi gặp các chuỗi giống nhau trong mã nguồn, Pre-processor sẽ thay thế chúng bằng nội dung mà macro đã được định nghĩa. Nói một cách đơn giản, Preprocessor sẽ tìm kiếm tên của macro và thay thế nó bằng giá trị hoặc mã mà macro đã khai báo. Ví dụ: `#define PI 3.14`
+  
 
 ### 2. Quá trình biên dịch (Compilation)
 
