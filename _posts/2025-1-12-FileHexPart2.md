@@ -46,6 +46,15 @@ Trong đó:
 ![Retype 0x00](/assets/articles/2025/FileHexPart2/2025-1-12-Retype00.png){: .normal }
 _Record type 0x00_
 
+**Example**: `:04 2000 00 FECACEFA 4C`
+- `04`: Số bytes dữ liệu, ở đây là 4 bytes data.
+- `2000`: địa chỉ offset, tức là `0x2000`.
+- `00`: Loại bản ghi **(RECTYPE)**, với `00` biểu thị bản ghi dữ liệu.
+- `FECACEFA`: Dữ liệu sẽ được ghi vào bộ nhớ, bao gồm các byte: `0xFE`, `0xCA`, `0xCE`, `0xFA`.
+- `0x4C`: Checksum, được tính để kiểm tra tính toàn vẹn của dòng.
+  - Tổng tích lũy S = (`0x04` + `0x20` + `0x00` + `0x00` + `0xFE` + `0xCA` + `0xCE` + `0xFA`) = `0x3B4`. (chỉ lấy byte cuối cùng của kết quả)
+  - Tổng kiểm tra CHEKSUM = (`0x100` - S) & `0xFF` = `0x4C`.
+
 ### Record type 0x01
 ![Retype 0x01](/assets/articles/2025/FileHexPart2/2025-1-12-Retype01.png){: .normal }
 _Record type 0x01_
