@@ -10,6 +10,11 @@ image:
 ---
 
 ## Lời mở đầu
+Chào mọi người, trong [bài viết trước]() ta đã tìm hiểu về hầu như là toàn bộ kiến thức về File Hex, nhưng tôi nhận thấy bài viết đó chưa nói rõ chi tiết về phần `Record Type` trong định dạng của File Hex. Nên tôi làm riêng một bài viết này để tập trung nói về phần đó.
+Series File Hex gồm:
+- [Part 1]()
+- [Part 2](https://nguyen-dang-trieu.github.io/posts/FileHexPart2/)
+
 ## Định dạng và phân tích sâu về File Hex
 Trước khi đi vào phần Record type, ta sẽ tổng ôn sơ qua phần format của File Hex
 ### Định dạng File Hex
