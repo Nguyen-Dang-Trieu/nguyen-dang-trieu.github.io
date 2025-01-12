@@ -36,14 +36,14 @@ _Format File Hex_
 - `CHEKSUM`: 
 Đây là tổng kiểm tra của record, được tính bằng công thức:
 
-Checksum=(0x100 − S) & 0xFF
+Checksum=(`0x100` − S) & `0xFF`
 Trong đó:
 - S là tổng của tất cả các byte trong record (ngoại trừ byte cuối cùng - **checksum**).
 - Kết quả giúp phát hiện lỗi trong quá trình truyền dữ liệu.
 
 **Lưu ý:** Các loại `RECTYPE` phổ biến là `0x00`, `0x01`, `0x04`, `0x05`.
 
-### Record type 0x00
+### 2. Record type 0x00
 ![Retype 0x00](/assets/articles/2025/FileHexPart2/2025-1-12-Retype00.png){: .normal }
 _Record type 0x00_
 
@@ -56,19 +56,19 @@ _Record type 0x00_
   - Tổng tích lũy S = (`0x04` + `0x20` + `0x00` + `0x00` + `0xFE` + `0xCA` + `0xCE` + `0xFA`) = `0x3B4`. (chỉ lấy byte cuối cùng của kết quả)
   - Tổng kiểm tra CHEKSUM = (`0x100` - S) & `0xFF` = `0x4C`.
 
-### 2. Record type 0x01
+### 3. Record type 0x01
 ![Retype 0x01](/assets/articles/2025/FileHexPart2/2025-1-12-Retype01.png){: .normal }
 _Record type 0x01_
 
 **Example**: `:00 0000 01 FF`
 - `00`: Số bytes dữ liệu, ở đây là 0 bytes data. (Bạn có thể thấy hình bên trên không có phần data)
 - `0000`: địa chỉ offset, tức là `0x0000`.
-- `00`: Loại bản ghi **(RECTYPE)**, với `0x00` biểu thị kết thúc của File Hex.
+- `00`: Loại bản ghi **(RECTYPE)**, với `0x01` biểu thị kết thúc của File Hex.
 - `0xFF`: Checksum, được tính để kiểm tra tính toàn vẹn của dòng.
   - Tổng tích lũy S = (`0x00` + `0x00` + `0x00` + `0x01`) = `0x01`. (Chỉ lấy byte cuối cùng của kết quả)
   - Tổng kiểm tra CHEKSUM = (`0x100` - S) & `0xFF` = `0xFF`.
 
-### 3. Record type 0x02
+### 4. Record type 0x02
 ![Retype 0x02](/assets/articles/2025/FileHexPart2/2025-1-12-Retype02.png){: .normal }
 _Record type 0x02_
 
@@ -86,18 +86,18 @@ Physical Address=(USBA << 4) + LOAD OFFSET
 Nếu `USBA` = `0x1234` và `LOAD OFFSET` = `0x0050`,
 thì địa chỉ vật lí sẽ là: (`0x1234` << 4) + `0x0050` = `0x12340` + `0x0050` = `0x12390`.
 
-### 4. Record type 0x03
+### 5. Record type 0x03
 ![Retype 0x03](/assets/articles/2025/FileHexPart2/2025-1-12-Retype03.png){: .normal }
 _Record type 0x03_
 (Đang tiến hành)
 
 
-### 5. Record type 0x04
+### 6. Record type 0x04
 ![Retype 0x04](/assets/articles/2025/FileHexPart2/2025-1-12-Retype04.png){: .normal }
 _Record type 0x04_
 (Đang tiến hành)
 
-### 6.Record type 0x05
+### 7.Record type 0x05
 ![Retype 0x05](/assets/articles/2025/FileHexPart2/2025-1-12-Retype05.png){: .normal }
 _Record type 0x05_
 (Đang tiến hành)
