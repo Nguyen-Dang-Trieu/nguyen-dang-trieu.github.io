@@ -58,7 +58,7 @@ _Record type 0x00_
 
 <details class="details-block" markdown="1">
 <summary>Examples: binary operation </summary>
-hello
+hello, xin chào
 </details>
 
 ### 3. Record type 0x01
