@@ -133,3 +133,25 @@ Số byte luôn là 04, trường địa chỉ là 0000. Bốn byte dữ liệu 
 ![Retype 0x05](/assets/articles/2025/FileHexPart2/2025-1-15-example_Rectype0x05.png){: .normal }
 
 ## 🍁 Lời kết 
+
+<div class="box-info">
+<div class="title"> Shakespeare </div>
+To be or not to be. That is a question.
+</div>
+
+<div class="box-tip">
+<div class="title"> Shakespeare </div>
+To be or not to be. That is a question.
+</div>
+
+<div class="box-warning">
+<div class="title"> Shakespeare </div>
+To be or not to be. That is a question.
+</div>
+
+<div class="box-danger" markdown="1">
+<div class="title"> Shakespeare </div>
+> To be or not to be. That is a question.  
+> --- Shakespeare
+
+</div>
