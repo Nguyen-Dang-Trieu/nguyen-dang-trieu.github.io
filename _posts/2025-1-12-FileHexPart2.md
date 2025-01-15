@@ -57,14 +57,8 @@ _Record type 0x00_
   - Tổng kiểm tra CHEKSUM = (`0x100` - S) & `0xFF` = `0x4C`.
 
 <details class="details-block" markdown="1">
-<summary>Examples: :04 2000 00 FECACEFA 4C </summary>
-- 04: Số bytes dữ liệu, ở đây là 4 bytes data.
-- 2000: địa chỉ offset, tức là 0x2000.
-- 00: Loại bản ghi **(RECTYPE)**, với `00` biểu thị bản ghi dữ liệu.
-- FECACEFA`: Dữ liệu sẽ được ghi vào bộ nhớ, bao gồm các byte: `0xFE`, `0xCA`, `0xCE`, `0xFA`.
-- 0x4C: Checksum, được tính để kiểm tra tính toàn vẹn của dòng.
-  - Tổng tích lũy S = (`0x04` + `0x20` + `0x00` + `0x00` + `0xFE` + `0xCA` + `0xCE` + `0xFA`) = `0x3B4`. (chỉ lấy byte cuối cùng của kết quả)
-  - Tổng kiểm tra CHEKSUM = (`0x100` - S) & `0xFF` = `0x4C`.
+<summary>Examples: binary operation </summary>
+hello
 </details>
 
 ### 3. Record type 0x01
