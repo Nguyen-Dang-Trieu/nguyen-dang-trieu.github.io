@@ -89,27 +89,47 @@ thì địa chỉ vật lí sẽ là: (`0x1234` << 4) + `0x0050` = `0x12340` + `
 > Trong định dạng Intel HEX, việc sử dụng **record type = 0x02** có tác dụng gì?.
 {: .prompt-info }
 
-Để giải thích cho câu hỏi này thì tôi sẽ dùng vi xử lí 8086 vì nó dùng định dạng kiểu địa chỉ 20-bit.
+Để giải thích cho việc sử dụng record type = 0x02, ta cần xét đến cấu trúc bộ nhớ trong vi xử lý 8086. Trong 8086, không gian bộ nhớ được tổ chức thành 4 segment chính:
+- ES: Extra Segment
+- CS: Code Segment
+- SS: Stack Segment
+- DS: Data Segment.
+  
+Mỗi segment được quản lý bởi một thanh ghi 16-bit, giới hạn kích thước mỗi segment là 64KB. Khi chương trình sử dụng hết 64KB của một segment, chúng ta sẽ không thể viết thêm dữ liệu vào đó nữa. Để khắc phục vấn đề này, cần mở rộng không gian địa chỉ từ 16-bit lên 20-bit, cho phép truy cập vào tối đa 1MB bộ nhớ.
 
-<details class="details-block" markdown="1">
-<summary>Examples: binary operation </summary>
-hello
-</details>
+Trong định dạng Intel HEX, record type = 0x02 được sử dụng để lưu trữ thông tin Extended Segment Address (ESA). Giá trị ESA này kết hợp với giá trị offset 16-bit sẽ tạo ra địa chỉ 20-bit đầy đủ, cho phép CPU truy cập vào toàn bộ 1MB không gian bộ nhớ. Đây là cách mà record type = 0x02 giải quyết vấn đề hết dung lượng của 64KB.
+*"Đây là giải thích sơ bộ, chi tiết thì sẽ được viết trong loạt bài về 8086."*
 
 ### 5. Record type 0x03
 ![Retype 0x03](/assets/articles/2025/FileHexPart2/2025-1-12-Retype03.png){: .normal }
 _Record type 0x03_
-(Đang tiến hành)
 
+Đối với các vi xử lý 80x86, chỉ định địa chỉ bắt đầu thực thi. Số byte luôn là 04, trường địa chỉ là 0000 và hai byte đầu tiên là giá trị CS, hai byte sau là giá trị IP. Việc thực thi sẽ bắt đầu từ địa chỉ này.
+
+**Example**: `:04 0000 03 0000 3800 C1`
+Địa chỉ của chương trình bắt đầu tại vị trí 0x3800.
 
 ### 6. Record type 0x04
 ![Retype 0x04](/assets/articles/2025/FileHexPart2/2025-1-12-Retype04.png){: .normal }
 _Record type 0x04_
-(Đang tiến hành)
+
+Mở rộng địa chỉ lên 32 bit (4 GB). Số byte luôn là 02 và trường địa chỉ sẽ bị bỏ qua (thường là 0000). Hai byte dữ liệu (theo định dạng big endian) chỉ định 16 bit cao của địa chỉ tuyệt đối 32 bit, áp dụng cho tất cả các bản ghi loại 00 tiếp theo. Các bit địa chỉ cao này sẽ được giữ nguyên cho đến khi gặp một bản ghi loại 04. Địa chỉ tuyệt đối của một bản ghi loại 00 được tạo thành bằng cách kết hợp 16 bit địa chỉ cao của bản ghi loại 04 gần nhất và 16 bit địa chỉ thấp của bản ghi loại 00. Nếu không có bản ghi loại 04 trước đó, thì các bit địa chỉ cao của bản ghi loại 00 sẽ mặc định là 0000.
 
 ### 7.Record type 0x05
 ![Retype 0x05](/assets/articles/2025/FileHexPart2/2025-1-12-Retype05.png){: .normal }
 _Record type 0x05_
-(Đang tiến hành)
+
+Số byte luôn là 04, trường địa chỉ là 0000. Bốn byte dữ liệu đại diện cho một giá trị địa chỉ 32-bit (theo định dạng big endian). Đối với các CPU hỗ trợ tính năng này, địa chỉ 32-bit này chính là địa chỉ mà chương trình sẽ bắt đầu thực thi.
+
+**Example**: `:04 0000 05 00008411 62`
+- `04`: Số bytes dữ liệu, ở đây là 4 bytes data. 
+- `0000`: địa chỉ offset, tức là `0x0000`.
+- `05`: Loại bản ghi **(RECTYPE)**, với `0x05` biểu thị Start Linear Address.
+- `00008411`: địa chỉ bắt đầu hàm `main()`.
+- `0x62`: Checksum, được tính để kiểm tra tính toàn vẹn của dòng.
+  - Tổng tích lũy S = (`0x04` + `0x00` + `0x00` + `0x05` + `0x00` + `0x00` + `0x84` + `0x11`) = `0x9E`.
+  - Tổng kiểm tra CHEKSUM = (`0x100` - S) & `0xFF` = `0x62`.
+
+![Retype 0x05](/assets/articles/2025/FileHexPart2/2025-1-15-example_Rectype0x05.png){: .normal }
 
 ## 🍁 Lời kết 
