@@ -86,6 +86,16 @@ Physical Address=(USBA << 4) + LOAD OFFSET
 Nếu `USBA` = `0x1234` và `LOAD OFFSET` = `0x0050`,
 thì địa chỉ vật lí sẽ là: (`0x1234` << 4) + `0x0050` = `0x12340` + `0x0050` = `0x12390`.
 
+> Trong định dạng Intel HEX, việc sử dụng **record type = 0x02** có tác dụng gì?.
+{: .prompt-info }
+
+Để giải thích cho câu hỏi này thì tôi sẽ dùng vi xử lí 8086 vì nó dùng định dạng kiểu địa chỉ 20-bit.
+
+<details class="details-block" markdown="1">
+<summary>Examples: binary operation </summary>
+hello
+</details>
+
 ### 5. Record type 0x03
 ![Retype 0x03](/assets/articles/2025/FileHexPart2/2025-1-12-Retype03.png){: .normal }
 _Record type 0x03_
