@@ -86,6 +86,7 @@ Physical Address=(USBA << 4) + LOAD OFFSET
 Nếu `USBA` = `0x1F02` và `LOAD OFFSET` = `0x1005`,
 thì địa chỉ vật lí sẽ là: (`0x1F02` << 4) + `0x1005` = `0x1F020` + `0x1005` = `0x20025`.
 
+![](/assets/articles/2025/FileHexPart2/2025-1-16-example_Rectype0x02.png){: .normal }
 
 
 > Trong định dạng Intel HEX, việc sử dụng **record type = 0x02** có tác dụng gì?.
