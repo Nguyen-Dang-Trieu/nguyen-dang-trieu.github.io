@@ -56,11 +56,6 @@ _Record type 0x00_
   - Tổng tích lũy S = (`0x04` + `0x20` + `0x00` + `0x00` + `0xFE` + `0xCA` + `0xCE` + `0xFA`) = `0x3B4`. (chỉ lấy byte cuối cùng của kết quả)
   - Tổng kiểm tra CHEKSUM = (`0x100` - S) & `0xFF` = `0x4C`.
 
-<details class="details-block" markdown="1">
-<summary>Examples: binary operation </summary>
-hello, xin chào
-</details>
-
 ### 3. Record type 0x01
 ![Retype 0x01](/assets/articles/2025/FileHexPart2/2025-1-12-Retype01.png){: .normal }
 _Record type 0x01_
@@ -139,24 +134,3 @@ Số byte luôn là 04, trường địa chỉ là 0000. Bốn byte dữ liệu 
 
 ## 🍁 Lời kết 
 
-<div class="box-info">
-<div class="title"> Shakespeare </div>
-To be or not to be. That is a question.
-</div>
-
-<div class="box-tip">
-<div class="title"> Shakespeare </div>
-To be or not to be. That is a question.
-</div>
-
-<div class="box-warning">
-<div class="title"> Shakespeare </div>
-To be or not to be. That is a question.
-</div>
-
-<div class="box-danger" markdown="1">
-<div class="title"> Shakespeare </div>
-> To be or not to be. That is a question.  
-> --- Shakespeare
-
-</div>
