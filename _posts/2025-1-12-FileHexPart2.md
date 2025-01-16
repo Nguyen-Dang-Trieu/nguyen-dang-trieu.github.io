@@ -115,6 +115,10 @@ _Record type 0x04_
 
 Mở rộng địa chỉ lên 32 bit (4 GB). Số byte luôn là 02 và trường địa chỉ sẽ bị bỏ qua (thường là 0000). Hai byte dữ liệu (theo định dạng big endian) chỉ định 16 bit cao của địa chỉ tuyệt đối 32 bit, áp dụng cho tất cả các bản ghi loại 00 tiếp theo. Các bit địa chỉ cao này sẽ được giữ nguyên cho đến khi gặp một bản ghi loại 04. Địa chỉ tuyệt đối của một bản ghi loại 00 được tạo thành bằng cách kết hợp 16 bit địa chỉ cao của bản ghi loại 04 gần nhất và 16 bit địa chỉ thấp của bản ghi loại 00. Nếu không có bản ghi loại 04 trước đó, thì các bit địa chỉ cao của bản ghi loại 00 sẽ mặc định là 0000.
 
+> Trong bài viết File Hex (Part 1), đã có ví dụ về phần record type = 0x04 này ở mục [IV. Lưu trữ data trong Memory](https://nguyen-dang-trieu.github.io/posts/FileHex/).
+{: .prompt-info }
+
+ 
 ### 7.Record type 0x05
 ![Retype 0x05](/assets/articles/2025/FileHexPart2/2025-1-12-Retype05.png){: .normal }
 _Record type 0x05_
