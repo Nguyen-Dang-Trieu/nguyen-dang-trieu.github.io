@@ -83,8 +83,10 @@ Khi cần tính địa chỉ vật lí (Physical address - địa chỉ thực t
 Physical Address=(USBA << 4) + LOAD OFFSET
 
 **Example**:
-Nếu `USBA` = `0x1234` và `LOAD OFFSET` = `0x0050`,
-thì địa chỉ vật lí sẽ là: (`0x1234` << 4) + `0x0050` = `0x12340` + `0x0050` = `0x12390`.
+Nếu `USBA` = `0x1F02` và `LOAD OFFSET` = `0x1005`,
+thì địa chỉ vật lí sẽ là: (`0x1F02` << 4) + `0x1005` = `0x1F020` + `0x1005` = `0x20025`.
+
+
 
 > Trong định dạng Intel HEX, việc sử dụng **record type = 0x02** có tác dụng gì?.
 {: .prompt-info }
