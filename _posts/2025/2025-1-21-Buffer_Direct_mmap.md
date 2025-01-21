@@ -4,9 +4,6 @@ date: 2025-1-21
 categories: [Computer]
 tags: [ASM]
 author: Trieu
-image:
-  path: 
-  alt: 
 ---
 
 
