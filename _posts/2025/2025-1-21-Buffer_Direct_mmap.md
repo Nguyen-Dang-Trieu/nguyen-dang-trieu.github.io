@@ -12,16 +12,23 @@ image:
 ## 🍃 Lời mở đầu
 *"Trong Linux, dữ liệu không chỉ được đọc hoặc ghi trực tiếp từ ổ đĩa. Thay vào đó, hệ điều hành sử dụng các cơ chế đặc biệt như Buffer I/O và Direct I/O để cân bằng giữa tốc độ và hiệu suất. Vậy chúng khác nhau như thế nào, và khi nào nên dùng cơ chế nào? Hãy cùng khám phá!"*
 
-![Format File Hex](/assets/articles/2025/Buffer_IO_Direct_IO_mmap/2025-1-21-LinuxIO.PNG){: .normal }
+![LinuxIO](/assets/articles/2025/Buffer_IO_Direct_IO_mmap/2025-1-21-LinuxIO.PNG){: .normal }
 
-Trong Linux, I/O của file được chia làm 2 loại
--	Buffer I/O
--	Direct I/O
+Hình ảnh này được đơn giản hóa như sau:
+![Simple Linux io](/assets/articles/2025/Buffer_IO_Direct_IO_mmap/2025-1-22-SimpleLinuxIO.png){: .normal }
+_Simple Linux IO_
+
+> Để tăng hiệu suất đọc và ghi tệp, nhân Linux chia tệp thành nhiều khối dữ liệu nhỏ với kích thước bằng kích thước trang (thường là 4KB). Khi người dùng thực hiện thao tác đọc hoặc ghi lên một khối dữ liệu trong tệp, nhân Linux sẽ đầu tiên xin một vùng nhớ trong RAM (được gọi là **Page Cache** - bộ đệm trang) để liên kết với khối dữ liệu đó. Cơ chế này giúp giảm tần suất truy cập trực tiếp vào ổ đĩa, từ đó cải thiện tốc độ xử lý dữ liệu.
+{: .prompt-info }
+
+Trong Linux, I/O của file được chia làm 2 loại:
+-	**Buffer I/O**
+-	**Direct I/O**
 
 ### 1. Buffer I/O 
 Buffer I/O, còn được gọi là standard I/O, là cơ chế I/O mặc định của hầu hết các hệ thống tệp. Trong cơ chế này, dữ liệu được lưu trữ tạm thời trong Page Cache (bộ đệm trang) của kernel để tối ưu hóa các thao tác đọc/ghi. Hai lệnh gọi hệ thống thường được sử dụng là `read()` và `write()`:
-- Quá trình **read()**: Nếu dữ liệu đã tồn tại trong Page Cache, dữ liệu sẽ được đọc trực tiếp và trả về cho application. Nếu không, dữ liệu sẽ được đọc từ đĩa (disk), lưu vào Page Cache và sau đó sao chép từ Page Cache sang application.
-- Quá trình **write()**: Khi write()` được gọi, dữ liệu trước tiên được sao chép từ application sang Page Cache trong kernel-space. Sau đó, hệ điều hành sẽ định kỳ ghi dữ liệu từ Page Cache xuống đĩa (disk) theo cơ chế delayed write (ghi trễ).
+- Quá trình **read()**: Nếu dữ liệu đã tồn tại trong Page Cache, dữ liệu sẽ được đọc trực tiếp và trả về cho ứng dụng (user-space). Nếu không, dữ liệu sẽ được đọc từ đĩa (disk), lưu vào Page Cache và sau đó sao chép từ Page Cache sang ứng dụng (user-space).
+- Quá trình **write()**: Khi write()` được gọi, dữ liệu trước tiên được sao chép từ ứng dụng (user-space) sang Page Cache trong kernel-space. Sau đó, hệ điều hành sẽ định kỳ ghi dữ liệu từ Page Cache xuống đĩa (disk) theo cơ chế delayed write (ghi trễ).
     
 **Ưu điểm của Buffer I/O:**
 - Tăng hiệu suất đọc/ghi: Bộ đệm trang giảm số lần đọc/ghi trực tiếp từ đĩa, cải thiện tốc độ.
