@@ -1,8 +1,8 @@
 ---
 title: Buffer IO, Direct IO, mmap()
 date: 2025-1-21
-categories: [Computer]
-tags: [ASM]
+categories: [Linux]
+tags: [IO]
 author: Trieu
 image:
   path: assets/articles/2025/Buffer_IO_Direct_IO_mmap/2025-1-21-header.png
@@ -10,7 +10,7 @@ image:
 ---
 
 ## 🍃 Lời mở đầu
-*"Trong Linux, dữ liệu không chỉ được đọc hoặc ghi trực tiếp từ ổ đĩa. Thay vào đó, hệ điều hành sử dụng các cơ chế đặc biệt như Buffer I/O và Direct I/O để cân bằng giữa tốc độ và hiệu suất. Vậy chúng khác nhau như thế nào, và khi nào nên dùng cơ chế nào? Hãy cùng khám phá!"*
+*"Trong Linux, dữ liệu không chỉ được đọc hoặc ghi trực tiếp từ ổ đĩa. Thay vào đó, hệ điều hành sử dụng các cơ chế đặc biệt như Buffer I/O và Direct I/O để cân bằng giữa tốc độ và hiệu suất. Vậy chúng khác nhau như thế nào, và khi nào nên dùng cơ chế nào? Hãy cùng khám phá!"* 🧐
 
 ![LinuxIO](/assets/articles/2025/Buffer_IO_Direct_IO_mmap/2025-1-21-LinuxIO.PNG){: .normal }
 
@@ -18,7 +18,7 @@ Hình ảnh này được đơn giản hóa như sau:
 ![Simple Linux io](/assets/articles/2025/Buffer_IO_Direct_IO_mmap/2025-1-22-SimpleLinuxIO.png){: .normal }
 _Simple Linux IO_
 
-> Để tăng hiệu suất đọc và ghi tệp, Linux Kernel chia tệp thành nhiều khối dữ liệu nhỏ với kích thước bằng kích thước page (thường là 4KB). Khi người dùng thực hiện thao tác đọc hoặc ghi lên một khối dữ liệu trong tệp, nhân Linux sẽ đầu tiên xin một vùng nhớ trong RAM (được gọi là **Page Cache** - **bộ đệm trang**) để liên kết với khối dữ liệu đó. Cơ chế này giúp giảm tần suất truy cập trực tiếp vào ổ đĩa, từ đó cải thiện tốc độ xử lý dữ liệu.
+> Để tăng hiệu suất đọc và ghi tệp, nhân Linux chia tệp thành nhiều khối dữ liệu nhỏ với kích thước bằng kích thước page (thường là 4KB). Khi người dùng thực hiện thao tác đọc hoặc ghi lên một khối dữ liệu trong tệp, nhân Linux đầu tiên dành một vùng nhớ trong RAM (được gọi là **Page Cache** - **bộ đệm trang**) để liên kết với khối dữ liệu đó. Cơ chế này giúp giảm tần suất truy cập trực tiếp vào ổ đĩa, từ đó cải thiện tốc độ xử lý dữ liệu.
 {: .prompt-info }
 
 Trong Linux, I/O của file được chia làm 2 loại:
