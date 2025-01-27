@@ -42,7 +42,15 @@ Direct I/O cho phép dữ liệu được truyền trực tiếp giữa bộ nh�
 👍 **Ưu điểm của Direct I/O:**
 - Loại bỏ chi phí xử lý của Page Cache. (Những ứng dụng cho lượng dữ liệu lớn)
 - Ứng dụng có thể quản lý bộ nhớ đệm riêng, tối ưu hóa hiệu suất dựa trên đặc thù của dữ liệu.
-
+  
+👎 **Nhược điểm:**
+- Hiệu suất đọc không tốt bằng Buffer I/O sau lần đầu
+  - Khi đọc dữ liệu lần đầu bằng Direct IO, nó nhanh hơn do bỏ qua Page Cache.
+  - Tuy nhiên, với Buffered IO, dữ liệu sau lần đọc đầu tiên sẽ được lưu lại trong Page Cache, nên các lần đọc sau sẽ nhanh hơn. Với Direct IO, không có cơ chế này, khiến các lần đọc sau chậm hơn nếu phải đọc lại từ thiết bị lưu trữ.
+- Cần xử lý cache ở tầng ứng dụng (user space).
+  - Direct IO không cung cấp cơ chế cache như Page Cache, nên nếu cần sử dụng cơ chế này, ứng dụng phải tự quản lý bộ nhớ đệm ở user space, điều này làm tăng độ phức tạp.
+- Yêu cầu dữ liệu căn chỉnh theo phần cứng .
+  - Direct IO yêu cầu dữ liệu phải được căn chỉnh theo page size.
 ### 3. Memory-mapped File với mmap()
 Để giảm chi phí sao chép giữa kernel-space và user-space, hệ thống tệp cung cấp một cơ chế đặc biệt gọi là memory-mapped file thông qua hàm `mmap()`. Khi sử dụng mmap():
 - Một vùng bộ nhớ được ánh xạ trực tiếp từ file hệ thống vào không gian địa chỉ của người dùng (user-space).
