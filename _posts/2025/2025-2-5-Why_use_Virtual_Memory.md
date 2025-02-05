@@ -12,8 +12,7 @@ Nếu bạn là sinh viên chuyên ngành điện tử, chắc hẳn bạn sẽ 
 Không giống như các hệ thống có hệ điều hành, bộ vi điều khiển hoạt động trực tiếp mà không có lớp trung gian hỗ trợ. Mỗi khi viết mã, bạn cần nạp chương trình vào bộ vi điều khiển thông qua
 các công cụ chuyên dụng (mạch nạp) để chương trình có thể thực thi.
 
-Bên cạnh đó, **CPU của bộ vi điều khiển thao tác trực tiếp trên các địa chỉ bộ nhớ vật lý, giúp việc truy cập và xử lý dữ liệu diễn ra nhanh chóng nhưng cũng đòi hỏi lập trình viên hiểu rõ 
-về cấu trúc phần cứng.**
+Bên cạnh đó, **CPU của bộ vi điều khiển thao tác trực tiếp trên các địa chỉ bộ nhớ vật lý**, giúp việc truy cập và xử lý dữ liệu diễn ra nhanh chóng nhưng cũng đòi hỏi lập trình viên hiểu rõ  về cấu trúc phần cứng.
 
 Hình ảnh
 
