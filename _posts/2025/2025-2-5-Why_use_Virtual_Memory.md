@@ -53,5 +53,6 @@ Hình ảnh
 {: .prompt-info }
 
 Để thực hiện việc này, hệ điều hành sử dụng hai cơ chế chính: **Phân đoạn bộ nhớ (Memory Segmentation)** và **Phân trang bộ nhớ (Memory Paging)**.
+
 Trước tiên, chúng ta sẽ tìm hiểu về cơ chế **phân đoạn bộ nhớ - Memory Paging**.
 
