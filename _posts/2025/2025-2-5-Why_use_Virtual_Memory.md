@@ -31,7 +31,7 @@ gian bộ nhớ riêng để **“thoải mái sử dụng”** mà không lo xu
 Tuy nhiên, để làm được điều này, có một điều kiện quan trọng: **các chương trình không thể truy cập trực tiếp vào địa chỉ bộ nhớ vật lý**.
 Cách mà địa chỉ ảo được ánh xạ sang bộ nhớ vật lý là hoàn toàn minh bạch đối với chương trình, vì hệ điều hành đã xử lý và sắp xếp mọi thứ ở phía sau.
 
-![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-5-Virtual_Memory_2.png){: .normal }
+![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-5-Virtual_Memory_2.png){: w="500" h="200" }
 
 **Hệ điều hành cung cấp cơ chế ánh xạ địa chỉ ảo sang địa chỉ vật lý.**
 
