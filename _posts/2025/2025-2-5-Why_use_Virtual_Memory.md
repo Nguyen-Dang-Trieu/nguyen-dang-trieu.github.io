@@ -56,4 +56,12 @@ tích hợp trong chip CPU. Sau khi chuyển đổi, hệ thống sẽ truy cậ
 
 Trước tiên, chúng ta sẽ tìm hiểu về cơ chế phân đoạn bộ nhớ.
 
-## Phân đoạn bộ nhớ - Memory Paging
+## Phân đoạn bộ nhớ - Memory Segmentation
+Chương trình thường được chia thành các phân đoạn logic khác nhau, chẳng hạn như phân đoạn mã (code segment), phân đoạn dữ liệu (data segment), phân đoạn ngăn xếp (stack segment) và phân đoạn đống (heap segment). Mỗi phân đoạn có các đặc điểm và chức năng riêng biệt, vì vậy việc sử dụng phân đoạn giúp tách biệt và quản lý các thành phần này một cách hiệu quả.
+
+> Địa chỉ ảo và địa chỉ vật lý được ánh xạ như thế nào theo cơ chế phân đoạn ?
+{: .prompt-info }
+
+Địa chỉ ảo theo cơ chế phân đoạn gồm hai phần: hệ số lựa chọn phân đoạn (segment selector) và offset. Hệ số lựa chọn phân đoạn xác định phân đoạn cụ thể trong bộ nhớ, còn offset cho biết vị trí chính xác trong phân đoạn đó.
+
+Hình ảnh
