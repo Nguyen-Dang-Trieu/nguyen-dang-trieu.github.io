@@ -14,7 +14,7 @@ các công cụ chuyên dụng (mạch nạp) để chương trình có thể th
 
 Bên cạnh đó, **CPU của bộ vi điều khiển thao tác trực tiếp trên các địa chỉ bộ nhớ vật lý**, giúp việc truy cập và xử lý dữ liệu diễn ra nhanh chóng nhưng cũng đòi hỏi lập trình viên hiểu rõ  về cấu trúc phần cứng.
 
-Hình ảnh
+![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-5-Virtual_Memory_1.png){: .normal }
 
 **Bạn không thể chạy hai chương trình cùng lúc trong trường hợp này.**
 Giả sử cả hai chương trình đều cần sử dụng cùng một vị trí bộ nhớ, ví dụ địa chỉ `0x2000`. Khi chương trình đầu tiên ghi dữ liệu mới vào địa chỉ này, nó sẽ vô tình xóa dữ liệu mà chương trình 
@@ -31,7 +31,7 @@ gian bộ nhớ riêng để **“thoải mái sử dụng”** mà không lo xu
 Tuy nhiên, để làm được điều này, có một điều kiện quan trọng: **các chương trình không thể truy cập trực tiếp vào địa chỉ bộ nhớ vật lý**.
 Cách mà địa chỉ ảo được ánh xạ sang bộ nhớ vật lý là hoàn toàn minh bạch đối với chương trình, vì hệ điều hành đã xử lý và sắp xếp mọi thứ ở phía sau.
 
-Hình ảnh
+![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-5-Virtual_Memory_2.png){: .normal }
 
 **Hệ điều hành cung cấp cơ chế ánh xạ địa chỉ ảo sang địa chỉ vật lý.**
 
@@ -47,12 +47,13 @@ Vì vậy, có hai loại địa chỉ bộ nhớ quan trọng:
 Khi một chương trình muốn truy cập bộ nhớ, địa chỉ ảo mà nó sử dụng sẽ được chuyển đổi thành địa chỉ vật lý thông qua cơ chế ánh xạ của Bộ quản lý bộ nhớ **(MMU - Memory Management Unit)**
 tích hợp trong chip CPU. Sau khi chuyển đổi, hệ thống sẽ truy cập bộ nhớ thực tế thông qua địa chỉ vật lý này. Quy trình này được minh họa trong hình sau:
 
-Hình ảnh
+![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-5-Virtual_Memory_3.png){: .normal }
 
 > Hệ điều hành quản lý mối quan hệ giữa địa chỉ ảo và địa chỉ vật lý như thế nào?
 {: .prompt-info }
 
 Để thực hiện việc này, hệ điều hành sử dụng hai cơ chế chính: **Phân đoạn bộ nhớ (Memory Segmentation)** và **Phân trang bộ nhớ (Memory Paging)**.
 
-Trước tiên, chúng ta sẽ tìm hiểu về cơ chế **phân đoạn bộ nhớ - Memory Paging**.
+Trước tiên, chúng ta sẽ tìm hiểu về cơ chế phân đoạn bộ nhớ.
 
+## Phân đoạn bộ nhớ - Memory Paging
