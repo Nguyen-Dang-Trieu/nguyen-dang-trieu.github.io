@@ -121,21 +121,45 @@ Phân mảnh bộ nhớ chủ yếu được chia thành phân mảnh bộ nhớ
 > Giải pháp cho vấn đề phân mảnh bộ nhớ ngoài là hoán đổi bộ nhớ **(Swapping)**.
 {: .prompt-tip}
 
-Khi gặp vấn đề phân mảnh bộ nhớ ngoài, một giải pháp là hoán đổi vùng nhớ mà chương trình đang sử dụng. Ví dụ: ta sẽ ghi **(swap in)** `256MB` vùng nhớ mà chương trình Music đang chiếm dụng vào ổ cứng **(disk)**. Lúc này, vùng nhớ trống sẽ là `512 MB` liền kề nhau.
+Khi gặp vấn đề phân mảnh bộ nhớ ngoài, một giải pháp là hoán đổi vùng nhớ mà chương trình đang sử dụng. Ví dụ: ta sẽ ghi **(swap out)** `256MB` vùng nhớ mà chương trình Music đang chiếm dụng vào ổ cứng **(disk)**. Lúc này, vùng nhớ trống sẽ là `512 MB` liền kề nhau.
 
-Sau đó, khi cần, ta sẽ đọc ngược lại **(swap out)** dữ liệu từ disk vào lại bộ nhớ. Khi đó, bộ nhớ trống sẽ là `256 MB` liên tục, đủ để tải chương trình `200 MB` mà người dùng yêu cầu.
+Sau đó, khi cần, ta sẽ đọc ngược lại **(swap in)** dữ liệu từ disk vào lại bộ nhớ. Khi đó, bộ nhớ trống sẽ là `256 MB` liên tục, đủ để tải chương trình `200 MB` mà người dùng yêu cầu.
 
 ![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-6-Memory_Seg_4.png){: .normal }
 
 Không gian hoán đổi bộ nhớ này, trong các hệ thống như Linux, được gọi là swap space. Đây là không gian trên ổ cứng, tách biệt với bộ nhớ chính, dùng để hoán đổi giữa bộ nhớ vật lý và bộ nhớ ảo.
 
 ###  Hiệu suất
-**Chúng ta hãy xem tại sao phân đoạn lại dẫn đến hiệu quả hoán đổi bộ nhớ thấp❓**
+**Chúng ta hãy xem "Tại sao phân đoạn lại dẫn đến hiệu quả hoán đổi bộ nhớ thấp❓"**
 
 Trong hệ thống đa tiến trình, bộ nhớ có thể bị phân mảnh ngoài khi sử dụng phân đoạn. Khi điều này xảy ra, hệ thống phải hoán đổi (swap) dữ liệu giữa RAM và ổ cứng, làm giảm hiệu suất do tốc độ truy cập ổ cứng chậm hơn nhiều so với RAM.
 
 Nếu một chương trình chiếm nhiều bộ nhớ bị hoán đổi, toàn bộ hệ thống có thể bị chậm hoặc "đơ".
 
-Để khắc phục vấn đề này, người ta sử dụng phân trang thay vì phân đoạn. Phân trang giúp quản lý bộ nhớ hiệu quả hơn, giảm phân mảnh và cải thiện tốc độ hoán đổi bộ nhớ.
+Để giải quyết vấn đề "phân mảnh bộ nhớ ngoài và hiệu suất hoán đổi bộ nhớ thấp" của phân đoạn bộ nhớ, phân trang bộ nhớ đã xuất hiện.
 
 ## Phân trang bộ nhớ (Memory Paging)
+Ưu điểm của phân đoạn là nó cung cấp không gian bộ nhớ liên tục cho chương trình. Tuy nhiên, nó cũng gây ra vấn đề như phân mảnh bộ nhớ ngoài và không gian hoán đổi quá lớn.
+
+Để khắc phục, chúng ta cần giảm phân mảnh bộ nhớ và tối ưu hóa quá trình hoán đổi. Nếu lượng dữ liệu cần hoán đổi hoặc tải từ ổ đĩa ít hơn, hiệu suất hệ thống sẽ được cải thiện. Giải pháp cho vấn đề này là **phân trang bộ nhớ - Memory Paging**.
+
+Phân trang là quá trình chia bộ nhớ ảo và bộ nhớ vật lý thành các khối nhỏ có kích thước cố định. Mỗi khối có không gian bộ nhớ liên tục và kích thước cố định này được gọi là **trang (page)**. Trên Linux, kích thước mặc định của mỗi trang là `4 KB`.
+
+Địa chỉ ảo và địa chỉ vật lý được ánh xạ thông qua **bảng trang - Page Table**, như được hiển thị bên dưới:
+
+HInh anh
+
+Bảng trang được lưu trữ trong bộ nhớ và đơn vị quản lý bộ nhớ (MMU) có nhiệm vụ chuyển đổi địa chỉ bộ nhớ ảo thành địa chỉ vật lý.
+
+Khi một tiến trình truy cập một địa chỉ ảo không có trong bảng trang, hệ thống sẽ kích hoạt một lỗi trang (Page Fault). Lúc này, quyền điều khiển sẽ được chuyển vào không gian hạt nhân để xử lý. Hệ thống sẽ cấp phát một khung trang trong bộ nhớ vật lý, cập nhật bảng trang của tiến trình, rồi quay lại không gian người dùng để tiếp tục thực thi tiến trình đó.
+
+### Phân trang giải quyết vấn đề "phân mảnh bộ nhớ ngoài và hiệu suất hoán đổi bộ nhớ thấp" của phân đoạn như thế nào❓
+Trong phân trang bộ nhớ, không gian bộ nhớ được chia thành các trang có kích thước cố định ngay từ đầu, giúp loại bỏ các khoảng trống nhỏ giữa các phân đoạn như trong phân đoạn bộ nhớ. Đây chính là nguyên nhân khiến phân đoạn gây ra phân mảnh bộ nhớ ngoài. Ngược lại, **với phân trang các trang được sắp xếp liên tục và chặt chẽ, do đó không xảy ra phân mảnh bên ngoài**.
+
+Tuy nhiên, do đơn vị cấp phát bộ nhớ tối thiểu trong phân trang là một trang, nên ngay cả khi một chương trình có kích thước nhỏ hơn một trang, hệ thống vẫn phải cấp phát toàn bộ một trang. Điều này dẫn đến lãng phí bộ nhớ bên trong trang, **gây ra hiện tượng phân mảnh bộ nhớ trong trong cơ chế phân trang**.
+
+Khi bộ nhớ không đủ, hệ điều hành sẽ giải phóng các trang không được sử dụng gần đây từ các tiến trình khác bằng cách ghi tạm thời chúng vào ổ cứng, quá trình này gọi là **Swap Out**. Khi cần, các trang này sẽ được nạp lại vào bộ nhớ, gọi là **Swap In**. Nhờ vậy, hệ thống chỉ hoán đổi một số trang thay vì toàn bộ tiến trình, giúp giảm thời gian ghi/đọc đĩa và tăng hiệu suất hoán đổi bộ nhớ.
+
+Hình ảnh
+
+Phương pháp phân trang cho phép chúng ta không phải tải toàn bộ chương trình vào bộ nhớ vật lý cùng một lúc. Thay vào đó, chúng ta có thể ánh xạ các trang giữa bộ nhớ ảo và bộ nhớ vật lý mà không cần phải tải chúng ngay lập tức. Chỉ khi chương trình cần truy cập các lệnh hoặc dữ liệu trong những trang bộ nhớ ảo tương ứng, thì hệ thống mới tải các trang đó vào bộ nhớ vật lý.
