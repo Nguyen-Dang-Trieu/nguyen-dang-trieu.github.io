@@ -147,7 +147,7 @@ Phân trang là quá trình chia bộ nhớ ảo và bộ nhớ vật lý thành
 
 Địa chỉ ảo và địa chỉ vật lý được ánh xạ thông qua **bảng trang - Page Table**, như được hiển thị bên dưới:
 
-HInh anh
+![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-6-Memory_Page_1.png){: .normal }
 
 Bảng trang được lưu trữ trong bộ nhớ và đơn vị quản lý bộ nhớ (MMU) có nhiệm vụ chuyển đổi địa chỉ bộ nhớ ảo thành địa chỉ vật lý.
 
