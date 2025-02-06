@@ -44,8 +44,7 @@ Vì vậy, có hai loại địa chỉ bộ nhớ quan trọng:
 
 **Hệ điều hành giới thiệu khái niệm bộ nhớ ảo và địa chỉ ảo.**
 
-Khi một chương trình muốn truy cập bộ nhớ, địa chỉ ảo mà nó sử dụng sẽ được chuyển đổi thành địa chỉ vật lý thông qua cơ chế ánh xạ của Bộ quản lý bộ nhớ **(MMU - Memory Management Unit)**
-tích hợp trong chip CPU. Sau khi chuyển đổi, hệ thống sẽ truy cập bộ nhớ thực tế thông qua địa chỉ vật lý này. Quy trình này được minh họa trong hình sau:
+Khi một chương trình muốn truy cập bộ nhớ, địa chỉ ảo mà nó sử dụng sẽ được chuyển đổi thành địa chỉ vật lý thông qua cơ chế ánh xạ của **bộ quản lý bộ nhớ (MMU - Memory Management Unit)** tích hợp trong chip CPU. Sau khi chuyển đổi, hệ thống sẽ truy cập bộ nhớ thực tế thông qua địa chỉ vật lý này. Quy trình này được minh họa trong hình sau:
 
 ![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-5-Virtual_Memory_3.png){: .normal }
 
