@@ -165,3 +165,8 @@ Khi bộ nhớ không đủ, hệ điều hành sẽ giải phóng các trang kh
 Phương pháp phân trang cho phép chúng ta không phải tải toàn bộ chương trình vào bộ nhớ vật lý cùng một lúc. Thay vào đó, chúng ta có thể ánh xạ các trang giữa bộ nhớ ảo và bộ nhớ vật lý mà không cần phải tải chúng ngay lập tức. Chỉ khi chương trình cần truy cập các lệnh hoặc dữ liệu trong những trang bộ nhớ ảo tương ứng, thì hệ thống mới tải các trang đó vào bộ nhớ vật lý.
 
 ### 2. Địa chỉ ảo và địa chỉ vật lý được ánh xạ như thế nào theo cơ chế phân trang?
+Trong cơ chế phân trang (paging), địa chỉ ảo (virtual address) được chia thành hai phần: số trang (page number) và độ lệch trong trang (page offset).
+- Số trang (page number) được sử dụng làm chỉ mục trong bảng trang (page table), bảng này chứa địa chỉ cơ sở (base address) của từng trang trong bộ nhớ vật lý (physical memory).
+- Sự kết hợp giữa địa chỉ cơ sở này và độ lệch trong trang (page offset) tạo thành địa chỉ bộ nhớ vật lý (physical address).
+
+Hình ảnh
