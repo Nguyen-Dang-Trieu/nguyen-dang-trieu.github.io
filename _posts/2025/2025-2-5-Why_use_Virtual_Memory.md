@@ -110,7 +110,7 @@ Lúc này nếu ta đóng trình duyệt WEB đi thì bộ nhớ vật lý sẽ 
 
 Nếu `256 MB` vùng nhớ này không nằm liên tục và được chia thành 2 phân đoạn, mỗi phân đoạn là `128 MB`. Vấn đề phát sinh đó là nếu ta muốn mở 1 chương trình `200 MB` thì sẽ không cấp phát đủ vùng nhớ, dù tổng bộ nhớ trống là `256 MB`.
 
-HInhf ảnh
+![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-6-Memory_Seg_3.png){: .normal }
 
 > Liệu sự phân mảnh bộ nhớ có xảy ra do phân đoạn bộ nhớ không?
 {: .prompt-info }
@@ -124,6 +124,19 @@ Phân mảnh bộ nhớ chủ yếu được chia thành phân mảnh bộ nhớ
 
 Khi gặp vấn đề phân mảnh bộ nhớ ngoài, một giải pháp là hoán đổi vùng nhớ mà chương trình đang sử dụng. Ví dụ: ta sẽ ghi **(swap in)** `256MB` vùng nhớ mà chương trình Music đang chiếm dụng vào ổ cứng **(disk)**. Lúc này, vùng nhớ trống sẽ là `512 MB` liền kề nhau.
 
-Sau đó, khi cần, ta sẽ đọc ngược lại **(swap out)** dữ liệu từ disk vào lại bộ nhớ. Khi đó, bộ nhớ trống sẽ là `256 MB` liên tục, đủ để tải chương trình 200 MB mà người dùng yêu cầu.
+Sau đó, khi cần, ta sẽ đọc ngược lại **(swap out)** dữ liệu từ disk vào lại bộ nhớ. Khi đó, bộ nhớ trống sẽ là `256 MB` liên tục, đủ để tải chương trình `200 MB` mà người dùng yêu cầu.
+
+![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-6-Memory_Seg_4.png){: .normal }
 
 Không gian hoán đổi bộ nhớ này, trong các hệ thống như Linux, được gọi là swap space. Đây là không gian trên ổ cứng, tách biệt với bộ nhớ chính, dùng để hoán đổi giữa bộ nhớ vật lý và bộ nhớ ảo.
+
+###  Hiệu suất
+**Chúng ta hãy xem tại sao phân đoạn lại dẫn đến hiệu quả hoán đổi bộ nhớ thấp❓**
+
+Trong hệ thống đa tiến trình, bộ nhớ có thể bị phân mảnh ngoài khi sử dụng phân đoạn. Khi điều này xảy ra, hệ thống phải hoán đổi (swap) dữ liệu giữa RAM và ổ cứng, làm giảm hiệu suất do tốc độ truy cập ổ cứng chậm hơn nhiều so với RAM.
+
+Nếu một chương trình chiếm nhiều bộ nhớ bị hoán đổi, toàn bộ hệ thống có thể bị chậm hoặc "đơ".
+
+Để khắc phục vấn đề này, người ta sử dụng phân trang thay vì phân đoạn. Phân trang giúp quản lý bộ nhớ hiệu quả hơn, giảm phân mảnh và cải thiện tốc độ hoán đổi bộ nhớ.
+
+## Phân trang bộ nhớ (Memory Paging)
