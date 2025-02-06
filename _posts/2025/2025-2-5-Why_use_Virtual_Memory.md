@@ -95,3 +95,35 @@ Phương pháp phân đoạn rất tốt, nó giải quyết được vấn đ�
 - 2️⃣ Hiệu suất trao đổi bộ nhớ thấp.
   
 Tiếp theo, ta hãy nói về lý do tại sao lại phát sinh hai vấn đề này.
+
+### Phân mảnh bộ nhớ. (Memory Fragmentation)
+Đọc thêm: [Memory Fragmentation in operating system](https://er.yuvayana.org/memory-fragmentation-in-operating-system/#google_vignette)
+
+Trước tiên, chúng ta hãy xem tại sao phân đoạn lại gây ra vấn đề phân mảnh bộ nhớ ❗
+
+Hãy xem xét một ví dụ như này. Giả sử ta có `1 GB` bộ nhớ vật lý và người dùng - user thực hiện nhiều chương trình trên bộ nhớ đó:
+- Game chiếm `512 MB`.
+- Trình duyệt WEB chiếm `128 MB`.
+- Music chiếm `256 MB`.
+
+Lúc này nếu ta đóng trình duyệt WEB đi thì bộ nhớ vật lý sẽ trong như thế này: `1024 - 512 - 256 = 256 MB` vùng nhớ trống còn lại.
+
+Nếu `256 MB` vùng nhớ này không nằm liên tục và được chia thành 2 phân đoạn, mỗi phân đoạn là `128 MB`. Vấn đề phát sinh đó là nếu ta muốn mở 1 chương trình `200 MB` thì sẽ không cấp phát đủ vùng nhớ, dù tổng bộ nhớ trống là `256 MB`.
+
+HInhf ảnh
+
+> Liệu sự phân mảnh bộ nhớ có xảy ra do phân đoạn bộ nhớ không?
+{: .prompt-info }
+
+Phân mảnh bộ nhớ chủ yếu được chia thành phân mảnh bộ nhớ trong và phân mảnh bộ nhớ ngoài.
+- Quản lý phân đoạn bộ nhớ cho phép phân bổ bộ nhớ cho các phân đoạn dựa trên nhu cầu thực tế, do đó kích thước của từng phân đoạn sẽ thay đổi theo yêu cầu. Điều này giúp tránh tình trạng phân mảnh bộ nhớ trong.
+- Tuy nhiên, do độ dài của mỗi phân đoạn không cố định, có thể xảy ra tình trạng nhiều phân đoạn không sử dụng hết không gian bộ nhớ. Điều này khiến bộ nhớ trống bị phân tán thành các khối nhỏ không liên tiếp, tạo ra phân mảnh bộ nhớ ngoài, làm cho việc tải chương trình mới trở nên khó khăn hoặc không thể thực hiện được.
+
+> Giải pháp cho vấn đề phân mảnh bộ nhớ ngoài là hoán đổi bộ nhớ **(Swapping)**.
+{: .prompt-tip}
+
+Khi gặp vấn đề phân mảnh bộ nhớ ngoài, một giải pháp là hoán đổi vùng nhớ mà chương trình đang sử dụng. Ví dụ: ta sẽ ghi **(swap in)** `256MB` vùng nhớ mà chương trình Music đang chiếm dụng vào ổ cứng **(disk)**. Lúc này, vùng nhớ trống sẽ là `512 MB` liền kề nhau.
+
+Sau đó, khi cần, ta sẽ đọc ngược lại **(swap out)** dữ liệu từ disk vào lại bộ nhớ. Khi đó, bộ nhớ trống sẽ là `256 MB` liên tục, đủ để tải chương trình 200 MB mà người dùng yêu cầu.
+
+Không gian hoán đổi bộ nhớ này, trong các hệ thống như Linux, được gọi là swap space. Đây là không gian trên ổ cứng, tách biệt với bộ nhớ chính, dùng để hoán đổi giữa bộ nhớ vật lý và bộ nhớ ảo.
