@@ -160,6 +160,8 @@ Tuy nhiên, do đơn vị cấp phát bộ nhớ tối thiểu trong phân trang
 
 Khi bộ nhớ không đủ, hệ điều hành sẽ giải phóng các trang không được sử dụng gần đây từ các tiến trình khác bằng cách ghi tạm thời chúng vào ổ cứng, quá trình này gọi là **Swap Out**. Khi cần, các trang này sẽ được nạp lại vào bộ nhớ, gọi là **Swap In**. Nhờ vậy, hệ thống chỉ hoán đổi một số trang thay vì toàn bộ tiến trình, giúp giảm thời gian ghi/đọc đĩa và tăng hiệu suất hoán đổi bộ nhớ.
 
-Hình ảnh
+![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-6-Memory_Page_2.png){: .normal }
 
 Phương pháp phân trang cho phép chúng ta không phải tải toàn bộ chương trình vào bộ nhớ vật lý cùng một lúc. Thay vào đó, chúng ta có thể ánh xạ các trang giữa bộ nhớ ảo và bộ nhớ vật lý mà không cần phải tải chúng ngay lập tức. Chỉ khi chương trình cần truy cập các lệnh hoặc dữ liệu trong những trang bộ nhớ ảo tương ứng, thì hệ thống mới tải các trang đó vào bộ nhớ vật lý.
+
+### 2. Địa chỉ ảo và địa chỉ vật lý được ánh xạ như thế nào theo cơ chế phân trang?
