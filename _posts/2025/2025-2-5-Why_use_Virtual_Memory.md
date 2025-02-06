@@ -64,4 +64,4 @@ Chương trình thường được chia thành các phân đoạn logic khác nh
 
 Địa chỉ ảo theo cơ chế phân đoạn gồm hai phần: hệ số lựa chọn phân đoạn (segment selector) và offset. Hệ số lựa chọn phân đoạn xác định phân đoạn cụ thể trong bộ nhớ, còn offset cho biết vị trí chính xác trong phân đoạn đó.
 
-Hình ảnh
+
