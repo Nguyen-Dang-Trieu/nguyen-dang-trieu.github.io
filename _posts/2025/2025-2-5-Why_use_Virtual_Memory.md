@@ -188,7 +188,13 @@ Trong hệ thống bộ nhớ, CPU cũng làm điều tương tự:
 - CPU sử dụng Page Number để tìm trang dữ liệu trong không gian địa chỉ ảo.
 - Hệ điều hành ánh xạ Page đó vào Frame Number trong bộ nhớ vật lý. Sau đó, Page Offset giúp xác định vị trí chính xác trong Frame để lấy dữ liệu.
 
-Hình ảnh
+![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-7-Memory_Page_3.png){: .normal }
+
+Dưới đây là một ví dụ về cách mà một Page trong bộ nhớ ảo ánh xạ tới một Frame trong bộ nhớ vật lý.
+
+![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-7-Memory_Page_4.png){: .normal }
+
+Việc sử dụng phân trang có vẻ tốt, nhưng trong các hệ điều hành thực tế, việc chỉ dùng phân trang đơn giản như này chắc chắn gây ra vấn đề.
 
 ## Reference
 - [What are Paging and Segmentation?](https://afteracademy.com/blog/what-are-paging-and-segmentation/)
