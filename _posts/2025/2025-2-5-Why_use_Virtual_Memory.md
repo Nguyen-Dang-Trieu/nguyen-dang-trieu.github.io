@@ -165,7 +165,18 @@ Khi bộ nhớ không đủ, hệ điều hành sẽ giải phóng các trang kh
 Phương pháp phân trang cho phép chúng ta không phải tải toàn bộ chương trình vào bộ nhớ vật lý cùng một lúc. Thay vào đó, chúng ta có thể ánh xạ các trang giữa bộ nhớ ảo và bộ nhớ vật lý mà không cần phải tải chúng ngay lập tức. Chỉ khi chương trình cần truy cập các lệnh hoặc dữ liệu trong những trang bộ nhớ ảo tương ứng, thì hệ thống mới tải các trang đó vào bộ nhớ vật lý.
 
 ### 2. Địa chỉ ảo và địa chỉ vật lý được ánh xạ như thế nào theo cơ chế phân trang?
+Trước hết ta sẽ tìm hiểu một số khai niệm
+- Địa chỉ ảo: gồm 2 phần đó là number page và offset page
+  - Page number: cho biết chính xác của process mà CPU muốn truy cập.
+  - Page offset: cho biết vị trí chính xác trong trang mà CPU muốn đọc.    
+Địa chỉ ảo = Page number + page offset
 
+- Địa chỉ vật lý: gồm 2 phần đó là frame number và page offset
+  - frame number: cho biết frame chính xác nơi page được lưu trữ trong bộ nhớ vật lý.
+  - offset page: cho biết vị trí chính xác trong page mà CPU muốn đọc. Phần này không cần dịch vì kích thước page và kích thước frame là như nhau, nên vị trí của từ mà CPU muốn truy cập sẽ không thay đổi.
+  Physical Address = Frame Number + page offset
+
+**Quá trình ánh xạ diễn ra như sau:** CPU tạo ra địa chỉ ảo, gồm page number và page offset. Thanh ghi PTBR (Page Table Base Register) chứa địa chỉ của bảng trang (Page Table), bảng này giúp ánh xạ **Page Number** thành **Frame Number** trong bộ nhớ vật lý. Sau khi tìm được **Frame number**, kết hợp với **Page offset**, ta xác định được địa chỉ vật lý và truy cập page trong bộ nhớ chính.
 
 Hình ảnh
 
