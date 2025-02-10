@@ -170,13 +170,13 @@ Trước hết ta sẽ tìm hiểu 2 khái niệm đó là địa chỉ ảo và
   - Page number: cho biết chính xác của process mà CPU muốn truy cập.
   - Page offset: cho biết vị trí chính xác trong trang mà CPU muốn đọc.
       
-📌 Địa chỉ ảo = Page number + page offset
+📌 Địa chỉ ảo = page number + page offset
 
 - Địa chỉ vật lý: gồm 2 phần đó là frame number và page offset
   - frame number: cho biết frame chính xác nơi page được lưu trữ trong bộ nhớ vật lý.
   - offset page: cho biết vị trí chính xác trong page mà CPU muốn đọc. Phần này không cần dịch vì kích thước page và kích thước frame là như nhau, nên vị trí của từ mà CPU muốn truy cập sẽ không thay đổi.
     
- 📌 Physical Address = Frame Number + page offset
+ 📌 Physical Address = frame number + page offset
 
 **Quá trình ánh xạ diễn ra như sau:** CPU tạo ra địa chỉ ảo, gồm page number và page offset. Thanh ghi PTBR (Page Table Base Register) chứa địa chỉ của **bảng trang - Page Table**, bảng này giúp ánh xạ **Page Number** thành **Frame Number** trong bộ nhớ vật lý. Sau khi tìm được **Frame number**, kết hợp với **Page offset**, ta xác định được địa chỉ vật lý và truy cập page trong bộ nhớ chính.
 
@@ -194,27 +194,40 @@ Dưới đây là một ví dụ về cách mà một Page trong bộ nhớ ảo
 
 ![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-7-Memory_Page_4.png){: .normal }
 
-Việc sử dụng phân trang có vẻ tốt, nhưng trong các hệ điều hành thực tế, việc chỉ dùng phân trang đơn giản như này chắc chắn gây ra vấn đề.
+Việc sử dụng phân trang có vẻ tốt, nhưng trong các hệ điều hành thực tế, việc chỉ dùng **phân trang đơn cấp (Single-Level Page Table)** như này chắc chắn gây ra vấn đề.
 
-### Có vấn đề nào xảy ra khi sử dụng phân trang đơn cấp không?
+### Có vấn đề nào xảy ra khi sử dụng Single-Level Page Table không❓
 
 > Vấn đề về bộ nhớ
 {: .prompt-danger }
 
 Hệ điều hành có thể chạy nhiều tiến trình cùng lúc, điều này có nghĩa là **bảng trang của mỗi tiến trình sẽ rất lớn**.
 
-Trong hệ thống 32-bit, không gian địa chỉ ảo tối đa là 4GB.
-- Giả sử kích thước của mỗi trang là 4KB.
-- Như vậy, số lượng trang cần quản lý sẽ là:
-  4GB / 4KB = 1,048,576 (hay khoảng 2^20 trang)
-- Mỗi mục (Entry) trong bảng trang cần 4 byte để lưu trữ thông tin ánh xạ.
-- Tổng dung lượng cần để lưu bảng trang của một tiến trình là: 1,048,576 × 4B = 4MB
+Trong **hệ thống 32-bit**, không gian địa chỉ ảo tối đa là `4GB`.
+- Giả sử kích thước của mỗi page là `4KB`.
+- Như vậy, số lượng page cần quản lý sẽ là:
+  4GB / 4KB = 1 048 576 (hay khoảng 2^20 page)
+- Mỗi **Entry** trong Page Table cần `4 byte` để lưu trữ thông tin ánh xạ.
+- Tổng dung lượng cần để lưu Page Table của một tiến trình là: 1 048 576 × 4B = `4MB`
   
-Một bảng trang 4MB có vẻ không quá lớn, nhưng mỗi tiến trình trong hệ điều hành đều có bảng trang riêng, vì mỗi tiến trình có không gian địa chỉ ảo riêng.
+Một Page Table 4MB có vẻ không quá lớn, nhưng mỗi tiến trình trong hệ điều hành đều có Page Table riêng, vì mỗi tiến trình có không gian địa chỉ ảo riêng.
 
-Ví dụ: Nếu có 100 tiến trình đang chạy đồng thời, thì tổng dung lượng dành riêng cho bảng trang sẽ là: 100 × 4MB = 400MB. Khi dùng 400MB chỉ để lưu bảng trang là một con số rất lớn, đặc biệt đối với hệ thống có RAM hạn chế.
+📌 **Ví dụ:** Nếu có 100 process đang chạy đồng thời, thì tổng dung lượng dành riêng cho Page Table cho tất cả các process sẽ là: 100 × 4MB = 400MB. Khi dùng 400MB chỉ để lưu Page Table là một con số rất lớn, đặc biệt đối với hệ thống có RAM hạn chế. Chưa kể trong hệ thống **64-bit**, số lượng Page còn nhiều hơn, khiến vấn đề càng trở nên nghiêm trọng hơn.
 
-Chưa kể trong hệ thống **64-bit**, số lượng trang còn nhiều hơn, khiến vấn đề càng trở nên nghiêm trọng hơn.
+![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-7-Memory_Page_5.png){: .normal }
+
+### Multi-Level Page Table 
+💡 Để có thể giải quyết vấn đề trên, ta dùng giải pháp gọi là **bảng trang đa cấp (Multi-Level Page Table)**.
+
+Như đã biết, trong hệ thống 32-bit với kích thước page là `4KB`, một **Single-Level Page Table** cần chứa **1 048 576 Entry**. Mỗi **Entry** chiếm 4 byte, nghĩa là toàn bộ Page Table sẽ tiêu tốn 4MB bộ nhớ. Điều này gây lãng phí lớn, đặc biệt khi không phải toàn bộ không gian địa chỉ đều được sử dụng.
+
+Để tối ưu, ta chia Single-Level Page Table thành Multi-Level Page Table. Cụ thể, thay vì một Page Table lớn với 1 048 576 entries, ta chia nó thành 2 bảng trang:
+- Bảng trang cấp 1 gọi là Page Directory. Mỗi entry trong Page Directory sẽ trỏ tới 1 Page Table
+- Bảng trang cấp 2 được gọi là Page Table. Mỗi entry trong Page Table được gọi là Page Table Entry (PTE) và trỏ đến một frame trong bộ nhớ vật lý.
+
+Như vậy, thay vì phải lưu trữ toàn bộ bảng trang 4MB trong bộ nhớ khi sử dụng **Single-Level Page Table**, với **Multi-Level Page Table**, ta chỉ cần cấp phát các bảng trang cấp hai khi cần thiết, giúp tiết kiệm bộ nhớ đáng kể.
+
+Hình ảnh
 
 ## Reference
 - [What are Paging and Segmentation?](https://afteracademy.com/blog/what-are-paging-and-segmentation/)
