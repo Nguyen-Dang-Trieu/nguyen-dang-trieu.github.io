@@ -39,8 +39,8 @@ Khi các chương trình chạy, mỗi chương trình sẽ sử dụng các đ�
 vật lý tương ứng trong bộ nhớ. Nhờ cơ chế này, các chương trình khác nhau sẽ ghi dữ liệu vào các địa chỉ vật lý khác nhau, tránh được xung đột dữ liệu khi chạy đồng thời.
 
 Vì vậy, có hai loại địa chỉ bộ nhớ quan trọng:
-- Địa chỉ mà chương trình của chúng ta sử dụng được gọi là ***địa chỉ bộ nhớ ảo (Virtual Address)***.
-- Địa chỉ thực tế tồn tại trên phần cứng của máy tính được gọi là ***địa chỉ bộ nhớ vật lý (Physical Address)***.
+- Địa chỉ mà chương trình của chúng ta sử dụng được gọi là ***địa chỉ ảo (Virtual Address)***.
+- Địa chỉ thực tế tồn tại trên phần cứng của máy tính được gọi là ***địa chỉ vật lý (Physical Address)***.
 
 **Hệ điều hành giới thiệu khái niệm bộ nhớ ảo và địa chỉ ảo.**
 
