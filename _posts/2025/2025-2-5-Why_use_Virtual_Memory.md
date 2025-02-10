@@ -194,7 +194,7 @@ Dưới đây là một ví dụ về cách mà một Page trong bộ nhớ ảo
 
 ![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-7-Memory_Page_4.png){: .normal }
 
-Việc sử dụng phân trang có vẻ tốt, nhưng trong các hệ điều hành thực tế, việc chỉ dùng **phân trang đơn cấp (Single-Level Page Table)** như này chắc chắn gây ra vấn đề.
+Việc sử dụng phân trang có vẻ tốt, nhưng trong các hệ điều hành thực tế, việc chỉ dùng **phân trang đơn cấp (Single-Level Page Table)** như này sẽ gây ra vấn đề.
 
 ### Có vấn đề nào xảy ra khi sử dụng Single-Level Page Table không❓
 
