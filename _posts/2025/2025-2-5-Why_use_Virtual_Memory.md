@@ -196,5 +196,24 @@ Dưới đây là một ví dụ về cách mà một Page trong bộ nhớ ảo
 
 Việc sử dụng phân trang có vẻ tốt, nhưng trong các hệ điều hành thực tế, việc chỉ dùng phân trang đơn giản như này chắc chắn gây ra vấn đề.
 
+### Có vấn đề nào xảy ra khi sử dụng phân trang đơn cấp không?
+> Vấn đề về bộ nhớ
+{: .prompt-danger}
+
+Hệ điều hành có thể chạy nhiều tiến trình cùng lúc, điều này có nghĩa là **bảng trang của mỗi tiến trình sẽ rất lớn**.
+
+Trong hệ thống 32-bit, không gian địa chỉ ảo tối đa là 4GB.
+- Giả sử kích thước của mỗi trang là 4KB.
+- Như vậy, số lượng trang cần quản lý sẽ là:
+  4GB / 4KB = 1,048,576 (hay khoảng 2^20 trang)
+- Mỗi mục (Entry) trong bảng trang cần 4 byte để lưu trữ thông tin ánh xạ.
+- Tổng dung lượng cần để lưu bảng trang của một tiến trình là: 1,048,576 × 4B = 4MB
+  
+Một bảng trang 4MB có vẻ không quá lớn, nhưng mỗi tiến trình trong hệ điều hành đều có bảng trang riêng, vì mỗi tiến trình có không gian địa chỉ ảo riêng.
+
+Ví dụ: Nếu có 100 tiến trình đang chạy đồng thời, thì tổng dung lượng dành riêng cho bảng trang sẽ là: 100 × 4MB = 400MB. Khi dùng 400MB chỉ để lưu bảng trang là một con số rất lớn, đặc biệt đối với hệ thống có RAM hạn chế.
+
+Chưa kể trong hệ thống **64-bit**, số lượng trang còn nhiều hơn, khiến vấn đề càng trở nên nghiêm trọng hơn.
+
 ## Reference
 - [What are Paging and Segmentation?](https://afteracademy.com/blog/what-are-paging-and-segmentation/)
