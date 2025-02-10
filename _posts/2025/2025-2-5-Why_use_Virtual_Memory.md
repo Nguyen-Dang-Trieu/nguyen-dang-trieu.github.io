@@ -197,8 +197,9 @@ Dưới đây là một ví dụ về cách mà một Page trong bộ nhớ ảo
 Việc sử dụng phân trang có vẻ tốt, nhưng trong các hệ điều hành thực tế, việc chỉ dùng phân trang đơn giản như này chắc chắn gây ra vấn đề.
 
 ### Có vấn đề nào xảy ra khi sử dụng phân trang đơn cấp không?
+
 > Vấn đề về bộ nhớ
-{: .prompt-danger}
+{: .prompt-danger }
 
 Hệ điều hành có thể chạy nhiều tiến trình cùng lúc, điều này có nghĩa là **bảng trang của mỗi tiến trình sẽ rất lớn**.
 
