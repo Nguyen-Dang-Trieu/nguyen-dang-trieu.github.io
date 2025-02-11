@@ -218,11 +218,17 @@ Một Page Table 4MB có vẻ không quá lớn, nhưng mỗi tiến trình tron
 
 🔹 Câu hỏi đặt ra là: **"Tại sao Page Offset là 12 bits ❓"**
 
-Nếu ta để ý ở đây thì kích thước của Frame sẽ quyết định Page Offset là bao nhiêu bit. Trong **hệ thống 32-bits** thì Frame = 4KB = 4096 byte. Những bytes này sẽ được phân bố vào đều 4096 địa chỉ vật lí. 
+Trong hệ thống 32-bit, **kích thước của Frame quyết định số bit dùng cho Page Offset**.
+- Với Frame = 4KB = 4096 byte, ta cần 12 bit để đánh địa chỉ từng byte trong Frame. Những byte này sẽ được phân bố đều trong 4096 địa chỉ vật lý liên tiếp.
+- Để truy cập một byte dữ liệu trong Frame, ta sử dụng Page Offset để xác định vị trí chính xác của byte đó.
 
-Hình ảnh
+![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-7-Memory_Page_6.png){: .normal }
 
-
+Với hình bên trên thì
+- Page Offset của Frame 0 = 0xfff (12-bits)
+- Page Offset của Frame 1 = 0x800 (12-bits) 
+- Page Offset của Frame 3 = 0x200 (12-bits)
+  
 ### Multi-Level Page Table 
 💡 Để có thể giải quyết vấn đề trên, ta dùng giải pháp gọi là **bảng trang đa cấp (Multi-Level Page Table)**.
 
