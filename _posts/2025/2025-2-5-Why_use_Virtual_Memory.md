@@ -224,6 +224,8 @@ Trong hệ thống 32-bit, **kích thước của Frame quyết định số bit
 
 ![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-7-Memory_Page_6.png){: .normal }
 
+![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-7-Memory_Page_7.png){: .normal }
+
 Với hình bên trên thì
 - Page Offset của Frame 0 = 0xfff (12-bits)
 - Page Offset của Frame 1 = 0x800 (12-bits) 
