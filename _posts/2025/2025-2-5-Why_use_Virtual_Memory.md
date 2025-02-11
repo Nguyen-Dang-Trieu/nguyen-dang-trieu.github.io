@@ -216,6 +216,13 @@ Một Page Table 4MB có vẻ không quá lớn, nhưng mỗi tiến trình tron
 
 ![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-7-Memory_Page_5.png){: .normal }
 
+🔹 Câu hỏi đặt ra là: **"Tại sao Page Offset là 12 bits ❓"**
+
+Nếu ta để ý ở đây thì kích thước của Frame sẽ quyết định Page Offset là bao nhiêu bit. Trong **hệ thống 32-bits** thì Frame = 4KB = 4096 byte. Những bytes này sẽ được phân bố vào đều 4096 địa chỉ vật lí. 
+
+Hình ảnh
+
+
 ### Multi-Level Page Table 
 💡 Để có thể giải quyết vấn đề trên, ta dùng giải pháp gọi là **bảng trang đa cấp (Multi-Level Page Table)**.
 
