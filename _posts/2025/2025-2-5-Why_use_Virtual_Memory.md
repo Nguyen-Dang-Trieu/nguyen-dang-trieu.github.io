@@ -27,12 +27,12 @@ trình cùng sử dụng một vùng nhớ.
 
 Chúng ta có thể **“cô lập”** vùng nhớ mà mỗi chương trình sử dụng. Cụ thể, hệ điều hành sẽ cấp cho mỗi chương trình một vùng **“địa chỉ ảo”** riêng biệt. Nhờ đó, mỗi chương trình đều có không 
 gian bộ nhớ riêng để **“thoải mái sử dụng”** mà không lo xung đột với chương trình khác.
-Tuy nhiên, để làm được điều này, có một điều kiện quan trọng: **các chương trình không thể truy cập trực tiếp vào địa chỉ bộ nhớ vật lý**.
-Cách mà địa chỉ ảo được ánh xạ sang bộ nhớ vật lý là hoàn toàn minh bạch đối với chương trình, vì hệ điều hành đã xử lý và sắp xếp mọi thứ ở phía sau.
+Tuy nhiên, để làm được điều này, có một điều kiện quan trọng: **các chương trình không được phép truy cập trực tiếp vào địa chỉ bộ nhớ vật lý**.
+
 
 ![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-5-Virtual_Memory_2.png){: width="500" height="200" }
 
-**Hệ điều hành cung cấp cơ chế ánh xạ địa chỉ ảo sang địa chỉ vật lý.**
+💡 **Giải pháp:** Hệ điều hành cung cấp cơ chế ánh xạ địa chỉ ảo sang địa chỉ vật lý.
 
 Khi các chương trình chạy, mỗi chương trình sẽ sử dụng các địa chỉ ảo riêng biệt. Nếu một chương trình muốn truy cập địa chỉ ảo này, hệ điều hành sẽ tự động chuyển đổi nó thành một địa chỉ
 vật lý tương ứng trong bộ nhớ. Nhờ cơ chế này, các chương trình khác nhau sẽ ghi dữ liệu vào các địa chỉ vật lý khác nhau, tránh được xung đột dữ liệu khi chạy đồng thời.
