@@ -17,8 +17,7 @@ Bên cạnh đó, **CPU của bộ vi điều khiển thao tác trực tiếp tr
 ![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-5-Virtual_Memory_1.png){: .normal }
 
 **Bạn không thể chạy hai chương trình cùng lúc trong trường hợp này.**
-Giả sử cả hai chương trình đều cần sử dụng cùng một vị trí bộ nhớ, ví dụ địa chỉ `0x2000`. Khi chương trình đầu tiên ghi dữ liệu mới vào địa chỉ này, nó sẽ vô tình xóa dữ liệu mà chương trình 
-thứ hai đã lưu trước đó. Điều này khiến dữ liệu bị chồng chéo, gây lỗi và làm cả hai chương trình bị treo hoặc hoạt động sai.
+Giả sử cả hai chương trình đều cần sử dụng cùng một vị trí bộ nhớ, ví dụ địa chỉ `0x2000`. Khi chương trình thứ hai ghi dữ liệu mới vào địa chỉ này, nó sẽ vô tình xóa dữ liệu mà chương trình đầu tiên đã lưu trước đó. Điều này khiến dữ liệu bị chồng chéo, gây lỗi và làm cả hai chương trình bị treo hoặc hoạt động sai.
 
 > Hệ điều hành đã giải quyết vấn đề này như thế nào ?
 {: .prompt-info }
