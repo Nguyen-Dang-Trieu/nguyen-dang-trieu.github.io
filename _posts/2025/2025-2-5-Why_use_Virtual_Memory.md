@@ -76,7 +76,7 @@ Chương trình thường được chia thành các phân đoạn logic khác nh
     
 2️⃣ Segment Offset
 - Độ lệch (offset) là vị trí tương đối của dữ liệu bên trong phân đoạn. Giá trị offset phải nằm trong khoảng từ **0 -> Segment Boundaries**.
-- Nếu offset hợp lệ, địa chỉ vật lý được tính bằng: 📌 **Physical Address = Segment Base Address + Offset**.
+- Nếu offset hợp lệ, địa chỉ vật lý được tính bằng: `📌Physical Address = Segment Base Address + Offset`.
 - Nếu offset vượt quá giới hạn, hệ thống sẽ báo lỗi **Segmentation Fault**.
 
 Ở trên, chúng ta biết rằng địa chỉ ảo được ánh xạ tới địa chỉ vật lý thông qua **Segment Table**. Cơ chế phân đoạn chia địa chỉ ảo của chương trình thành **4 segment**. Mỗi segment có một mục tương ứng trong **Segment Table**. Mỗi mục trong Segment Table chứa Base Address của Segment. Khi một chương trình muốn truy cập vào một địa chỉ ảo, Base Address của segment được tìm trong bảng, sau đó cộng với **offset** để xác định địa chỉ thực tế trong bộ nhớ vật lý, như minh họa bên dưới:
@@ -162,17 +162,17 @@ Phương pháp phân trang cho phép chúng ta không phải tải toàn bộ ch
 
 ### 2. Địa chỉ ảo và địa chỉ vật lý được ánh xạ như thế nào theo cơ chế phân trang?
 Trước hết ta sẽ tìm hiểu 2 khái niệm đó là địa chỉ ảo và địa chỉ vật lý.
-- Địa chỉ ảo: gồm 2 phần đó là number page và offset page
+- Virtual Address: gồm 2 phần đó là number page và offset page
   - Page number: Xác định số page trong không gian địa chỉ ảo. Hệ điều hành dùng phần này để tra Page Table và tìm địa chỉ vật lý tương ứng.
   - Page offset: Xác định vị trí cụ thể (byte) trong page mà CPU muốn đọc hoặc ghi.
       
-📝 Virtual Address = page number + page offset
+`📌 Virtual Address = page number + page offset`
 
-- Địa chỉ vật lý: gồm 2 phần đó là frame number và page offset
+- Physical Address: gồm 2 phần đó là frame number và page offset
   - Frame number: Xác định frame chính xác trong bộ nhớ vật lý mà dữ liệu thực tế đang được lưu trữ.
   - Page offset: Cho biết vị trí chính xác trong page mà CPU muốn đọc. Phần này không cần dịch vì kích thước page và kích thước frame là như nhau, nên vị trí của dữ liệu mà CPU muốn truy cập sẽ không thay đổi.
     
- 📝 Physical Address = frame number + page offset
+`📌 **Physical Address = frame number + page offset`
 
 **Quá trình ánh xạ diễn ra như sau:** CPU tạo ra địa chỉ ảo, gồm page number và page offset. Thanh ghi PTBR (Page Table Base Register) chứa địa chỉ của **bảng trang - Page Table**, bảng này giúp ánh xạ **Page number** thành **Frame number** trong bộ nhớ vật lý. Sau khi tìm được **Frame number**, kết hợp với **Page offset**, ta xác định được địa chỉ vật lý và truy cập page trong bộ nhớ chính.
 
