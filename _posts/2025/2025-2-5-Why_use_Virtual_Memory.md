@@ -66,27 +66,24 @@ Chương trình thường được chia thành các phân đoạn logic khác nh
 
 ✅ Yếu tố lựa chọn phân đoạn và độ lệch trong phân đoạn
 
-1️⃣ Bộ chọn phân đoạn (Segment Selector)
-- Bộ chọn phân đoạn được lưu trong thanh ghi phân đoạn (segment register).
-- Thành phần quan trọng nhất của bộ chọn là số phân đoạn (segment number), dùng để tra cứu bảng phân đoạn (segment table).
-- Bảng phân đoạn (segment Table) chứa thông tin về phân đoạn, bao gồm:
+1️⃣ Segment Selector
+- Được lưu trong thanh ghi phân đoạn (segment register).
+- Thành phần quan trọng nhất của Segment Selector là số phân đoạn (segment number), dùng để tra cứu **bảng phân đoạn - Segment Table**.
+- Segment Table chứa thông tin về phân đoạn, bao gồm:
   - Segment Base Address - Điểm bắt đầu của phân đoạn trong bộ nhớ.
   - Segment Boundaries - Giới hạn kích thước phân đoạn.
   - Privilege Level (DPL) - Quyền truy cập vào phân đoạn.
     
-2️⃣ Độ lệch phân đoạn (Segment Offset)
-
+2️⃣ Segment Offset
 - Độ lệch (offset) là vị trí tương đối của dữ liệu bên trong phân đoạn. Giá trị offset phải nằm trong khoảng từ **0 -> Segment Boundaries**.
-- Nếu offset hợp lệ, địa chỉ vật lý được tính bằng: Physical Address = Segment Base Address + Offset
+- Nếu offset hợp lệ, địa chỉ vật lý được tính bằng: 📌 **Physical Address = Segment Base Address + Offset**.
 - Nếu offset vượt quá giới hạn, hệ thống sẽ báo lỗi **Segmentation Fault**.
 
 Ở trên, chúng ta biết rằng địa chỉ ảo được ánh xạ tới địa chỉ vật lý thông qua **Segment Table**. Cơ chế phân đoạn chia địa chỉ ảo của chương trình thành **4 segment**. Mỗi segment có một mục tương ứng trong **Segment Table**. Mỗi mục trong Segment Table chứa Base Address của Segment. Khi một chương trình muốn truy cập vào một địa chỉ ảo, Base Address của segment được tìm trong bảng, sau đó cộng với **offset** để xác định địa chỉ thực tế trong bộ nhớ vật lý, như minh họa bên dưới:
 
-📌 Physical Address = Segment Base Address + Offset
-
 ![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-6-Memory_Seg_2.png){: .normal }
 
-Nếu chúng ta muốn truy cập địa chỉ ảo tại vị trí offset = 500 trong segment 3, chúng ta có thể tính được địa chỉ vật lý = Base address + offset = 7000 + 500 = 7500
+Nếu chúng ta muốn truy cập địa chỉ ảo tại vị trí offset = 500 trong segment 3, chúng ta có thể tính được: Physical Address = Base address + offset = 7000 + 500 = 7500
 
 Phương pháp phân đoạn rất tốt, nó giải quyết được vấn đề là bản thân chương trình không cần quan tâm đến địa chỉ bộ nhớ vật lý cụ thể, nhưng nó cũng có một số nhược điểm ❌:
 - 1️⃣ Phân mảnh bộ nhớ. (Memory Fragmentation)
