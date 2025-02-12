@@ -176,7 +176,7 @@ Trước hết ta sẽ tìm hiểu 2 khái niệm đó là địa chỉ ảo và
 
 **Quá trình ánh xạ diễn ra như sau:** CPU tạo ra địa chỉ ảo, gồm page number và page offset. Thanh ghi PTBR (Page Table Base Register) chứa địa chỉ của **bảng trang - Page Table**, bảng này giúp ánh xạ **Page number** thành **Frame number** trong bộ nhớ vật lý. Sau khi tìm được **Frame number**, kết hợp với **Page offset**, ta xác định được địa chỉ vật lý và truy cập page trong bộ nhớ chính.
 
-📌 **Ví dụ:** Bạn có một cuốn sách gồm 10 trang, mỗi trang có 10 dòng. Bây giờ, bạn muốn đọc dữ liệu tại dòng 5 của trang 3.
+✏️ **Ví dụ:** Bạn có một cuốn sách gồm 10 trang, mỗi trang có 10 dòng. Bây giờ, bạn muốn đọc dữ liệu tại dòng 5 của trang 3.
 - Đầu tiên, bạn mở sách và lật đến trang số 3 (tương ứng với Page number).
 - Sau đó, bạn di chuyển mắt xuống dòng thứ 5 trên trang đó (tương ứng với Page offset) để lấy thông tin.
   
@@ -208,7 +208,7 @@ Trong **hệ thống 32-bit**, không gian địa chỉ ảo tối đa là `4GB`
   
 Một Page Table 4MB có vẻ không quá lớn, nhưng mỗi tiến trình trong hệ điều hành đều có Page Table riêng, vì mỗi tiến trình có không gian địa chỉ ảo riêng.
 
-📌 **Ví dụ:** Nếu có 100 process đang chạy đồng thời, thì tổng dung lượng dành riêng cho Page Table cho tất cả các process sẽ là: 100 × 4MB = 400MB. Khi dùng 400MB chỉ để lưu Page Table là một con số rất lớn, đặc biệt đối với hệ thống có RAM hạn chế. Chưa kể trong hệ thống **64-bit**, số lượng Page còn nhiều hơn, khiến vấn đề càng trở nên nghiêm trọng hơn.
+✏️ **Ví dụ:** Nếu có 100 process đang chạy đồng thời, thì tổng dung lượng dành riêng cho Page Table cho tất cả các process sẽ là: 100 × 4MB = 400MB. Khi dùng 400MB chỉ để lưu Page Table là một con số rất lớn, đặc biệt đối với hệ thống có RAM hạn chế. Chưa kể trong hệ thống **64-bit**, số lượng Page còn nhiều hơn, khiến vấn đề càng trở nên nghiêm trọng hơn.
 
 ![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-7-Memory_Page_5.png){: .normal }
 
