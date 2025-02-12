@@ -132,7 +132,7 @@ Trong hệ thống đa tiến trình, bộ nhớ có thể bị phân mảnh ngo
 
 Nếu một chương trình chiếm nhiều bộ nhớ bị hoán đổi, toàn bộ hệ thống có thể bị chậm hoặc "đơ".
 
-Để giải quyết vấn đề "phân mảnh bộ nhớ ngoài và hiệu suất hoán đổi bộ nhớ thấp" của phân đoạn bộ nhớ, phân trang bộ nhớ đã xuất hiện.
+💡 Để giải quyết vấn đề "phân mảnh bộ nhớ ngoài và hiệu suất hoán đổi bộ nhớ thấp" của phân đoạn bộ nhớ, phân trang bộ nhớ đã xuất hiện.
 
 ## Phân trang bộ nhớ (Memory Paging)
 Ưu điểm của phân đoạn là nó cung cấp không gian bộ nhớ liên tục cho chương trình. Tuy nhiên, nó cũng gây ra vấn đề như phân mảnh bộ nhớ ngoài và không gian hoán đổi quá lớn.
