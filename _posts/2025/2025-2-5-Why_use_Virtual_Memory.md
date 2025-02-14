@@ -236,9 +236,37 @@ Như đã biết, trong hệ thống 32-bit với kích thước page là `4KB`,
 - Bảng trang cấp 1 gọi là Page Directory. Mỗi entry trong Page Directory sẽ trỏ tới 1 Page Table
 - Bảng trang cấp 2 được gọi là Page Table. Mỗi entry trong Page Table được gọi là Page Table Entry (PTE) và trỏ đến một frame trong bộ nhớ vật lý.
 
-Như vậy, thay vì phải lưu trữ toàn bộ bảng trang 4MB trong bộ nhớ khi sử dụng **Single-Level Page Table**, với **Multi-Level Page Table**, ta chỉ cần cấp phát các bảng trang cấp hai khi cần thiết, giúp tiết kiệm bộ nhớ đáng kể.
+Thay vì phải lưu toàn bộ bảng trang `4MB` trong bộ nhớ khi sử dụng Single-Level Page Table, với Multi-Level Page Table, ta chỉ cần cấp phát các bảng trang cấp hai **"khi cần thiết"**. Điều này giúp tiết kiệm bộ nhớ đáng kể, đặc biệt khi chỉ một phần nhỏ của không gian địa chỉ được sử dụng thực tế.
 
 Hình ảnh
+
+Để ánh xạ toàn bộ không gian địa chỉ `4GB` bằng phân trang hai cấp:
+- Page Directory có kích thước `4KB`, gồm 1024 entries (mỗi entry 4 byte), mỗi entry trỏ đến một Page Table.
+- Mỗi Page Table có 1024 entries, quản lý `4MB` không gian địa chỉ (mỗi entry trỏ đến một Frame có kích thước `4KB`).
+- Để ánh xạ toàn bộ `4GB` không gian địa chỉ, cần 1024 Page Tables.
+- Mỗi Page Table chiếm `4KB`, vậy tổng bộ nhớ cần cho tất cả Page Tables là `1024 × 4KB = 4MB`.
+
+#### Nếu sử dụng Multi-Level Page Table, ở đây là Second-level Page Table. Thì việc ánh xạ không gian địa chỉ 4GB sẽ cần 4KB (bảng trang cấp một) + 4MB (bảng trang cấp hai). Như vậy, có phải sẽ tốn nhiều bộ nhớ hơn không ❓
+Ở đây ta phải biết rằng **Single-level Page Table** dùng `4MB` để quản lí **Page Table**, còn **Second-level Page Table** dùng `4KB + 4MB` để có thể quản lí **Page Table**.
+
+Tất nhiên, nếu toàn bộ 4GB không gian địa chỉ ảo được ánh xạ vào bộ nhớ vật lý, thì phân trang cấp hai sẽ chiếm nhiều bộ nhớ. Tuy nhiên, trong thực tế, một tiến trình thường không cần toàn bộ 4GB bộ nhớ.
+
+Chúng ta có thể nhìn vấn đề từ một góc độ khác. Bạn có biết [Locality of Reference](https://witscad.com/course/computer-architecture/chapter/cache-memory) không?
+
+Mỗi tiến trình có không gian địa chỉ ảo 4GB, nhưng hầu hết chương trình chỉ sử dụng một phần nhỏ.
+Vì vậy, nhiều mục nhập trong bảng trang sẽ không được cấp phát.
+Đối với các entry của Page Table đã được cấp phát, nếu không được truy cập trong một thời gian dài, hệ điều hành có thể hoán đổi trang ra ổ cứng để tiết kiệm bộ nhớ vật lý.
+
+Với phân trang hai cấp:
+- Bảng trang cấp một (Page Directory) có thể bao phủ toàn bộ không gian địa chỉ ảo 4GB.
+- Tuy nhiên, nếu một mục nhập của bảng trang cấp một không được sử dụng, thì không cần tạo bảng trang cấp hai tương ứng -> nghĩa là bảng trang cấp hai chỉ được tạo khi cần thiết.
+  
+✏️ **Ví dụ**:
+Giả sử chỉ 20% các entry của Page Directory được sử dụng, thì tổng bộ nhớ cấp phát để lưu trữ các Page Table sẽ là:
+- Page Directory có kích thước cố định là `4KB`.
+- Chỉ dùng 20% các entry -> có 205 Page Table được cấp phát, mỗi Page Table chiếm `4KB` => Tổng dung lượng Page Table = 205 * `4KB` = `820KB`.
+  
+👉 Tổng không gian do Page chiếm dụng là: `4KB` + `820KB` = `0.804MB`. So với `4MB` trong phân trang một cấp, đây là một mức tiết kiệm đáng kể.
 
 ## Reference
 - [What are Paging and Segmentation?](https://afteracademy.com/blog/what-are-paging-and-segmentation/)
