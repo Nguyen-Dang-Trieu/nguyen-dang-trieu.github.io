@@ -251,7 +251,7 @@ Thay vì phải lưu toàn bộ bảng trang `4MB` trong bộ nhớ khi sử d�
 
 Tất nhiên, nếu toàn bộ 4GB không gian địa chỉ ảo được ánh xạ vào bộ nhớ vật lý, thì phân trang cấp hai sẽ chiếm nhiều bộ nhớ. Tuy nhiên, trong thực tế, một tiến trình thường không cần toàn bộ 4GB bộ nhớ.
 
-Chúng ta có thể nhìn vấn đề từ một góc độ khác. Bạn có biết [Locality of Reference](https://witscad.com/course/computer-architecture/chapter/cache-memory) không?
+Chúng ta có thể nhìn vấn đề từ một góc độ khác. Bạn có biết **Locality of Reference** không?
 
 Mỗi tiến trình có không gian địa chỉ ảo 4GB, nhưng hầu hết chương trình chỉ sử dụng một phần nhỏ.
 Vì vậy, nhiều mục nhập trong bảng trang sẽ không được cấp phát.
@@ -268,5 +268,16 @@ Giả sử chỉ 20% các entry của Page Directory được sử dụng, thì 
   
 👉 Tổng không gian do Page chiếm dụng là: `4KB` + `820KB` = `0.804MB`. So với `4MB` trong phân trang một cấp, đây là một mức tiết kiệm đáng kể.
 
+#### Vậy tại sao một bảng trang không phân cấp lại không thể tiết kiệm bộ nhớ như thế này❓
+Bản chất của bảng trang cho thấy rằng nó được lưu trữ trong bộ nhớ và có nhiệm vụ dịch địa chỉ ảo thành địa chỉ vật lý. Nếu một địa chỉ ảo không tìm thấy mục tương ứng trong bảng trang, hệ thống máy tính sẽ không thể hoạt động bình thường. Do đó, bảng trang cần phải bao phủ toàn bộ không gian địa chỉ ảo.
+
+Trong một hệ thống không có phân trang cấp hai, bảng trang cần hơn 1 triệu mục để ánh xạ toàn bộ không gian địa chỉ ảo. Tuy nhiên, với phân trang hai cấp, chỉ cần 1024 mục trong Page Directory, và các Page Table chỉ được tạo ra khi cần thiết. Điều này giúp tiết kiệm bộ nhớ hơn.
+
+Nếu tiếp tục mở rộng lên phân trang nhiều cấp, chúng ta sẽ giảm đáng kể dung lượng bộ nhớ cần thiết để lưu bảng trang. Đây là một ứng dụng hiệu quả của **Locality of Reference**.
+
+*(Còn nữa)*
+
 ## Reference
 - [What are Paging and Segmentation?](https://afteracademy.com/blog/what-are-paging-and-segmentation/)
+- [Locality of Reference](https://witscad.com/course/computer-architecture/chapter/cache-memory).
+
