@@ -247,14 +247,14 @@ Thay vì phải lưu toàn bộ bảng trang `4MB` trong bộ nhớ khi sử d�
 - Mỗi Page Table chiếm `4KB`, vậy tổng bộ nhớ cần cho tất cả Page Tables là `1024 × 4KB = 4MB`.
 
 #### Nếu sử dụng Multi-Level Page Table. Thì việc ánh xạ không gian địa chỉ 4GB sẽ cần 4KB (bảng trang cấp một) + 4MB (bảng trang cấp hai). Như vậy, có phải sẽ tốn nhiều bộ nhớ hơn không ❓
-Ở đây ta phải biết rằng **Single-level Page Table** dùng `4MB` để quản lí **Page Table**, còn **Second-level Page Table** dùng `4KB + 4MB` để có thể quản lí **Page Table**.
+Ở đây ta phải biết rằng **Single-level Page Table** dùng `4MB` để quản lí **Page Table**, còn **Multi-Level Page Table** dùng `4KB + 4MB` để có thể quản lí **Page Table**.
 
-Tất nhiên, nếu toàn bộ 4GB không gian địa chỉ ảo được ánh xạ vào bộ nhớ vật lý, thì phân trang cấp hai sẽ chiếm nhiều bộ nhớ. Tuy nhiên, trong thực tế, một tiến trình thường không cần toàn bộ 4GB bộ nhớ.
+Tất nhiên, nếu toàn bộ 4GB không gian địa chỉ ảo được ánh xạ vào bộ nhớ vật lý, thì **Multi-Level Page Table** sẽ chiếm nhiều bộ nhớ. Tuy nhiên, trong thực tế, một tiến trình thường không cần toàn bộ 4GB bộ nhớ.
 
-Chúng ta có thể nhìn vấn đề từ một góc độ khác. Bạn có biết **Locality of Reference** không?
+Chúng ta có thể nhìn vấn đề từ một góc độ khác. Bạn có biết **Locality of Reference** không? 🤔🤔🤔
 
-Mỗi tiến trình có không gian địa chỉ ảo 4GB, nhưng hầu hết chương trình chỉ sử dụng một phần nhỏ.
-Vì vậy, nhiều mục nhập trong bảng trang sẽ không được cấp phát.
+Mỗi tiến trình có không gian địa chỉ ảo `4GB`, nhưng hầu hết chương trình chỉ sử dụng một phần nhỏ.
+Vì vậy, nhiều entry trong Page Table sẽ không được cấp phát.
 Đối với các entry của Page Table đã được cấp phát, nếu không được truy cập trong một thời gian dài, hệ điều hành có thể hoán đổi trang ra ổ cứng để tiết kiệm bộ nhớ vật lý.
 
 Với phân trang hai cấp:
