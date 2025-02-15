@@ -240,13 +240,13 @@ Thay vì phải lưu toàn bộ bảng trang `4MB` trong bộ nhớ khi sử d�
 
 ![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-7-Memory_Page_8.png){: .normal }
 
-Để ánh xạ toàn bộ không gian địa chỉ `4GB` bằng phân trang hai cấp:
+📌 Dung lượng bộ nhớ cần để ánh xạ toàn bộ không gian địa chỉ ảo `4GB` bằng **Multi-Level Page Table**:
 - Page Directory có kích thước `4KB`, gồm 1024 entries (mỗi entry 4 byte), mỗi entry trỏ đến một Page Table.
 - Mỗi Page Table có 1024 entries, quản lý `4MB` không gian địa chỉ (mỗi entry trỏ đến một Frame có kích thước `4KB`).
 - Để ánh xạ toàn bộ `4GB` không gian địa chỉ, cần 1024 Page Tables.
 - Mỗi Page Table chiếm `4KB`, vậy tổng bộ nhớ cần cho tất cả Page Tables là `1024 × 4KB = 4MB`.
 
-#### Nếu sử dụng Multi-Level Page Table, ở đây là Second-level Page Table. Thì việc ánh xạ không gian địa chỉ 4GB sẽ cần 4KB (bảng trang cấp một) + 4MB (bảng trang cấp hai). Như vậy, có phải sẽ tốn nhiều bộ nhớ hơn không ❓
+#### Nếu sử dụng Multi-Level Page Table. Thì việc ánh xạ không gian địa chỉ 4GB sẽ cần 4KB (bảng trang cấp một) + 4MB (bảng trang cấp hai). Như vậy, có phải sẽ tốn nhiều bộ nhớ hơn không ❓
 Ở đây ta phải biết rằng **Single-level Page Table** dùng `4MB` để quản lí **Page Table**, còn **Second-level Page Table** dùng `4KB + 4MB` để có thể quản lí **Page Table**.
 
 Tất nhiên, nếu toàn bộ 4GB không gian địa chỉ ảo được ánh xạ vào bộ nhớ vật lý, thì phân trang cấp hai sẽ chiếm nhiều bộ nhớ. Tuy nhiên, trong thực tế, một tiến trình thường không cần toàn bộ 4GB bộ nhớ.
