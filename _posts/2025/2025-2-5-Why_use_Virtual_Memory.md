@@ -238,7 +238,7 @@ Như đã biết, trong hệ thống 32-bit với kích thước page là `4KB`,
 
 Thay vì phải lưu toàn bộ bảng trang `4MB` trong bộ nhớ khi sử dụng Single-Level Page Table, với Multi-Level Page Table, ta chỉ cần cấp phát các bảng trang cấp hai **"khi cần thiết"**. Điều này giúp tiết kiệm bộ nhớ đáng kể, đặc biệt khi chỉ một phần nhỏ của không gian địa chỉ được sử dụng thực tế.
 
-Hình ảnh
+![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-7-Memory_Page_8.png){: .normal }
 
 Để ánh xạ toàn bộ không gian địa chỉ `4GB` bằng phân trang hai cấp:
 - Page Directory có kích thước `4KB`, gồm 1024 entries (mỗi entry 4 byte), mỗi entry trỏ đến một Page Table.
