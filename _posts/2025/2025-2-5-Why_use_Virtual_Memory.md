@@ -6,7 +6,7 @@ tags: [Virtual Memory]
 author: Trieu
 
 ---
-## Bộ nhớ ảo(Virtual Memory)
+## Bộ nhớ ảo (Virtual Memory)
 Nếu bạn là sinh viên chuyên ngành điện tử, chắc hẳn bạn sẽ phải làm quen với việc lập trình trên bộ vi điều khiển tại trường đại học.
 
 Không giống như các hệ thống có hệ điều hành, bộ vi điều khiển hoạt động trực tiếp mà không có lớp trung gian hỗ trợ. Mỗi khi viết mã, bạn cần nạp chương trình vào bộ vi điều khiển thông qua
@@ -54,7 +54,7 @@ Khi một chương trình muốn truy cập bộ nhớ, địa chỉ ảo mà n�
 
 Trước tiên, chúng ta sẽ tìm hiểu về cơ chế phân đoạn bộ nhớ.
 
-## Phân đoạn bộ nhớ - Memory Segmentation
+## Phân đoạn bộ nhớ (Memory Segmentation)
 Chương trình thường được chia thành các phân đoạn logic khác nhau, chẳng hạn như phân đoạn mã (code segment), phân đoạn dữ liệu (data segment), phân đoạn ngăn xếp (stack segment) và phân đoạn đống (heap segment). Mỗi phân đoạn có các đặc điểm và chức năng riêng biệt, vì vậy việc sử dụng phân đoạn giúp tách biệt và quản lý các thành phần này một cách hiệu quả.
 
 > Địa chỉ ảo và địa chỉ vật lý được ánh xạ như thế nào theo cơ chế phân đoạn ?
@@ -91,7 +91,7 @@ Phương pháp phân đoạn rất tốt, nó giải quyết được vấn đ�
   
 Tiếp theo, ta hãy nói về lý do tại sao lại phát sinh hai vấn đề này.
 
-### Phân mảnh bộ nhớ. (Memory Fragmentation)
+### Phân mảnh bộ nhớ (Memory Fragmentation)
 Đọc thêm: [Memory Fragmentation in operating system](https://er.yuvayana.org/memory-fragmentation-in-operating-system/#google_vignette)
 
 Trước tiên, chúng ta hãy xem tại sao phân đoạn lại gây ra vấn đề phân mảnh bộ nhớ ❗
@@ -202,9 +202,9 @@ Hệ điều hành có thể chạy nhiều tiến trình cùng lúc, điều n�
 Trong **hệ thống 32-bit**, không gian địa chỉ ảo tối đa là `4GB`.
 - Giả sử kích thước của mỗi page là `4KB`.
 - Như vậy, số lượng page cần quản lý sẽ là:
-  4GB / 4KB = 1 048 576 (hay khoảng 2^20 page)
+  `4GB` / `4KB` = 1 048 576 (hay khoảng 2^20 page)
 - Mỗi **Entry** trong Page Table cần `4 byte` để lưu trữ thông tin ánh xạ.
-- Tổng dung lượng cần để lưu Page Table của một tiến trình là: 1 048 576 × 4B = `4MB`
+- Tổng dung lượng cần để lưu Page Table của một tiến trình là: 1 048 576 × `4B` = `4MB`
   
 Một Page Table 4MB có vẻ không quá lớn, nhưng mỗi tiến trình trong hệ điều hành đều có Page Table riêng, vì mỗi tiến trình có không gian địa chỉ ảo riêng.
 
@@ -214,8 +214,8 @@ Một Page Table 4MB có vẻ không quá lớn, nhưng mỗi tiến trình tron
 
 🔹 Câu hỏi đặt ra là: **"Tại sao Page Offset là 12 bits ❓"**
 
-Trong hệ thống 32-bit, **kích thước của Frame quyết định số bit dùng cho Page Offset**.
-- Với Frame = 4KB = 4096 byte, ta cần 12 bit để đánh địa chỉ từng byte trong Frame. Những byte này sẽ được phân bố đều trong 4096 địa chỉ vật lý liên tiếp.
+Trong hệ thống `32-bit`, **kích thước của Frame quyết định số bit dùng cho Page Offset**.
+- Với Frame = `4KB` = 4096 byte, ta cần 12 bit để đánh địa chỉ từng byte trong Frame. Những byte này sẽ được phân bố đều trong 4096 địa chỉ vật lý liên tiếp.
 - Để truy cập một byte dữ liệu trong Frame, ta sử dụng Page Offset để xác định vị trí chính xác của byte đó.
 
 ![](/assets/articles/2025/Why_use_Virtual_Memory/2025-2-7-Memory_Page_6.png){: .normal }
@@ -249,20 +249,20 @@ Thay vì phải lưu toàn bộ bảng trang `4MB` trong bộ nhớ khi sử d�
 #### Nếu sử dụng Multi-Level Page Table. Thì việc ánh xạ không gian địa chỉ 4GB sẽ cần 4KB (bảng trang cấp một) + 4MB (bảng trang cấp hai). Như vậy, có phải sẽ tốn nhiều bộ nhớ hơn không ❓
 Ở đây ta phải biết rằng **Single-level Page Table** dùng `4MB` để quản lí **Page Table**, còn **Multi-Level Page Table** dùng `4KB + 4MB` để có thể quản lí **Page Table**.
 
-Tất nhiên, nếu toàn bộ 4GB không gian địa chỉ ảo được ánh xạ vào bộ nhớ vật lý, thì **Multi-Level Page Table** sẽ chiếm nhiều bộ nhớ. Tuy nhiên, trong thực tế, một tiến trình thường không cần toàn bộ 4GB bộ nhớ.
+Tất nhiên, nếu toàn bộ `4GB` không gian địa chỉ ảo được ánh xạ vào bộ nhớ vật lý, thì **Multi-Level Page Table** sẽ chiếm nhiều bộ nhớ. Tuy nhiên, trong thực tế, một tiến trình thường không cần toàn bộ `4GB` bộ nhớ.
 
 Chúng ta có thể nhìn vấn đề từ một góc độ khác. Bạn có biết **Locality of Reference** không? 🤔🤔🤔
 
 Mỗi tiến trình có không gian địa chỉ ảo `4GB`, nhưng hầu hết chương trình chỉ sử dụng một phần nhỏ.
-Vì vậy, nhiều entry trong Page Table sẽ không được cấp phát.
-Đối với các entry của Page Table đã được cấp phát, nếu không được truy cập trong một thời gian dài, hệ điều hành có thể hoán đổi trang ra ổ cứng để tiết kiệm bộ nhớ vật lý.
+Vì vậy, nhiều entry trong Page Table sẽ **không được cấp phát**.
+Đối với các entry của Page Table đã **được cấp phát**, nếu không được truy cập trong một thời gian dài, hệ điều hành có thể hoán đổi trang **(swap in & out)** ra ổ cứng để tiết kiệm bộ nhớ vật lý.
 
-Với phân trang hai cấp:
-- Bảng trang cấp một (Page Directory) có thể bao phủ toàn bộ không gian địa chỉ ảo 4GB.
+Với **Multi-Level Page Table**:
+- Bảng trang cấp một (Page Directory) có thể bao phủ toàn bộ không gian địa chỉ ảo `4GB`.
 - Tuy nhiên, nếu một mục nhập của bảng trang cấp một không được sử dụng, thì không cần tạo bảng trang cấp hai tương ứng -> nghĩa là bảng trang cấp hai chỉ được tạo khi cần thiết.
   
 ✏️ **Ví dụ**:
-Giả sử chỉ 20% các entry của Page Directory được sử dụng, thì tổng bộ nhớ cấp phát để lưu trữ các Page Table sẽ là:
+Giả sử chỉ **20%** các entry của Page Directory được sử dụng, thì tổng bộ nhớ cấp phát để lưu trữ các Page Table sẽ là:
 - Page Directory có kích thước cố định là `4KB`.
 - Chỉ dùng 20% các entry -> có 205 Page Table được cấp phát, mỗi Page Table chiếm `4KB` => Tổng dung lượng Page Table = 205 * `4KB` = `820KB`.
   
@@ -280,4 +280,4 @@ Nếu tiếp tục mở rộng lên phân trang nhiều cấp, chúng ta sẽ gi
 ## Reference
 - [What are Paging and Segmentation?](https://afteracademy.com/blog/what-are-paging-and-segmentation/)
 - [Locality of Reference](https://witscad.com/course/computer-architecture/chapter/cache-memory).
-
+- [Swapping in Operating System](https://binaryterms.com/swapping-in-operating-system.html)
