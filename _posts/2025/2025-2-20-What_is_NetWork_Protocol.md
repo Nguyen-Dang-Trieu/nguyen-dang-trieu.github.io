@@ -4,7 +4,9 @@ date: 2025-2-20
 categories: [Network]
 tags: []
 author: Trieu
-
+image:
+  path: assets/articles/2025/What_is_NetWork_Protocol/header.png
+  alt: 
 ---
 # 🍀 Lời mở đầu
 Với sự phát triển mạnh mẽ của công nghệ Internet, lối sống của chúng ta đã có những thay đổi to lớn. Thông qua Internet, chúng ta có thể:
