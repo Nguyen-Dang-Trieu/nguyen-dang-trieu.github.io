@@ -55,7 +55,8 @@ Thông điệp mạng thường được chia thành hai phần chính:
 **✏️ Ví dụ:** Trong giao thức IP, phần tiêu đề lưu trữ địa chỉ IP nguồn và đích. Khi thông điệp đi qua các bộ định tuyến trung gian, router sẽ đọc địa chỉ đích từ tiêu đề để xác định 
 tuyến đường phù hợp và chuyển tiếp dữ liệu đến máy chủ cuối cùng.
 
-> **🤔 Câu hỏi đặt ra:** "Giao thức mạng là gì ❓" 
+> **🤔 Câu hỏi đặt ra:** "Đâu là g
+> iao thức mạng phổ biến ❓" 
 {: .prompt-info }
 
 Trên thực tế, có rất nhiều giao thức mạng khác nhau, nhưng phổ biến nhất là **bộ giao thức TCP/IP** — nền tảng cốt lõi của Internet. Bộ giao thức này bao gồm một tập hợp các giao thức hoạt
@@ -70,8 +71,6 @@ Một số giao thức quan trọng trong bộ TCP/IP:
 Trong thực tế, một quá trình giao tiếp mạng đơn giản thường đòi hỏi sự phối hợp của nhiều giao thức cùng lúc. 
 
 **✏️ Ví dụ:** Khi bạn truy cập một trang web, trình duyệt sử dụng **HTTP** để yêu cầu nội dung từ máy chủ, **TCP** để đảm bảo dữ liệu được truyền an toàn, và **IP** để định tuyến các gói tin qua Internet.
-
-**Thôi, bài viết đến đây cũng đủ dài rồi 🥱. Hẹn gặp bạn ở những chương tiếp theo nhá!**
 
 Về cách các giao thức phối hợp với nhau ra sao, mình sẽ giải thích chi tiết hơn ở phần sau. Phần này chỉ mang tính sơ bộ để bạn có thể *"khởi động"* cho hành trình khám phá thế giới mạng
 rộng lớn này. 🚀
