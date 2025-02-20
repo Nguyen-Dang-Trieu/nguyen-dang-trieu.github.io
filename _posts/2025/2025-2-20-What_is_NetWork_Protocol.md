@@ -12,7 +12,8 @@ Với sự phát triển mạnh mẽ của công nghệ Internet, lối sống c
 - 📧 Gửi và nhận email
 - 📱 Trò chuyện video
 - 📂 Chuyển tập tin
-- Và nhiều hơn thế nữa
+- Và nhiều hơn thế nữa...
+  
 Internet hiện diện ở khắp mọi nơi và đã trở thành một phần không thể thiếu trong quá trình phát triển phần mềm hiện đại. Là một nhà phát triển trong thời đại Internet, việc hiểu rõ cách thức
  hoạt động của Internet là vô cùng quan trọng. Nếu bạn không nắm vững các nguyên tắc cơ bản, làm sao có thể xây dựng được những ứng dụng Internet hiệu quả?
 
@@ -28,7 +29,7 @@ khá phức tạp, bởi ngoài trình duyệt và máy chủ, còn có sự tha
 Hơn nữa, trình duyệt không chỉ truy cập vào một trang web hay một máy chủ duy nhất. Trên thực tế, mỗi trang web thường được lưu trữ trên các máy chủ khác nhau. Điều này đồng nghĩa rằng
 khi bạn truy cập nhiều trang web, trình duyệt phải giao tiếp với nhiều máy chủ riêng biệt.
 
-Hình ảnh client-server
+![Client - Server](/assets/articles/2025/What_is_NetWork_Protocol/client-server.png){: .normal }
 
 Vì giao tiếp mạng diễn ra nhờ sự phối hợp của nhiều bên, tất cả các thành phần tham gia đều cần tuân thủ một bộ quy tắc và thỏa thuận chung để đảm bảo quá trình trao đổi diễn ra có trật 
 tự và chính xác. Những quy tắc và thỏa thuận này được gọi là giao thức mạng (network protocol).
@@ -37,7 +38,7 @@ Nếu so sánh giao tiếp mạng với việc gửi thư, thì giao thức mạ
 Nếu không tuân thủ các quy định này, bưu điện sẽ không thể chuyển thư đến đúng nơi. Tương tự, trong giao tiếp mạng, nếu không tuân theo giao thức, dữ liệu sẽ không thể truyền đi chính xác
 giữa các thiết bị.
 
-Hình ảnh bìa thư 
+![Letter](/assets/articles/2025/What_is_NetWork_Protocol/buc-thu.png){: .normal }
 
 Giống như một lá thư cần được phân loại và chuyển phát qua nhiều bưu cục trước khi đến tay người nhận, dữ liệu trong giao tiếp mạng cũng trải qua một hành trình tương tự. Chỉ những lá thư
 được viết đúng định dạng mới được bưu điện phân loại và chuyển phát chính xác — và trong giao tiếp mạng, dữ liệu cũng phải tuân theo các quy tắc chặt chẽ để đến đúng nơi.
