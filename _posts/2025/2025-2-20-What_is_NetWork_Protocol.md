@@ -58,7 +58,7 @@ tuyến đường phù hợp và chuyển tiếp dữ liệu đến máy chủ c
 > **🤔 Câu hỏi đặt ra:** "Giao thức mạng là gì ❓" 
 {: .prompt-info }
 
-Trên thực tế, có rất nhiều giao thức mạng khác nhau, nhưng phổ biến nhất là bộ **giao thức TCP/IP** — nền tảng cốt lõi của Internet. Bộ giao thức này bao gồm một tập hợp các giao thức hoạt
+Trên thực tế, có rất nhiều giao thức mạng khác nhau, nhưng phổ biến nhất là **bộ giao thức TCP/IP** — nền tảng cốt lõi của Internet. Bộ giao thức này bao gồm một tập hợp các giao thức hoạt
 động phối hợp với nhau để đảm bảo dữ liệu được truyền tải chính xác và hiệu quả.
 
 Một số giao thức quan trọng trong bộ TCP/IP:
