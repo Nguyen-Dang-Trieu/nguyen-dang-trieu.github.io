@@ -17,10 +17,10 @@ Với sự phát triển mạnh mẽ của công nghệ Internet, lối sống c
 Internet hiện diện ở khắp mọi nơi và đã trở thành một phần không thể thiếu trong quá trình phát triển phần mềm hiện đại. Là một nhà phát triển trong thời đại Internet, việc hiểu rõ cách thức
  hoạt động của Internet là vô cùng quan trọng. Nếu bạn không nắm vững các nguyên tắc cơ bản, làm sao có thể xây dựng được những ứng dụng Internet hiệu quả?
 
-> **Câu hỏi đặt ra:** "Internet hoạt động như thế nào?" 🤔🤔
+> **🤔 Câu hỏi đặt ra:** "Internet hoạt động như thế nào ❓" 
 {: .prompt-info }
 
-Khi bạn mở trình duyệt và truy cập vào một trang web, điều gì xảy ra ở phía sau hậu trường? Hãy cùng khám phá những điều thú vị đó trong bài viết này. 😆😆
+Khi bạn mở trình duyệt và truy cập vào một trang web, điều gì xảy ra ở phía sau hậu trường? Hãy cùng khám phá những điều thú vị đó trong bài viết này. 😆
 
 # 📖 Khám phá chi tiết 
 Chúng ta đều biết rằng các trang web được cung cấp bởi máy chủ (Server). Khi muốn lấy dữ liệu từ một trang web, trình duyệt cần giao tiếp với máy chủ thông qua mạng. Quá trình này có thể 
@@ -53,7 +53,7 @@ Thông điệp mạng thường được chia thành hai phần chính:
 **✏️ Ví dụ:** Trong giao thức IP, phần tiêu đề lưu trữ địa chỉ IP nguồn và đích. Khi thông điệp đi qua các bộ định tuyến trung gian, router sẽ đọc địa chỉ đích từ tiêu đề để xác định 
 tuyến đường phù hợp và chuyển tiếp dữ liệu đến máy chủ cuối cùng.
 
-> **Câu hỏi đặt ra:** "Giao thức mạng là gì?" 🤔🤔
+> **🤔 Câu hỏi đặt ra:** "Giao thức mạng là gì ❓" 
 {: .prompt-info }
 
 Trên thực tế, có rất nhiều giao thức mạng khác nhau, nhưng phổ biến nhất là bộ **giao thức TCP/IP** — nền tảng cốt lõi của Internet. Bộ giao thức này bao gồm một tập hợp các giao thức hoạt
