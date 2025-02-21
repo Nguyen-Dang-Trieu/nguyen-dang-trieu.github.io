@@ -5,7 +5,7 @@ categories: [Network]
 tags: []
 author: Trieu
 image:
-  path: 
+  path: assets/articles/2025/OSI_Model/header.png
   alt: 
 ---
 # Lời mở đầu
@@ -248,3 +248,5 @@ Lớp ứng dụng (Application layer) được các ứng dụng mạng sử d�
 - Telnet – giao thức truyền thông giữa các thiết bị đầu cuối ảo.
 
 ![Format Code](/assets/articles/2025/OSI_Model/Application_layer.png){: .normal }
+
+# Lời kết
