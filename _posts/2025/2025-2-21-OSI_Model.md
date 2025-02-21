@@ -128,12 +128,12 @@ Ví dụ, hãy tưởng tượng một con kiến muốn gửi thức ăn đến
 ![Format Code](/assets/articles/2025/OSI_Model/Network_layer_7.png){: .normal }
 
 Hãy tưởng tượng quá trình gửi dữ liệu như sau:
-- 1.	Kiến (ant) đóng gói dữ liệu cần gửi vào một gói tin. Trong tiêu đề của gói tin có ghi địa chỉ của chuối (banana) – thiết bị nhận.
-- 2.	Để đến được banana, gói tin phải đi qua Bộ định tuyến 1 (Router 1) và Bộ định tuyến 2 (Router 2).
-- 3.	Vì ant và Router 1 nằm trong cùng một mạng LAN, chúng có thể giao tiếp trực tiếp qua lớp liên kết dữ liệu. Lúc này, ant sẽ đóng gói gói tin vào bên trong một khung (frame) và gửi đến Router 1.
-- 4.	Router 1 nhận khung, mở ra và trích xuất gói tin. Thấy rằng đích đến là banana, nó quyết định chuyển tiếp gói tin đến Router 2.
-- 5.	Router 1 lại đóng gói gói tin vào một khung mới để gửi cho Router 2 (cũng thông qua lớp liên kết dữ liệu giữa chúng).
-- 6.	Quá trình này tiếp tục đến khi Router 2 nhận được gói tin và chuyển tiếp nó đến banana.
+- Kiến (ant) đóng gói dữ liệu cần gửi vào một gói tin. Trong tiêu đề của gói tin có ghi địa chỉ của chuối (banana) – thiết bị nhận.
+- Để đến được banana, gói tin phải đi qua Bộ định tuyến 1 (Router 1) và Bộ định tuyến 2 (Router 2).
+- Vì ant và Router 1 nằm trong cùng một mạng LAN, chúng có thể giao tiếp trực tiếp qua lớp liên kết dữ liệu. Lúc này, ant sẽ đóng gói gói tin vào bên trong một khung (frame) và gửi đến Router 1.
+- Router 1 nhận khung, mở ra và trích xuất gói tin. Thấy rằng đích đến là banana, nó quyết định chuyển tiếp gói tin đến Router 2.
+- Router 1 lại đóng gói gói tin vào một khung mới để gửi cho Router 2 (cũng thông qua lớp liên kết dữ liệu giữa chúng).
+- Quá trình này tiếp tục đến khi Router 2 nhận được gói tin và chuyển tiếp nó đến banana.
      
 Lớp mạng được xây dựng dựa trên lớp liên kết dữ liệu, mở rộng khả năng truyền thông ra toàn bộ mạng và cho phép dữ liệu được gửi đến bất kỳ nút nào trong mạng. Trong khi đó, lớp liên kết dữ liệu chỉ đảm nhiệm truyền thông trong phạm vi mạng cục bộ, cung cấp dịch vụ cho lớp mạng bằng cách gửi các gói tin đến nút kế tiếp. Hai lớp này phối hợp chặt chẽ với nhau, mỗi lớp có vai trò riêng nhưng bổ trợ lẫn nhau để đảm bảo quá trình truyền thông diễn ra hiệu quả.
 
