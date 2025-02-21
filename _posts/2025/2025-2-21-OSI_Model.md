@@ -137,3 +137,114 @@ Hãy tưởng tượng quá trình gửi dữ liệu như sau:
      
 Lớp mạng được xây dựng dựa trên lớp liên kết dữ liệu, mở rộng khả năng truyền thông ra toàn bộ mạng và cho phép dữ liệu được gửi đến bất kỳ nút nào trong mạng. Trong khi đó, lớp liên kết dữ liệu chỉ đảm nhiệm truyền thông trong phạm vi mạng cục bộ, cung cấp dịch vụ cho lớp mạng bằng cách gửi các gói tin đến nút kế tiếp. Hai lớp này phối hợp chặt chẽ với nhau, mỗi lớp có vai trò riêng nhưng bổ trợ lẫn nhau để đảm bảo quá trình truyền thông diễn ra hiệu quả.
 
+## 4. Transport Layer
+Bên dưới lớp phiên (Session Layer) là lớp vận chuyển (Transport Layer). Lớp này chịu trách nhiệm kiểm soát độ tin cậy (reliability) của quá trình truyền thông bằng cách thực hiện các chức năng quan trọng như:
+•	Phân đoạn (Segmentation): Chia nhỏ dữ liệu từ lớp trên thành các gói dữ liệu (segments) nhỏ hơn để dễ dàng truyền tải qua mạng.
+•	Kiểm soát luồng (Flow Control): Điều chỉnh tốc độ truyền dữ liệu giữa hai thiết bị để tránh tình trạng mất gói hoặc tắc nghẽn.
+•	Kiểm soát lỗi (Error Control): Đảm bảo dữ liệu đến nơi không bị lỗi thông qua các cơ chế như kiểm tra tổng (checksum) và yêu cầu truyền lại (retransmission) nếu phát hiện lỗi.
+
+![Format Code](/assets/articles/2025/OSI_Model/Transport_layer.png){: .normal }
+
+Đầu tiên, trong quá trình phân đoạn (segmentation), lớp vận chuyển (Transport Layer) nhận dữ liệu từ lớp phiên (Session Layer) và chia nhỏ dữ liệu thành các đơn vị dữ liệu gọi là phân đoạn (segments).
+
+![Format Code](/assets/articles/2025/OSI_Model/Transport_layer_2.png){: .normal }
+
+Mỗi đơn vị dữ liệu (segment) chứa số cổng nguồn (port), dữ liệu (data) và số thứ tự (number).
+
+![Format Code](/assets/articles/2025/OSI_Model/Transport_layer_3.png){: .normal }
+
+Các số cổng (port) giúp định tuyến từng phân đoạn (segment) đến đúng ứng dụng đang yêu cầu
+
+![Format Code](/assets/articles/2025/OSI_Model/Transport_layer_4.png){: .normal }
+
+Số thứ tự (number) giúp ghép lại các phân đoạn (segments) theo đúng thứ tự, tạo thành message hoàn chỉnh và chính xác ở phía người nhận.
+
+![Format Code](/assets/articles/2025/OSI_Model/Transport_layer_5.png){: .normal }
+
+(2) Thứ hai, trong kiểm soát luồng (flow control), lớp vận chuyển (transport layer) có thể điều chỉnh lượng dữ liệu được truyền giữa các thiết bị. Giả sử một thiết bị di động kết nối với máy chủ. Nếu máy chủ có khả năng truyền dữ liệu ở tốc độ 100 Mbps, trong khi thiết bị di động chỉ xử lý tối đa 10 Mbps, thì khi tải xuống một tệp, máy chủ có thể bắt đầu gửi dữ liệu ở tốc độ 50 Mbps — vượt quá khả năng xử lý của thiết bị di động. Lúc này, lớp vận chuyển trên thiết bị di động sẽ gửi tín hiệu yêu cầu máy chủ giảm tốc độ truyền xuống 10 Mbps để tránh mất mát dữ liệu.
+
+![Format Code](/assets/articles/2025/OSI_Model/Transport_layer_6.png){: .normal }
+
+(3) Cuối cùng là kiểm soát lỗi (error control). Lớp vận chuyển (transport layer) giúp đảm bảo dữ liệu được truyền chính xác và đầy đủ. Trong quá trình truyền, nếu một số phân đoạn (segments) bị mất hoặc hỏng, lớp vận chuyển ở phía nhận sẽ sử dụng cơ chế yêu cầu lặp lại tự động (Automatic Repeat reQuest - ARQ) để yêu cầu gửi lại dữ liệu. Để phát hiện lỗi, lớp vận chuyển thêm một mã kiểm tra (checksum) vào mỗi phân đoạn. Phía nhận sẽ kiểm tra checksum để xác định xem dữ liệu có bị lỗi trong quá trình truyền hay không.
+
+![Format Code](/assets/articles/2025/OSI_Model/Transport_layer_7.png){: .normal }
+
+Giao thức điều khiển lớp vận chuyển (transport layer protocols) bao gồm truyền dẫn hướng kết nối (connection-oriented) và truyền dẫn không kết nối (connectionless). Truyền dẫn hướng kết nối được thực hiện thông qua TCP và truyền dẫn không kết nối được thực hiện thông qua UDP.
+
+![Format Code](/assets/articles/2025/OSI_Model/Transport_layer_8.png){: .normal }
+
+UDP (User Datagram Protocol) nhanh hơn TCP (Transmission Control Protocol) vì nó không cung cấp bất kỳ phản hồi nào về việc dữ liệu có thực sự được chuyển thành công hay không. Trong khi đó, TCP sử dụng cơ chế phản hồi và kiểm soát lỗi, cho phép phát hiện và truyền lại các gói dữ liệu bị mất, đảm bảo độ tin cậy.
+
+UDP thường được sử dụng trong các ứng dụng mà việc mất một số gói dữ liệu không ảnh hưởng nhiều đến trải nghiệm, chẳng hạn như phát trực tuyến video/audio (streaming), trò chơi trực tuyến (online gaming), thoại qua IP (VoIP), TFTP (Trivial File Transfer Protocol) và DNS (Domain Name System).
+
+Ngược lại, TCP được áp dụng trong các tình huống yêu cầu truyền tải dữ liệu đầy đủ và chính xác, như truy cập web (HTTP/HTTPS), email (SMTP/IMAP/POP3), và truyền tệp (FTP - File Transfer Protocol).
+
+### Tóm tắt
+
+Dựa trên lớp mạng, lớp vận chuyển giúp các chương trình ứng dụng trên các máy tính khác nhau có thể trao đổi dữ liệu với nhau một cách đáng tin cậy. Lớp này kiểm soát việc gửi dữ liệu liên tục, đảm bảo dữ liệu không bị mất hoặc lộn xộn trong quá trình truyền.
+
+Lớp mạng có nhiệm vụ chuyển dữ liệu từ máy tính này đến máy tính khác trong mạng. Nhưng vì một máy tính có thể chạy nhiều chương trình cùng lúc (như trình duyệt, email, game...), lớp vận chuyển sử dụng các cổng để biết dữ liệu cần chuyển đến chương trình nào.
+
+Lớp vận chuyển chia nhỏ dữ liệu thành các phần nhỏ hơn gọi là phân đoạn. Mỗi phân đoạn sẽ có thông tin về cổng gửi và cổng nhận. Sau đó, các phân đoạn này được lớp mạng đóng gói và gửi đến máy tính đích. Khi đến nơi, lớp vận chuyển sẽ lấy dữ liệu ra và gửi đúng đến chương trình cần nhận.
+
+Hình ảnh
+
+Như hình minh họa, banana là máy chủ chạy nhiều tiến trình dịch vụ, còn ant là máy tính chạy nhiều tiến trình ứng dụng. Khi người dùng trên ant truy cập vào trang web do banana cung cấp, tiến trình trình duyệt trên ant sẽ giao tiếp với tiến trình dịch vụ web trên banana.
+-	Khi tiến trình trình duyệt gửi dữ liệu đến tiến trình dịch vụ Web, hệ thống sẽ đóng gói dữ liệu vào một phân đoạn (segment), trong đó tiêu đề của phân đoạn sẽ chứa số cổng của dịch vụ Web.
+-	Phân đoạn này cần được gửi đến banana. Hệ thống tiếp tục đóng gói phân đoạn vào một gói tin (packet) và giao cho lớp mạng xử lý. Tiêu đề gói tin sẽ chứa địa chỉ đích là banana.
+-	Lớp mạng thực hiện việc lựa chọn đường đi cho gói tin. Trong trường hợp này, gói tin cần đi qua Router 1 và Router 2 trước khi đến banana.
+-	Để gửi gói tin đến Router 1, ant sẽ đóng gói gói tin vào một khung (frame) và giao cho lớp liên kết dữ liệu. Địa chỉ đích trong khung là địa chỉ MAC của Router 1.
+-	Khi gói tin đến một bộ định tuyến trung gian (router), router sẽ lấy gói tin ra khỏi khung và kiểm tra địa chỉ IP đích trong tiêu đề gói tin. Router chỉ quan tâm đến địa chỉ này để quyết định chuyển tiếp, mà không xem xét dữ liệu bên trong gói tin.
+-	Sau khi gói tin được chuyển tiếp qua các router trung gian, nó cuối cùng đến được banana. Tại đây, lớp mạng trên banana lấy phân đoạn ra khỏi gói tin và chuyển cho lớp giao vận. Lớp giao vận sẽ dựa vào số cổng trong tiêu đề phân đoạn để chuyển dữ liệu đến đúng tiến trình dịch vụ Web.
+
+## 5. Session Layer
+Trước khi tìm hiểu về lớp hội thoại (Session layer), hãy tưởng tượng rằng bạn đang lên kế hoạch tổ chức một bữa tiệc. Để đảm bảo mọi hoạt động diễn ra suôn sẻ, bạn cần thiết lập một quy trình cụ thể, chẳng hạn như: trang trí không gian, nấu ăn, dọn dẹp và chào khách mời.
+
+![Format Code](/assets/articles/2025/OSI_Model/Session_layer_1.png){: .normal }
+
+Cũng tương tự như vậy, Session layer  được sử dụng để thiết lập, quản lý và duy trì các kết nối giữa các thiết bị. Nó điều phối việc kích hoạt, truyền và đồng bộ dữ liệu giữa hai đầu giao tiếp.
+
+Giống như việc bạn thuê người giúp việc để quản lý các công đoạn trong bữa tiệc, lớp phiên cũng có những “trợ lý” riêng, chẳng hạn như các API (Application Programming Interfaces) hoặc giao diện lập trình ứng dụng khác. Một ví dụ phổ biến là NetBIOS (Network Basic Input/Output System), một giao thức hỗ trợ các ứng dụng trên các máy tính khác nhau giao tiếp với nhau trong cùng một mạng.
+
+![Format Code](/assets/articles/2025/OSI_Model/Session_layer_2.png){: .normal }
+
+Trước khi máy khách (client) thiết lập phiên (session) với máy chủ (server), máy chủ sẽ thực hiện một bước gọi là xác thực (authentication). Ví dụ, khi bạn nhập tên người dùng và mật khẩu trên máy tính của máy khách (gửi yêu cầu thông qua API của ứng dụng máy chủ), nếu thông tin hợp lệ, một phiên hoặc liên kết sẽ được thiết lập giữa máy khách và máy chủ.
+
+![Format Code](/assets/articles/2025/OSI_Model/Session_layer_3.png){: .normal }
+
+Sau khi xác thực (authentication), máy chủ sẽ tiếp tục kiểm tra quyền ủy quyền (authorization) của người dùng. Quyền ủy quyền là quá trình máy chủ xác định xem bạn có đủ quyền truy cập vào tệp hoặc tài nguyên yêu cầu hay không. Nếu máy chủ phát hiện rằng tài khoản bạn đang sử dụng không có quyền cần thiết, máy khách (client) sẽ nhận được thông báo lỗi, chẳng hạn như: "You are not authorized to access this page."
+
+![Format Code](/assets/articles/2025/OSI_Model/Session_layer_4.png){: .normal }
+
+Cả chức năng xác thực (authentication) và ủy quyền (authorization) đều được thực hiện bởi lớp phiên (Session Layer), đồng thời lớp này cũng theo dõi các tệp đang được tải xuống. Ví dụ, khi duyệt web, chúng ta truy cập các trang chứa văn bản, hình ảnh và thông tin khác. Những dữ liệu này được lưu trữ dưới dạng các tệp riêng biệt trên máy chủ web (web server).
+
+Khi bạn yêu cầu một trang web, trình duyệt web (web browser) sẽ thiết lập một phiên (session) riêng với máy chủ để tải về các tệp văn bản và hình ảnh dưới dạng các gói dữ liệu (data packets). Lớp phiên theo dõi từng gói dữ liệu nhận được để xác định chúng thuộc tệp nào — văn bản (text) hay hình ảnh (image) — và theo dõi vị trí của chúng trong tệp gốc. Cuối cùng, trình duyệt sẽ kết hợp các gói dữ liệu này và hiển thị trang web hoàn chỉnh.
+
+Đây chính là chức năng quản lý phiên (session management) của lớp phiên. Ngoài ra, trình duyệt còn đảm nhiệm các chức năng của lớp ứng dụng (Application Layer) và lớp trình bày (Presentation Layer) để đảm bảo dữ liệu được truyền và hiển thị chính xác.
+
+![Format Code](/assets/articles/2025/OSI_Model/Session_layer_5.png){: .normal }
+
+Tóm lại, Session Layer có ba chức năng chính:
+- Session Management: Thiết lập, duy trì và kết thúc các phiên giao tiếp giữa các thiết bị.
+- Session Control: Điều phối luồng dữ liệu, đảm bảo rằng các gói dữ liệu được truyền đi đúng thứ tự và không bị mất.
+- 3Authorization: Kiểm tra quyền truy cập, đảm bảo người dùng có đủ quyền để truy cập tài nguyên yêu cầu.
+
+## 6. Presentation Layer
+Lớp trình bày nhận dữ liệu từ lớp ứng dụng (Application layer). Dữ liệu này thường dưới dạng ký tự và số. Lớp trình bày chuyển đổi các ký tự và dữ liệu thành định dạng nhị phân (ví dụ: 1001 0110) mà máy tính có thể hiểu được. Chức năng này được gọi là "dịch" (translation), tức là chuyển đổi ngôn ngữ của con người sang ngôn ngữ máy.
+
+Trước khi truyền dữ liệu, lớp trình bày thực hiện nén dữ liệu (data compression) để giảm số bit cần thiết cho việc biểu diễn dữ liệu gốc. Nén dữ liệu giúp tiết kiệm băng thông và tăng tốc độ truyền tải, đặc biệt hữu ích trong các ứng dụng truyền video và âm thanh thời gian thực, nơi yêu cầu dữ liệu đến đích nhanh chóng mà vẫn giữ được tính toàn vẹn (data integrity) và chất lượng mã hóa.
+
+![Format Code](/assets/articles/2025/OSI_Model/Presentation_layer_1.png){: .normal }
+
+Đồng thời, tại phía gửi, dữ liệu sẽ được mã hóa (encryption) ở Presentation layer. Khi đến phía nhận, dữ liệu sẽ được giải mã (decryption) tại Presentation layer  để đảm bảo tính bảo mật (security) trong quá trình truyền tải.
+
+![Format Code](/assets/articles/2025/OSI_Model/Presentation_layer_2.png){: .normal }
+
+## 7. Application Layer
+Lớp ứng dụng (Application layer) được các ứng dụng mạng sử dụng và là lớp gần với người dùng nhất. Nó cung cấp các dịch vụ cho các ứng dụng mạng — tức là các ứng dụng máy tính sử dụng Internet — và thực hiện các thao tác của người dùng thông qua nhiều giao thức khác nhau, chẳng hạn như:
+-	FTP (File Transfer Protocol) – giao thức truyền tệp,
+-	HTTP/HTTPS (HyperText Transfer Protocol/Secure) – giao thức duyệt web,
+-	SMTP (Simple Mail Transfer Protocol) – giao thức truyền thư điện tử,
+- Telnet – giao thức truyền thông giữa các thiết bị đầu cuối ảo.
+
+![Format Code](/assets/articles/2025/OSI_Model/Application_layer.png){: .normal }
