@@ -45,18 +45,16 @@ giữa các thiết bị.
 Giống như một lá thư cần được phân loại và chuyển phát qua nhiều bưu cục trước khi đến tay người nhận, dữ liệu trong giao tiếp mạng cũng trải qua một hành trình tương tự. Chỉ những lá thư
 được viết đúng định dạng mới được bưu điện phân loại và chuyển phát chính xác — và trong giao tiếp mạng, dữ liệu cũng phải tuân theo các quy tắc chặt chẽ để đến đúng nơi.
 
-Khi dữ liệu được truyền qua mạng, nó được đóng gói thành các thông điệp. Để các thiết bị (bao gồm người gửi, người nhận và các bộ định tuyến trung gian) có thể phối hợp với nhau, tất cả 
-các thông điệp phải tuân theo cùng một bộ giao thức mạng. Giao thức mạng quy định cấu trúc các trường trong thông điệp và chiến lược xử lý chúng.
+Khi dữ liệu được truyền qua mạng, nó được đóng gói thành các message. Để các thiết bị (bao gồm người gửi, người nhận và các bộ định tuyến trung gian) có thể phối hợp với nhau, tất cả các message phải tuân theo cùng một bộ giao thức mạng. Giao thức mạng quy định cấu trúc các trường trong message và chiến lược xử lý chúng.
 
-Thông điệp mạng thường được chia thành hai phần chính:
+Message thường được chia thành hai phần chính:
 - Tiêu đề (Header): Chứa thông tin điều khiển như địa chỉ nguồn, địa chỉ đích, loại giao thức, v.v.
 - Dữ liệu (Payload): Phần nội dung chính được truyền tải.
   
-**✏️ Ví dụ:** Trong giao thức IP, phần tiêu đề lưu trữ địa chỉ IP nguồn và đích. Khi thông điệp đi qua các bộ định tuyến trung gian, router sẽ đọc địa chỉ đích từ tiêu đề để xác định 
+**✏️ Ví dụ:** Trong giao thức IP, phần tiêu đề lưu trữ địa chỉ IP nguồn và đích. Khi message đi qua các bộ định tuyến trung gian, router sẽ đọc địa chỉ đích từ tiêu đề để xác định 
 tuyến đường phù hợp và chuyển tiếp dữ liệu đến máy chủ cuối cùng.
 
-> **🤔 Câu hỏi đặt ra:** "Đâu là g
-> iao thức mạng phổ biến ❓" 
+> **🤔 Câu hỏi đặt ra:** "Đâu là giao thức mạng phổ biến ❓" 
 {: .prompt-info }
 
 Trên thực tế, có rất nhiều giao thức mạng khác nhau, nhưng phổ biến nhất là **bộ giao thức TCP/IP** — nền tảng cốt lõi của Internet. Bộ giao thức này bao gồm một tập hợp các giao thức hoạt
