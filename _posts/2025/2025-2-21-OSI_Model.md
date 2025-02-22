@@ -44,8 +44,8 @@ Hãy cùng xem xét chi tiết mô hình bảy lớp OSI.
 Dữ liệu từ ứng dụng (Application Layer) sẽ trải qua các bước xử lý sau:
 - **Transport Layer**: Dữ liệu được chia thành các phần nhỏ gọi là phân đoạn **"segments"**.
 - **Network Layer**: Các phân đoạn này được đóng gói thành gói dữ liệu **"packet"**, trong đó có chứa địa chỉ IP của người gửi và người nhận.
-- **Data Link Layer**: Các gói dữ liệu được chuyển đổi thành khung **"frame"** dưới dạng chuỗi nhị phân (binary stream).
-- **Physical Layer**: Cuối cùng, chuỗi nhị phân được chuyển đổi thành các tín hiệu (điện, quang hoặc vô tuyến) và được truyền qua các phương tiện cục bộ như cáp đồng, cáp quang hoặc tín hiệu không dây. Cuối cùng dữ liệu sẽ được hiển thị trên máy tính người nhận 🖥️.
+- **Data Link Layer**: Các gói dữ liệu được chuyển đổi thành khung **"frame"** dưới dạng chuỗi bits.
+- **Physical Layer**: Cuối cùng, chuỗi bits được chuyển đổi thành các tín hiệu (điện, quang hoặc vô tuyến) và được truyền qua các phương tiện cục bộ như cáp đồng, cáp quang hoặc tín hiệu không dây. Cuối cùng dữ liệu sẽ được hiển thị trên máy tính người nhận 🖥️.
 
 ![Format Code](/assets/articles/2025/OSI_Model/Physical_layer.png){: .normal }
 
