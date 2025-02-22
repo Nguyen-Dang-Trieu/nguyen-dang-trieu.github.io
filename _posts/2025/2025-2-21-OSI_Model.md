@@ -208,7 +208,7 @@ Transport Layer chia nhỏ dữ liệu thành các phần nhỏ hơn gọi là p
 
 Khi đến nơi, Transport Layer ở phía nhận "receiver" sẽ tách các segment ra khỏi gói tin "packet", sau đó ghép lại theo đúng thứ tự và chuyển dữ liệu đến đúng ứng dụng đang yêu cầu.
 
-Hình ảnh
+![Format Code](/assets/articles/2025/OSI_Model/Transport_layer_9.png){: .normal }
 
 Như hình minh họa, banana là máy chủ "server" chạy nhiều tiến trình dịch vụ, còn ant là máy tính chạy nhiều tiến trình ứng dụng. Khi người dùng trên ant truy cập vào trang web do banana cung cấp, tiến trình trình duyệt trên ant sẽ giao tiếp với tiến trình dịch vụ web trên banana.
 -	Khi tiến trình trình duyệt **"Google Chorme"** gửi dữ liệu đến tiến trình dịch vụ Web, hệ thống sẽ đóng gói dữ liệu vào một phân đoạn "segment", trong đó "header" của "segment" sẽ chứa số cổng "Port" của dịch vụ Web.
