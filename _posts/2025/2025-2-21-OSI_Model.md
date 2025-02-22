@@ -35,7 +35,7 @@ Những giao thức này định nghĩa **"cách"** mà các chương trình ứ
 
 Hãy cùng xem xét chi tiết mô hình bảy lớp OSI.
 
-## Khám phá chi tiết về mô hình OSI
+## 🔍Khám phá chi tiết về mô hình OSI
 ### 1. Physical layer
 **Lớp Vật Lý (Physical Layer)** chịu trách nhiệm **truyền các bit thô** giữa các thiết bị qua các phương tiện vật lý (như cáp đồng, cáp quang, sóng vô tuyến, ...). Lớp này **không quan tâm đến ý nghĩa của chuỗi bit** mà chỉ đảm bảo dữ liệu được truyền đi. Đồng thời, nó cũng **che giấu sự phức tạp của các thiết bị vật lý** so với các lớp trên.
 
