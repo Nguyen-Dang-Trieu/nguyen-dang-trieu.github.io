@@ -8,7 +8,7 @@ image:
   path: assets/articles/2025/OSI_Model/header.png
   alt: 
 ---
-# Lời mở đầu
+## 🌻Lời mở đầu
 Để giảm độ phức tạp và cải thiện tính linh hoạt, các hệ thống phần mềm lớn thường được thiết kế theo phương pháp phân lớp.
 
 Mô hình OSI được sử dụng để định nghĩa và hiểu cách dữ liệu được truyền từ máy tính này sang máy tính khác. Ở dạng cơ bản nhất, hai máy tính được kết nối với nhau thông qua cáp và đầu nối, chia sẻ dữ liệu với sự trợ giúp của card mạng để tạo thành một mạng.
@@ -35,8 +35,8 @@ Những giao thức này định nghĩa **"cách"** mà các chương trình ứ
 
 Hãy cùng xem xét chi tiết mô hình bảy lớp OSI.
 
-# Khám phá chi tiết về mô hình OSI
-## 1. Physical layer
+## Khám phá chi tiết về mô hình OSI
+### 1. Physical layer
 **Lớp Vật Lý (Physical Layer)** chịu trách nhiệm **truyền các bit thô** giữa các thiết bị qua các phương tiện vật lý (như cáp đồng, cáp quang, sóng vô tuyến, ...). Lớp này **không quan tâm đến ý nghĩa của chuỗi bit** mà chỉ đảm bảo dữ liệu được truyền đi. Đồng thời, nó cũng **che giấu sự phức tạp của các thiết bị vật lý** so với các lớp trên.
 
 ![Format Code](/assets/articles/2025/OSI_Model/Physical_layer_2.png){: .normal }
@@ -49,7 +49,7 @@ Dữ liệu từ ứng dụng (Application Layer) sẽ trải qua các bước x
 
 ![Format Code](/assets/articles/2025/OSI_Model/Physical_layer.png){: .normal }
 
-## 2. Data Link Layer
+### 2. Data Link Layer
 Lớp liên kết dữ liệu (Data Link Layer) nhận các gói dữ liệu ("packet") từ **Network Layer**, trong đó chứa địa chỉ IP của người gửi và người nhận. Khi dữ liệu được truyền qua mạng, có hai loại địa chỉ được sử dụng để đảm bảo thông tin đến đúng nơi: **địa chỉ logic (logical address)** và **địa chỉ vật lý (physical address)**.
 - **Logical address (địa chỉ logic) — hay còn gọi là địa chỉ ảo (virtual address)** — được gán ở **Network Layer**. Đây chính là địa chỉ IP của người gửi và người nhận. Khi dữ liệu **"Data"** đi qua **Transport Layer**, nó được chia thành các "segments" và sau đó địa chỉ IP được chèn vào để tạo thành một gói tin IP **"IP packet"**.
 - **Physical address (địa chỉ vật lý)** được xử lý tại **Data Link Laye**r. Ở đây, hệ thống sẽ thêm địa chỉ **MAC (Media Access Control)** của máy tính gửi và nhận vào gói dữ liệu IP, tạo thành một khung dữ liệu **"frame"**.
@@ -96,7 +96,7 @@ Trong quá trình truyền dữ liệu, môi trường truyền thông có thể
 -	Lắng nghe phương tiện truyền dẫn (carrier sensing) để kiểm tra xem nó có đang nhàn rỗi hay không.
 -	Chỉ truyền dữ liệu khi phương tiện sẵn sàng, giúp giảm nguy cơ xung đột.
 
-## 3. Network Layer
+### 3. Network Layer
 **Tầng vận chuyển (Transport Layer)** truyền dữ liệu đến **tầng mạng (Network Layer)**. **Network Layer** chịu trách nhiệm truyền các **phân đoạn dữ liệu (segments)** đã nhận từ máy tính này sang máy tính khác trong các mạng khác nhau. Đơn vị dữ liệu của tầng mạng được gọi là **gói "packet"**. Các chức năng chính của **Network Layer** bao gồm:
 - Định địa chỉ logic (logical addressing).
 - Định tuyến (routing).
@@ -104,12 +104,12 @@ Trong quá trình truyền dữ liệu, môi trường truyền thông có thể
 
 ![Format Code](/assets/articles/2025/OSI_Model/Network_layer.png){: .normal }
 
-### Định địa chỉ logic (Logical Addressing)
+#### Định địa chỉ logic (Logical Addressing)
 Địa chỉ IP (IP Address) được sử dụng ở Network Layer được gọi là địa chỉ logic. **Mỗi máy tính trong mạng đều có một địa chỉ IP duy nhất**. Network Layer sẽ gán địa chỉ IP của người gửi và người nhận cho mỗi phân đoạn (segment) để tạo thành một gói dữ liệu IP (IP Packet). Việc gán địa chỉ IP giúp đảm bảo rằng mỗi gói dữ liệu được định tuyến đến máy tính yêu cầu.
 
 ![Format Code](/assets/articles/2025/OSI_Model/Network_layer_2.png){: .normal }
 
-### Định tuyến (Routing)
+#### Định tuyến (Routing)
 Định tuyến là quá trình xác định đường đi tối ưu để chuyển các gói dữ liệu từ nguồn đến đích, dựa trên địa chỉ IP (IPv4 hoặc IPv6). Các bộ định tuyến (router) sẽ sử dụng các bảng định tuyến (routing table) để quyết định đường truyền tốt nhất giúp gói dữ liệu đến đúng máy tính yêu cầu dữ liệu.
 
 ![Format Code](/assets/articles/2025/OSI_Model/Network_layer_3.png){: .normal }
@@ -118,14 +118,14 @@ Giả sử máy tính A được kết nối với Network 1 và máy tính B đ
 
 ![Format Code](/assets/articles/2025/OSI_Model/Network_layer_4.png){: .normal }
 
-### Lựa chọn đường dẫn (Path determination)
+#### Lựa chọn đường dẫn (Path determination)
 Máy tính có thể kết nối với máy chủ Internet thông qua nhiều tuyến đường khác nhau. Đường dẫn tối ưu để truyền dữ liệu từ nguồn đến đích được xác định thông qua quá trình "lựa chọn đường dẫn" (path selection).
 
 Các giao thức định tuyến như **OSPF (Open Shortest Path First)**, **BGP (Border Gateway Protocol)** và **IS-IS (Intermediate System to Intermediate System)** hoạt động ở lớp Network Layer, giúp xác định tuyến đường tối ưu dựa trên các tiêu chí như độ trễ, số lượng hop, hoặc chính sách mạng.
 
 ![Format Code](/assets/articles/2025/OSI_Model/Network_layer_5.png){: .normal }
 
-### Tóm tắt lại quá trình truyền dữ liệu ở Network layer
+#### Tóm tắt lại quá trình truyền dữ liệu ở Network layer
 Network layer sử dụng các gói tin "packet" làm đơn vị truyền tải và chịu trách nhiệm chọn đường đi cũng như chuyển tiếp gói tin đến nơi yêu cầu.
 
 Thông thường, **mạng LAN** chỉ hoạt động trong phạm vi nhỏ, nhưng khi nhiều mạng nhỏ được kết nối lại với nhau, chúng có thể tạo thành một mạng lớn hơn và phức tạp hơn — chẳng hạn như **mạng WAN (Wide Area Network)**.
@@ -150,7 +150,7 @@ Hãy tưởng tượng quá trình gửi dữ liệu như sau:
      
 Network layer được xây dựng dựa trên Data Link layer, mở rộng khả năng truyền thông ra toàn bộ mạng Internet và cho phép dữ liệu được gửi đến bất kỳ nút nào trong mạng lưới. Trong khi đó, Data Link layer chỉ đảm nhiệm truyền thông trong phạm vi mạng cục bộ, cung cấp dịch vụ cho Network layer bằng cách gửi các gói tin "packet" đến nút kế tiếp. Hai lớp này phối hợp chặt chẽ với nhau, mỗi lớp có vai trò riêng nhưng hỗ trợ lẫn nhau để đảm bảo quá trình truyền thông diễn ra hiệu quả.
 
-## 4. Transport Layer
+### 4. Transport Layer
 Bên dưới **Session Layer** là **Transport Layer**. Lớp này chịu trách nhiệm kiểm soát độ tin cậy (reliability) của quá trình truyền thông bằng cách thực hiện các chức năng quan trọng như:
 •	**Phân đoạn (Segmentation)**: Chia nhỏ dữ liệu từ lớp trên thành các gói dữ liệu (segments) nhỏ hơn để dễ dàng truyền tải qua mạng.
 •	**Kiểm soát luồng (Flow Control)**: Điều chỉnh tốc độ truyền dữ liệu giữa hai thiết bị để tránh tình trạng mất gói hoặc tắc nghẽn.
@@ -158,7 +158,7 @@ Bên dưới **Session Layer** là **Transport Layer**. Lớp này chịu trách
 
 ![Format Code](/assets/articles/2025/OSI_Model/Transport_layer.png){: .normal }
 
-### Quá trình phân đoạn (segmentation)
+#### Quá trình phân đoạn (segmentation)
 Transport Layer nhận dữ liệu "Data" từ Session Layer và chia nhỏ dữ liệu thành các đơn vị dữ liệu gọi là **phân đoạn (segments)**.
 
 ![Format Code](/assets/articles/2025/OSI_Model/Transport_layer_2.png){: .normal }
@@ -175,19 +175,19 @@ Số thứ tự (number) giúp ghép lại các "segments" theo đúng thứ t�
 
 ![Format Code](/assets/articles/2025/OSI_Model/Transport_layer_5.png){: .normal }
 
-### Kiểm soát luồng (Flow Control)
+#### Kiểm soát luồng (Flow Control)
 Transport layer có thể điều chỉnh lượng dữ liệu được truyền giữa các thiết bị. Giả sử một thiết bị di động kết nối với máy chủ "server". Nếu máy chủ có khả năng truyền dữ liệu ở tốc độ `100 Mbps`, trong khi thiết bị di động chỉ xử lý tối đa `10 Mbps`, thì khi tải xuống một **file**, máy chủ có thể bắt đầu gửi dữ liệu ở tốc độ `50 Mbps` — vượt quá khả năng xử lý của thiết bị di động. Lúc này, Transport layer trên thiết bị di động sẽ gửi tín hiệu yêu cầu máy chủ giảm tốc độ truyền xuống `10 Mbps` để tránh mất mát dữ liệu.
 
 ![Format Code](/assets/articles/2025/OSI_Model/Transport_layer_6.png){: .normal }
 
-### Kiểm soát lỗi (Error Control)
+#### Kiểm soát lỗi (Error Control)
 Transport Layer đảm bảo dữ liệu được truyền chính xác và đầy đủ giữa các thiết bị. Trong quá trình truyền, nếu một số phân đoạn (segment) bị mất hoặc hỏng, Transport Layer ở phía nhận sẽ kích hoạt cơ chế yêu cầu lặp lại tự động **(Automatic Repeat reQuest - ARQ)** để yêu cầu gửi lại dữ liệu bị lỗi.
 
 Để phát hiện lỗi, mỗi phân đoạn "segment" được gắn thêm một mã kiểm tra (checksum) trước khi gửi đi. Khi nhận được dữ liệu, phía nhận sẽ kiểm tra checksum để xác định xem phân đoạn "segment" có bị lỗi trong quá trình truyền hay không. Nếu phát hiện lỗi, cơ chế ARQ sẽ yêu cầu gửi lại phân đoạn đó, đảm bảo dữ liệu đến nơi là hoàn chỉnh và chính xác.
 
 ![Format Code](/assets/articles/2025/OSI_Model/Transport_layer_7.png){: .normal }
 
-### Protocol 
+#### Protocol 
 Giao thức điều khiển ở Transport layer bao gồm truyền dẫn hướng kết nối (connection-oriented) và truyền dẫn không kết nối (connectionless). Truyền dẫn hướng kết nối được thực hiện thông qua **TCP** và truyền dẫn không kết nối được thực hiện thông qua **UDP**.
 
 ![Format Code](/assets/articles/2025/OSI_Model/Transport_layer_8.png){: .normal }
@@ -198,7 +198,7 @@ UDP thường được sử dụng trong các ứng dụng mà việc mất mộ
 
 Ngược lại, TCP được áp dụng trong các tình huống yêu cầu truyền tải dữ liệu đầy đủ và chính xác, như truy cập web (HTTP/HTTPS), email (SMTP/IMAP/POP3), và truyền tệp (FTP - File Transfer Protocol).
 
-### Tóm tắt quá trình "Data" di chuyển
+#### Tóm tắt quá trình "Data" di chuyển
 
 Transport Layer dựa trên nền tảng của Network Layer để giúp các chương trình ứng dụng trên các máy tính khác nhau trao đổi dữ liệu một cách đáng tin cậy. Lớp này quản lý luồng dữ liệu liên tục, đảm bảo rằng các phân đoạn (segments) được gửi đi đúng thứ tự, không bị mất hay lộn xộn trong quá trình truyền. Điều này giúp dữ liệu đến tay ứng dụng một cách chính xác và toàn vẹn.
 
@@ -218,7 +218,7 @@ Như hình minh họa, banana là máy chủ "server" chạy nhiều tiến trì
 -	Khi "frame" đến **Router 2**, router sẽ lấy gói tin "packet" ra khỏi khung "frame" và kiểm tra địa chỉ IP đích trong "header" của gói tin "packet". **Router 2** chỉ quan tâm đến địa chỉ này để quyết định chuyển tiếp, mà không xem xét dữ liệu bên trong gói tin.
 -	Sau khi gói tin "packet" được chuyển tiếp qua các router trung gian, nó cuối cùng đến được banana. Tại đây, **Network layer** trên banana lấy phân đoạn "segment" ra khỏi gói tin "packet" và chuyển cho **Transport layer**. **Transport layer** sẽ dựa vào số cổng "port" trong "header" của phân đoạn "segment" để chuyển dữ liệu đến đúng tiến trình dịch vụ Web.
 
-## 5. Session Layer
+### 5. Session Layer
 Trước khi tìm hiểu về lớp hội thoại (Session layer), hãy tưởng tượng rằng bạn đang lên kế hoạch tổ chức một bữa tiệc. Để đảm bảo mọi hoạt động diễn ra suôn sẻ, bạn cần thiết lập một quy trình cụ thể, chẳng hạn như: trang trí không gian, nấu ăn, dọn dẹp và chào khách mời.
 
 ![Format Code](/assets/articles/2025/OSI_Model/Session_layer_1.png){: .normal }
@@ -250,7 +250,7 @@ Tóm lại, Session Layer có ba chức năng chính:
 - Session Control: Điều phối luồng dữ liệu, đảm bảo rằng các gói dữ liệu được truyền đi đúng thứ tự và không bị mất.
 - 3Authorization: Kiểm tra quyền truy cập, đảm bảo người dùng có đủ quyền để truy cập tài nguyên yêu cầu.
 
-## 6. Presentation Layer
+### 6. Presentation Layer
 Lớp trình bày nhận dữ liệu từ lớp ứng dụng (Application layer). Dữ liệu này thường dưới dạng ký tự và số. Lớp trình bày chuyển đổi các ký tự và dữ liệu thành định dạng nhị phân (ví dụ: 1001 0110) mà máy tính có thể hiểu được. Chức năng này được gọi là "dịch" (translation), tức là chuyển đổi ngôn ngữ của con người sang ngôn ngữ máy.
 
 Trước khi truyền dữ liệu, lớp trình bày thực hiện nén dữ liệu (data compression) để giảm số bit cần thiết cho việc biểu diễn dữ liệu gốc. Nén dữ liệu giúp tiết kiệm băng thông và tăng tốc độ truyền tải, đặc biệt hữu ích trong các ứng dụng truyền video và âm thanh thời gian thực, nơi yêu cầu dữ liệu đến đích nhanh chóng mà vẫn giữ được tính toàn vẹn (data integrity) và chất lượng mã hóa.
@@ -261,7 +261,7 @@ Trước khi truyền dữ liệu, lớp trình bày thực hiện nén dữ li�
 
 ![Format Code](/assets/articles/2025/OSI_Model/Presentation_layer_2.png){: .normal }
 
-## 7. Application Layer
+### 7. Application Layer
 Lớp ứng dụng (Application layer) được các ứng dụng mạng sử dụng và là lớp gần với người dùng nhất. Nó cung cấp các dịch vụ cho các ứng dụng mạng — tức là các ứng dụng máy tính sử dụng Internet — và thực hiện các thao tác của người dùng thông qua nhiều giao thức khác nhau, chẳng hạn như:
 -	FTP (File Transfer Protocol) – giao thức truyền tệp,
 -	HTTP/HTTPS (HyperText Transfer Protocol/Secure) – giao thức duyệt web,
@@ -270,4 +270,6 @@ Lớp ứng dụng (Application layer) được các ứng dụng mạng sử d�
 
 ![Format Code](/assets/articles/2025/OSI_Model/Application_layer.png){: .normal }
 
-# Lời kết
+## 🍂Lời kết
+- Bài viết khá dài 🥴, nhưng tôi hy vọng rằng với việc đọc kỹ và suy ngẫm, các bạn sẽ nắm được những khái niệm quan trọng về mô hình OSI. Đừng ngần ngại đọc lại nhiều lần nếu có chỗ nào khó hiểu hoặc cũng có thể để lại bình luận bên dưới! 😊
+- 📖 Trong bài viết tiếp theo, tôi sẽ giới thiệu về Mô hình TCP/IP — một mô hình thực tế hơn và được sử dụng phổ biến trong mạng Internet hiện nay. Hãy đón chờ nhá! 🚀 
