@@ -101,13 +101,97 @@ void StaticMath::print()
 {
 	std::cout << "StaticMath library is working!" << std::endl;
 }
+
+~~~shell
+trieu@ubuntu:~/Documents/CPP$ ls
+StaticMath.cpp StaticMath.h
 ~~~
+
 Trong linux, sử dụng `ar` để tạo thư viện tĩnh (`.a`). Còn trên window, sử dụng `lib.exe` để tạo thư viện tĩnh (`.lib`). Khi tạo thư viện tĩnh, các file `.o` được sắp xếp, lập chỉ mục để dễ dàng tra cứu trong quá trình liên kết.
 
 ![](/assets/articles/2025/Static_Dynamic_Library/2025-3-27-image_2.png){: .normal }
 
+**B1: Tạo thư viện tĩnh**
+
 Trước tiên cần phải biên dịch nó thành một `.o`
 ~~~shell
-g++ -c StaticMath.cpp -o StaticMath.o
+trieu@ubuntu:~/Documents/CPP$ g++ -c StaticMath.cpp -o StaticMath.o
+trieu@ubuntu:~/Documents/CPP$ ls
+StaticMath.cpp  StaticMath.o  StaticMath.h
 ~~~
 
+Sau đó ta sẽ đóng gói `StaticMath.o` thành thư viện tĩnh (`libstaticmath.a`)
+
+Quy ước đặt tên thư viện tĩnh của linux: `lib[tên thư viện].a`
+~~~shell
+trieu@ubuntu:~/Documents/CPP$ ar rcs libstaticmath.a StaticMath.o
+trieu@ubuntu:~/Documents/CPP$ ls
+libstaticmath.a  StaticMath.cpp  StaticMath.o  StaticMath.h
+~~~
+Các dự án lớn có nhiều file thì ta sẽ dùng Makefile hoặc là CMake để tạo các thư viện tĩnh tránh nhập lệnh phiền phức.
+
+**B2: Sử dụng thư viện**
+Bây giờ ta sẽ tạo một file `main.cpp`
+
+File `main.cpp`
+~~~cpp
+#include "StaticMath.h"
+#include <iostream>
+
+using namespace std;
+
+int main(int argc, char* argv[])
+{
+        double a = 10;
+        double b = 2;
+
+        cout << "a + b = " << StaticMath::add(a,b) << endl;
+        cout << "a - b = " << StaticMath::sub(a,b) << endl;
+        cout << "a * b = " << StaticMath::mul(a,b) << endl;
+        cout << "a / b = " << StaticMath::div(a,b) << endl;
+
+        StaticMath sm;
+        sm.print();
+
+        return 0;
+}
+~~~
+Biên dịch file `main.cpp` và liên kết với thư viện 
+~~~shell
+trieu@ubuntu:~/Documents/CPP$ g++ main.cpp -o main -I/home/trieu/Documents/CPP -L/home/trieu/Documents/CPP -lstaticmath
+trieu@ubuntu:~/Documents/CPP$ ls
+libstaticmath.a  main.cpp  StaticMath.cpp  StaticMath.o
+main            StaticMath.h
+~~~
+Để sử dụng thư viện tĩnh trong linux ta cần phải chỉ rõ đường dẫn dến thư viện.
+- `-I`: dùng để chỉ thư mục chứa các file header (`.h`).
+- `-L`: dùng để chỉ thư mục chứa thư viện tĩnh (`.a`) hoặc thư viện động (`.so`).
+- `'l`:
+  - Nguyên tắc: -l[tên thư viện tĩnh] và bỏ phần mở rộng `.a`
+  - Linker sẽ tự động tìm thư viện tĩnh trong thư mục mà đã được chỉ định với `-L`
+
+Có thể dùng lệnh `pwd` để lấy đường dẫn thư mục đang chứa thư viện.
+
+Khi đã biên dịch xong ta sẽ được `main.o`. Để chạy file này dùng `./main`.
+~~~shell
+trieu@ubuntu:~/Documents/CPP$ ./main
+a + b = 12
+a - b = 8
+a * b = 20
+a / b = 5
+StaticMath object created!
+StaticMath library is working!
+StaticMath object destroyed!
+~~~
+
+## Dynamic Library
+Qua phần trình bày trên, chúng ta có thể thấy được thư viện tĩnh dễ sử dụng và dễ hiểu, đồng thời cũng đạt được mục đích tái sử dụng mã. Vậy tại sao chúng ta lại cần thư viện động ?
+
+Tại sao chúng ta lại cần thư viện động?
+
+Trên thực tế, điều này là do đặc điểm của thư viện tĩnh.
+- Vấn đề lãng phí không gian bộ nhớ là vấn đề của các thư viện tĩnh.
+
+Hình ảnh
+
+- Một vấn đề của thư viện tĩnh là chúng gây khó khăn trong việc cập nhật, triển khai và phát hành chương trình. Nếu thư viện tĩnh (`.a`, `.lib`) được cập nhật, tất cả các ứng dụng sử dụng thư viện đó sẽ phải được biên dịch lại và phát hành lại cho người dùng. Điều này có thể gây bất tiện, vì ngay cả khi chỉ có một thay đổi nhỏ trong thư viện, toàn bộ chương trình cũng phải được tải xuống và cập nhật lại.
