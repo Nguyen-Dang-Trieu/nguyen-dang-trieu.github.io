@@ -29,25 +29,85 @@ Tính năng của thư viện tĩnh
 - Khi chương trình chạy, nó không còn liên quan đến thư viện nữa, giúp dễ dàng di chuyển và sử dụng trên các hệ thống khác.
 - Tốn dung lượng và tài nguyên, vì tất cả các tệp mục tiêu liên quan và thư viện được liên kết thành một tệp thực thi duy nhất.
 
-Bây giờ ta sẽ viết 1 thư viện đơn giản và biên dịch dịch file đó thành thư viện tĩnh trên linux
+Bây giờ ta sẽ viết 1 thư viện toán học đơn giản và biên dịch dịch thư viện đó đó thành thư viện tĩnh trên linux.
 
-File `StaitcMath.h`
+Ở đây trong thư mục `~/Documents/CPP`. Tạo 2 file của thư viện StaticMath: `StaticMath.h` và `StaticMath.cpp`.
+
+File `StaticMath.h`
 ~~~cpp
-#pragma once
+#ifndef STATICMATH_H
+#define STATICMATH_H
+
 class StaticMath
 {
 public:
     StaticMath(void);
     ~StaticMath(void);
 
-    static double add(double a, double b);
-    static double sub(double a, double b);
-    static double mul(double a, double b);
-    static double div(double a, double b);
+    static double add(double a, double b);// Phep cong
+    static double sub(double a, double b);// Phep tru
+    static double mul(double a, double b);// Phep nhan
+    static double div(double a, double b);// Phep chia
 
     void print();
+
 };
+#endif
+~~~
+
+ File `StaticMath.cpp`
+ ~~~cpp
+#include "StaticMath.h"
+#include <iostream>
+
+// Constructor
+StaticMath::StaticMath()
+{
+	std::cout << "StaticMath object created!" << std::endl;
+}
+
+// Destructor
+StaticMath::~StaticMath()
+{
+	std::cout << "StaticMath object destroyed!" << std::endl;
+}
+
+double StaticMath::add(double a, double b)
+{
+	return a + b;
+}
+
+double StaticMath::sub(double a, double b)
+{
+	return a - b;
+}
+
+double StaticMath::mul(double a, double b)
+{
+	return a * b;
+}
+
+double StaticMath::div(double a, double b)
+{
+	if (b == 0)
+	{
+		std::cerr << "Error:: Division by zero!" << std::endl;
+		return 0;
+	}
+	return a / b;
+}
+
+void StaticMath::print()
+{
+	std::cout << "StaticMath library is working!" << std::endl;
+}
 ~~~
 Trong linux, sử dụng `ar` để tạo thư viện tĩnh (`.a`). Còn trên window, sử dụng `lib.exe` để tạo thư viện tĩnh (`.lib`). Khi tạo thư viện tĩnh, các file `.o` được sắp xếp, lập chỉ mục để dễ dàng tra cứu trong quá trình liên kết.
 
 ![](/assets/articles/2025/Static_Dynamic_Library/2025-3-27-image_2.png){: .normal }
+
+Trước tiên cần phải biên dịch nó thành một `.o`
+~~~shell
+g++ -c StaticMath.cpp -o StaticMath.o
+~~~
+
