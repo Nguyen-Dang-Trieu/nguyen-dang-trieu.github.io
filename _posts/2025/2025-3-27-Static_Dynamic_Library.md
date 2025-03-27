@@ -101,7 +101,7 @@ void StaticMath::print()
 {
 	std::cout << "StaticMath library is working!" << std::endl;
 }
-
+~~~
 ~~~shell
 trieu@ubuntu:~/Documents/CPP$ ls
 StaticMath.cpp StaticMath.h
@@ -131,6 +131,7 @@ libstaticmath.a  StaticMath.cpp  StaticMath.o  StaticMath.h
 Các dự án lớn có nhiều file thì ta sẽ dùng Makefile hoặc là CMake để tạo các thư viện tĩnh tránh nhập lệnh phiền phức.
 
 **B2: Sử dụng thư viện**
+
 Bây giờ ta sẽ tạo một file `main.cpp`
 
 File `main.cpp`
@@ -166,7 +167,7 @@ main            StaticMath.h
 Để sử dụng thư viện tĩnh trong linux ta cần phải chỉ rõ đường dẫn dến thư viện.
 - `-I`: dùng để chỉ thư mục chứa các file header (`.h`).
 - `-L`: dùng để chỉ thư mục chứa thư viện tĩnh (`.a`) hoặc thư viện động (`.so`).
-- `'l`:
+- `-l`:
   - Nguyên tắc: -l[tên thư viện tĩnh] và bỏ phần mở rộng `.a`
   - Linker sẽ tự động tìm thư viện tĩnh trong thư mục mà đã được chỉ định với `-L`
 
@@ -192,6 +193,10 @@ Tại sao chúng ta lại cần thư viện động?
 Trên thực tế, điều này là do đặc điểm của thư viện tĩnh.
 - Vấn đề lãng phí không gian bộ nhớ là vấn đề của các thư viện tĩnh.
 
-Hình ảnh
+![](/assets/articles/2025/Static_Dynamic_Library/2025-3-27-image_3.png){: .normal }
 
 - Một vấn đề của thư viện tĩnh là chúng gây khó khăn trong việc cập nhật, triển khai và phát hành chương trình. Nếu thư viện tĩnh (`.a`, `.lib`) được cập nhật, tất cả các ứng dụng sử dụng thư viện đó sẽ phải được biên dịch lại và phát hành lại cho người dùng. Điều này có thể gây bất tiện, vì ngay cả khi chỉ có một thay đổi nhỏ trong thư viện, toàn bộ chương trình cũng phải được tải xuống và cập nhật lại.
+
+Thư viện động không được liên kết trực tiếp vào mã chương trình khi biên dịch mà chỉ được tải vào bộ nhớ khi chương trình chạy. Điều này giúp tiết kiệm bộ nhớ, vì nếu nhiều ứng dụng sử dụng cùng một thư viện, chỉ cần một bản duy nhất của thư viện được nạp vào và dùng chung.
+
+Ngoài ra, việc sử dụng thư viện động cũng khắc phục nhược điểm của thư viện tĩnh trong việc cập nhật, triển khai và phát hành chương trình. Người dùng chỉ cần cập nhật thư viện động thay vì tải lại toàn bộ chương trình, giúp quá trình cập nhật trở nên nhẹ hơn.
