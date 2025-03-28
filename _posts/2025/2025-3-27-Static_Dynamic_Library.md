@@ -316,7 +316,8 @@ Trên thực tế 2 bước trên có thể kết hợp lại thành một lện
 g++ -fPIC -shared -o libdynmath.so DynamicMath.cpp
 ~~~
 
-Sử dụng thư viện
+**Sử dụng thư viện**
+
 File main.cpp
 ~~~cpp
 #include "DynamicMath.h"
@@ -343,7 +344,8 @@ int main(int argc, char* argv[])
 
 Có 2 cách sử dụng thư viện động trong chương trình:
 - Dynamic Linking tại Compile Time
-Phương pháp này chỉ là liên kết thư viện với chương trình thôi. Khi nào chạy (Run time) thì thư viện .so mới thực sự được hệ điều hành tải vào bộ nhớ tự động.
+  
+Lúc ta biên dịch chương trình với thư viện động (`.so`), trình biên dịch chỉ liên kết nó mà không nhúng mã của thư viện vào file chạy. Khi chương trình chạy (Run time), hệ điều hành mới tự động tải thư viện .so vào bộ nhớ.
 ~~~shell
 trieu@ubuntu:~/Documents/CPP/DYNAMIC$ g++ main.cpp -I/home/trieu/Documents/CPP/DYNAMIC -L/home/trieu/Documents/CPP/DYNAMIC -ldynmath -o main
 trieu@ubuntu:~/Documents/CPP/DYNAMIC$ ls
@@ -354,7 +356,8 @@ trieu@ubuntu:~/Documents/CPP/DYNAMIC$ ./main
 
 Hướng dẫn fix lỗi này:
 
-**Cách 1:** Thiết lập LD_LIBRARY_PATH (Tạm thời)
+**Cách 1:** Thiết lập LD_LIBRARY_PATH. Chỉ thiết lập đường dẫn tạm thời
+
 Trước khi chạy chương trình, bạn cần xuất biến môi trường LD_LIBRARY_PATH:
 ~~~shell
 trieu@ubuntu:~/Documents/CPP/DYNAMIC$ export LD_LIBRARY_PATH=/home/trieu/Documents/CPP/DYNAMIC:$LD_LIBRARY_PATH
@@ -369,7 +372,12 @@ DynamicMath object destroyed!
 ~~~
 Nếu ta tắt terminal hiện tại và mở lại cần phải `export` lại từ đầu mới có thể chạy được.
 
-**Cách 2:** Thêm file thư viện vào `/etc/ld.so.conf` (Vĩnh viễn). Chú ý để ghi được file vào thư mục này cần mở quyền `sudo`.
+**Cách 2:** Thêm file thư viện vào `/etc/ld.so.conf` . Thiết lập đường dẫn cố định. Chú ý để ghi được file chứa đường dẫn thư viện động vào thư mục này cần mở quyền `sudo`.
+File `dynamic.conf`
+~~~text
+/home/trieu/Documents/CPP/DYNAMIC
+~~~
+
 ~~~shell
 trieu@ubuntu:~$ sudo nano /etc/ld.so.conf.d/dynamic.conf
 [sudo] password for trieu: 
