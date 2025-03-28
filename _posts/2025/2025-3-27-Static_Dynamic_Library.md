@@ -354,9 +354,14 @@ trieu@ubuntu:~/Documents/CPP/DYNAMIC$ ./main
 ./main: error while loading shared libraries: libdynmath.so: cannot open shared object file: No such file or directory
 ~~~
 
-Hướng dẫn fix lỗi này:
+#### Hướng dẫn fix lỗi này
 
-**Cách 1:** Thiết lập LD_LIBRARY_PATH. Chỉ thiết lập đường dẫn tạm thời
+Trước tiên ta cần phải hiểu cách hệ điều hành tìm thư viện (`.so`). Khi một chương trình cần tải thư viện `.so`, hệ điều hành tìm thư viện ở:
+- Các thư mục mặc định: `/lib`, `/usr/lib`, `/usr/local/lib`.
+- Các thư mục trong biến môi trường `LD_LIBRARY_PATH`
+- Được khai báo trong `/etc/ld.so.conf.d/`.
+
+Thiết lập LD_LIBRARY_PATH. Chỉ thiết lập đường dẫn tạm thời.
 
 Trước khi chạy chương trình, bạn cần xuất biến môi trường LD_LIBRARY_PATH:
 ~~~shell
@@ -372,7 +377,7 @@ DynamicMath object destroyed!
 ~~~
 Nếu ta tắt terminal hiện tại và mở lại cần phải `export` lại từ đầu mới có thể chạy được.
 
-**Cách 2:** Thêm file thư viện vào `/etc/ld.so.conf` . Thiết lập đường dẫn cố định. Chú ý để ghi được file chứa đường dẫn thư viện động vào thư mục này cần mở quyền `sudo`.
+Thêm file thư viện vào `/etc/ld.so.conf` . Thiết lập đường dẫn cố định. Chú ý để ghi được file chứa đường dẫn thư viện động vào thư mục này cần mở quyền `sudo`.
 File `dynamic.conf`
 ~~~text
 /home/trieu/Documents/CPP/DYNAMIC
