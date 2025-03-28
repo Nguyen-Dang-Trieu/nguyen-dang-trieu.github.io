@@ -29,6 +29,7 @@ Tính năng của thư viện tĩnh
 - Khi chương trình chạy, nó không còn liên quan đến thư viện nữa, giúp dễ dàng di chuyển và sử dụng trên các hệ thống khác.
 - Tốn dung lượng và tài nguyên, vì tất cả các tệp mục tiêu liên quan và thư viện được liên kết thành một tệp thực thi duy nhất.
 
+### Tạo và tải thư viện tĩnh trên Linux
 Bây giờ ta sẽ viết 1 thư viện toán học đơn giản và biên dịch dịch thư viện đó đó thành thư viện tĩnh trên linux.
 
 Ở đây trong thư mục `~/Documents/CPP`. Tạo 2 file của thư viện StaticMath: `StaticMath.h` và `StaticMath.cpp`.
@@ -200,3 +201,194 @@ Trên thực tế, điều này là do đặc điểm của thư viện tĩnh.
 Thư viện động không được liên kết trực tiếp vào mã chương trình khi biên dịch mà chỉ được tải vào bộ nhớ khi chương trình chạy. Điều này giúp tiết kiệm bộ nhớ, vì nếu nhiều ứng dụng sử dụng cùng một thư viện, chỉ cần một bản duy nhất của thư viện được nạp vào và dùng chung.
 
 Ngoài ra, việc sử dụng thư viện động cũng khắc phục nhược điểm của thư viện tĩnh trong việc cập nhật, triển khai và phát hành chương trình. Người dùng chỉ cần cập nhật thư viện động thay vì tải lại toàn bộ chương trình, giúp quá trình cập nhật trở nên nhẹ hơn.
+
+![](/assets/articles/2025/Static_Dynamic_Library/2025-3-27-image_4.png){: .normal }
+
+Các tính năng của thư viện động:
+- **Liên kết và tải động**: Trì hoãn việc liên kết và tải một số hàm thư viện cho đến khi chương trình chạy.
+- **Chia sẻ tài nguyên**: Cho phép nhiều tiến trình dùng chung một thư viện, giúp tiết kiệm bộ nhớ.
+- **Hỗ trợ nâng cấp dễ dàng**: Có thể cập nhật thư viện mà không cần biên dịch lại chương trình chính.
+- **Kiểm soát việc tải thư viện**: Lập trình viên có thể chủ động gọi và quản lý việc tải thư viện trong mã chương trình.
+
+Không giống như khi tạo thư viện tĩnh (static library), việc tạo thư viện động (dynamic library) không cần sử dụng công cụ đóng gói như `ar` (trên Linux) hay `lib.exe` (trên Windows), mà có thể dùng trực tiếp trình biên dịch để tạo.
+
+### Tạo và sử dụng thư viện động trên Linux
+#### Quy tắc đặt tên thư viện động trong Linux
+Trong Linux, thư viện động có định dạng `libxxx.so`, trong đó:
+- `lib`: Tiền tố mặc định của thư viện động.
+- `xxx`: Tên thư viện.
+- `.so` (Shared Object): Phần mở rộng của thư viện động.
+
+#### Tạo thư viện động
+Tạo 2 file cho thư viện động:
+File `DynamicMath.h`
+~~~cpp
+#ifndef DYNAMICMATH_H
+#define DYNAMICMATH_H
+
+class DynamicMath
+{
+public:
+	DynamicMath();
+	~DynamicMath();
+	
+	static double add(double a, double b);
+	static double sub(double a, double b);
+	static double mul(double a, double b);
+	static double div(double a, double b);
+	
+	void print();
+};
+
+#endif
+~~~
+File `DynamicMath.cpp`
+~~~cpp
+#include "DynamicMath.h"
+#include <iostream>
+
+// Constructor
+DynamicMath::DynamicMath()
+{
+	std::cout << "DynamicMath object created!" << std::endl;
+}
+
+// Destructor
+DynamicMath::~DynamicMath()
+{
+	std::cout << "DynamicMath object destroyed!" << std::endl;
+}
+
+double DynamicMath::add(double a, double b)
+{
+	return a + b;
+}
+
+double DynamicMath::sub(double a, double b)
+{
+	return a - b;
+}
+
+double DynamicMath::mul(double a, double b)
+{
+	return a * b;
+}
+
+double DynamicMath::div(double a, double b)
+{
+	if (b == 0)
+	{
+		std::cerr << "Error:: Division by zero!" << std::endl;
+		return 0;
+	}
+	return a / b;
+}
+
+void DynamicMath::print()
+{
+	std::cout << "DynamicMath library is working!" << std::endl;
+}
+~~~
+~~~shell
+trieu@ubuntu:~/Documents/CPP/DYNAMIC$ ls
+DynamicMath.cpp  DynamicMath.h
+~~~
+
+**B1: Biên dịch file đối tượng (.o)**
+~~~shell
+trieu@ubuntu:~/Documents/CPP/DYNAMIC$ g++ -fPIC -c DynamicMath.cpp
+trieu@ubuntu:~/Documents/CPP/DYNAMIC$ ls
+DynamicMath.cpp  DynamicMath.h  DynamicMath.o
+~~~
+- `-fPIC`: Tạo mã Position-Independent Code (PIC - Mã độc lập vị trí), giúp thư viện động (.so) có thể được tải vào bất kỳ vị trí nào trong bộ nhớ.
+- `-c`: Chỉ biên dịch file .cpp thành file đối tượng .o, không liên kết.
+
+**B2: Tạo thư viện động (.so)**
+~~~shell
+trieu@ubuntu:~/Documents/CPP/DYNAMIC$ g++ -shared -o libdynmath.so DynamicMath.o
+trieu@ubuntu:~/Documents/CPP/DYNAMIC$ ls
+DynamicMath.cpp  DynamicMath.h  DynamicMath.o  libdynmath.so
+~~~
+- `-shared`: Tùy chọn này cho biết cần tạo một thư viện động (shared library).
+
+Trên thực tế 2 bước trên có thể kết hợp lại thành một lệnh
+~~~shell
+g++ -fPIC -shared -o libdynmath.so DynamicMath.cpp
+~~~
+
+Sử dụng thư viện
+File main.cpp
+~~~cpp
+#include "DynamicMath.h"
+#include <iostream>
+
+using namespace std;
+
+int main(int argc, char* argv[])
+{
+	double a = 10;
+	double b = 2;
+		
+	cout << "a + b = " << DynamicMath::add(a,b) << endl;
+	cout << "a - b = " << DynamicMath::sub(a,b) << endl;
+	cout << "a * b = " << DynamicMath::mul(a,b) << endl;
+	cout << "a / b = " << DynamicMath::div(a,b) << endl;
+
+	DynamicMath sm;
+	sm.print();
+
+	return 0;
+}
+~~~
+
+Có 2 cách sử dụng thư viện động trong chương trình:
+- Dynamic Linking tại Compile Time
+Phương pháp này chỉ là liên kết thư viện với chương trình thôi. Khi nào chạy (Run time) thì thư viện .so mới thực sự được hệ điều hành tải vào bộ nhớ tự động.
+~~~shell
+trieu@ubuntu:~/Documents/CPP/DYNAMIC$ g++ main.cpp -I/home/trieu/Documents/CPP/DYNAMIC -L/home/trieu/Documents/CPP/DYNAMIC -ldynmath -o main
+trieu@ubuntu:~/Documents/CPP/DYNAMIC$ ls
+DynamicMath.cpp  DynamicMath.h  DynamicMath.o  libdynmath.so  main  main.cpp
+trieu@ubuntu:~/Documents/CPP/DYNAMIC$ ./main
+./main: error while loading shared libraries: libdynmath.so: cannot open shared object file: No such file or directory
+~~~
+
+Hướng dẫn fix lỗi này:
+
+**Cách 1:** Thiết lập LD_LIBRARY_PATH (Tạm thời)
+Trước khi chạy chương trình, bạn cần xuất biến môi trường LD_LIBRARY_PATH:
+~~~shell
+trieu@ubuntu:~/Documents/CPP/DYNAMIC$ export LD_LIBRARY_PATH=/home/trieu/Documents/CPP/DYNAMIC:$LD_LIBRARY_PATH
+trieu@ubuntu:~/Documents/CPP/DYNAMIC$ ./main
+a + b = 12
+a - b = 8
+a * b = 20
+a / b = 5
+DynamicMath object created!
+DynamicMath library is working!
+DynamicMath object destroyed!
+~~~
+Nếu ta tắt terminal hiện tại và mở lại cần phải `export` lại từ đầu mới có thể chạy được.
+
+**Cách 2:** Thêm file thư viện vào `/etc/ld.so.conf` (Vĩnh viễn). Chú ý để ghi được file vào thư mục này cần mở quyền `sudo`.
+~~~shell
+trieu@ubuntu:~$ sudo nano /etc/ld.so.conf.d/dynamic.conf
+[sudo] password for trieu: 
+trieu@ubuntu:~$ sudo ldconfig
+trieu@ubuntu:~$ cd Documents/CPP/DYNAMIC
+trieu@ubuntu:~/Documents/CPP/DYNAMIC$ ls
+DynamicMath.cpp  DynamicMath.h  DynamicMath.o  libdynmath.so  main  main.cpp
+trieu@ubuntu:~/Documents/CPP/DYNAMIC$ ./main
+a + b = 12
+a - b = 8
+a * b = 20
+a / b = 5
+DynamicMath object created!
+DynamicMath library is working!
+DynamicMath object destroyed!
+~~~
+Bây giờ ta có thể tắt và mở lại terminal và mọi thứ diễn ra bình thường.
+
+- Dynamic Loading tại Runtime
+~~~cpp
+#include <dlfcn.h>  // Thư viện để tải file .so
+~~~
