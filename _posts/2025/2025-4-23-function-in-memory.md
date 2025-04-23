@@ -28,38 +28,39 @@ Và nhiệm vụ phụ B lại phụ thuộc vào nhiệm vụ D khác.
 
 Mối quan hệ của toàn bộ nhiệm vụ được thể hiện như trong hình.
 
-Hình ảnh
+![](/assets/articles/2025/FunctionInMemory/1.png){: .normal }
 
 Bây giờ, ta sẽ mô phỏng quá trình hoàn thành nhiệm vụ.
 Trước hết ta sẽ thực thi Task A.
 
-Hình ảnh
+![](/assets/articles/2025/FunctionInMemory/2.png){: .normal }
 
 Trong quá trình thực thi task A, ta thấy task A phụ thuộc vào task B. Nên ta buộc phải tạm dừng task A và chuyển sang thực task B.
 
-Hỉnh ảnh
+![](/assets/articles/2025/FunctionInMemory/3.png){: .normal }
 
 Khi thực hiện task B, ta lại thấy task B phụ thuộc vào task D. Và ta dừng task B và chuyển sang thực thi task D.
 
-Hình ảnh
+![](/assets/articles/2025/FunctionInMemory/4.png){: .normal }
 
 Khi thực thi task D, ta thấy task D không phục thuộc vào task nào hết. Cho nên sau khi thực thi xong task D ta sẽ quay lại nhiệm vụ trước đó là task B.
 
-Hình ảnh
+![](/assets/articles/2025/FunctionInMemory/3.png){: .normal }
 
 Và sau khi task B được thi xong sẽ trở về thực thi task A.
 
-Hình ảnh
+![](/assets/articles/2025/FunctionInMemory/2.png){: .normal }
 
 Bây giờ ta lại quay về task A, task phụ B đã xong. Tiếp theo cần hoàn thành là task C.
 
-Hình ảnh
+![](/assets/articles/2025/FunctionInMemory/5.png){: .normal }
 
 Giống như task D, task C không còn phụ thuộc vào task nào cả. Sau khi task C hoàn thành sẽ quay lại Task A. Và sau đó task A sẽ được thực thi hoàn toàn.
 Hãy cùng xem xét tiến trình hoạt động của toàn bộ nhiệm vụ:
 
 
-Hình ảnh
+![](/assets/articles/2025/FunctionInMemory/6.png){: .normal }
+
 
 Nếu bạn để ý kỹ, bạn sẽ thấy rằng các task tuân theo nguyên tắc Last In, First Out, rất phù hợp để quản lý bằng một cấu trúc dữ liệu như ngăn xếp (stack).
 
@@ -89,8 +90,7 @@ Bây giờ chúng ta có thể mở chiếc hộp nhỏ này ra và xem cách s�
 
 Giả sử hàm A gọi hàm B, như thể hiện trong hình:
 
-
-Hình ảnh
+![](/assets/articles/2025/FunctionInMemory/7.png){: .normal }
 
 Hiện tại, CPU đang thực thi một lệnh máy trong hàm A, tại địa chỉ 0x400564. Ngay sau đó, CPU gặp lệnh:
 call 0x400540
@@ -100,13 +100,12 @@ Như vậy, chúng ta đã trả lời được câu hỏi: "CPU sẽ đi đâu 
 Nhưng một câu hỏi quan trọng hơn là: "Làm sao CPU biết quay lại hàm A sau khi thực thi xong hàm B?"
 Câu trả lời nằm ở cơ chế hoạt động của lệnh call: trước khi nhảy đến hàm B, CPU sẽ đẩy địa chỉ của lệnh tiếp theo trong hàm A (sau call) vào ngăn xếp (stack). Nhờ vậy, khi hàm B thực thi xong và gặp lệnh ret, CPU sẽ lấy lại địa chỉ từ stack và tiếp tục chạy nốt phần còn lại của hàm A.
 
-Hình ảnh
+![](/assets/articles/2025/FunctionInMemory/8.png){: .normal }
 
 Bây giờ, hộp nhỏ (stack) cho hàm A lớn hơn một chút vì địa chỉ trả về đã thêm vào:
 Bây giờ CPU bắt đầu thực hiện các lệnh máy tương ứng với chức năng B. Lưu ý rằng chức năng B cũng có hộp nhỏ riêng (khung ngăn xếp) mà bạn có thể đưa một số thông tin cần thiết vào.
 
-
-Hình ảnh
+![](/assets/articles/2025/FunctionInMemory/9.png){: .normal }
 
 Vậy nếu trong quá trình thực thi, hàm B lại tiếp tục gọi các hàm khác thì sao?
 Thực ra, nguyên tắc vẫn giống như khi hàm A gọi hàm B: mỗi lần gọi hàm, CPU sẽ đẩy địa chỉ trả về vào stack để có thể quay lại đúng chỗ sau khi hàm con kết thúc.
@@ -126,7 +125,8 @@ Trong trường hợp đó, các tham số dư ra sẽ được lưu vào ngăn 
 Điều này cũng khiến cấu trúc của khung ngăn xếp ngày càng phong phú, không chỉ chứa địa chỉ trả về, giá trị cũ của thanh ghi mà còn có thể chứa các tham số bổ sung.
 
 
-Hình ảnh
+![](/assets/articles/2025/FunctionInMemory/10.png){: .normal }
+
 
 Từ hình vẽ ta có thể thấy khi gọi hàm B, một số tham số được đặt trong khung ngăn xếp của hàm A, và địa chỉ trả về vẫn được lưu ở đầu khung ngăn xếp của hàm A.
 
@@ -137,7 +137,8 @@ Thực tế, các biến cục bộ có thể được lưu trong các thanh ghi
 Vì vậy, nội dung của khung ngăn xếp sẽ trở nên phong phú hơn khi có nhiều biến cục bộ được sử dụng.
 
 
-Hình ảnh
+![](/assets/articles/2025/FunctionInMemory/11.png){: .normal }
+
 
 Một số sinh viên cẩn thận có thể đặt ra câu hỏi như sau:
 Chúng ta biết rằng thanh ghi là tài nguyên chia sẻ và có thể được sử dụng bởi mọi hàm. Vì vậy, nếu các biến cục bộ của hàm A được lưu trong thanh ghi, thì khi hàm A gọi hàm B, các biến cục bộ của hàm B cũng có thể ghi đè lên cùng những thanh ghi đó.
@@ -147,10 +148,8 @@ Khi hàm B thực thi và ghi vào các thanh ghi, các giá trị ban đầu c�
 Câu hỏi đặt ra: Chúng ta lưu các giá trị gốc của thanh ghi ở đâu?
 Một số bạn có thể đã đoán được: Đúng vậy, các giá trị đó được lưu trong khung ngăn xếp (stack frame) của hàm.
 
-Hình ảnh
+![](/assets/articles/2025/FunctionInMemory/12.png){: .normal }
 
-
-Hình ảnh
 
 ## Lời kết
 
