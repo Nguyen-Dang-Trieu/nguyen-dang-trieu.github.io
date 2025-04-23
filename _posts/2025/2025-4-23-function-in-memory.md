@@ -10,8 +10,9 @@ author: Trieu
 Khi một chương trình bắt đầu chạy, hệ điều hành sẽ tạo ra một tiến trình (process). Mỗi tiến trình có thể chứa nhiều luồng (thread), và chính các luồng này chịu trách 
 nhiệm thực thi các đoạn mã bên trong chương trình.
 
-Ở cấp độ này – process và thread – ta có thể quan sát chương trình đang làm gì từ góc nhìn hệ thống. Nhưng khi cần hiểu sâu hơn, chẳng hạn: tại sao lỗi segmentation fault
-xảy ra? Stack overflow là gì?, thì process hay thread không đủ.
+Ở cấp độ này – process và thread – ta có thể quan sát chương trình đang làm gì từ góc nhìn hệ thống. Nhưng khi cần hiểu sâu hơn, chẳng hạn: 
+- Tại sao lỗi segmentation fault xảy ra?
+- Stack overflow là gì?
 
 Để trả lời những câu hỏi đó, ta cần tiếp tục đào sâu vào bên trong. Bên trong mỗi thread là hàng loạt lệnh gọi hàm – function call. Và chính cơ chế gọi hàm là nơi diễn 
 ra các hoạt động quan trọng: cấp phát stack frame, lưu địa chỉ trả về, quản lý biến cục bộ...
@@ -19,98 +20,115 @@ ra các hoạt động quan trọng: cấp phát stack frame, lưu địa chỉ 
 Bài viết này sẽ giúp bạn hiểu rõ hơn cách một hàm được gọi, cách chương trình luân chuyển quyền điều khiển, và điều gì thực sự diễn ra bên trong bộ nhớ khi một chương 
 trình chạy.
 
-## Sack
+## Stack frame
 Chắc hẳng ai trong số chúng ta cũng từng chơi 1 tựa game nào đó. Để có thể tiến về phía trước thì ta cần phải hoàn thành những nhiệm vụ chính, bên cạnh những nhiệm vụ chính đó còn có nhiều nhiệm vụ phụ khác mà bạn cần phải hoàn thành trước.
 Điều này có nghĩa là gì? Tôi sẽ cho bạn một ví dụ để giúp bạn hiểu rõ.
 
-Giả sử ta có nhiệm vụ chính là nhiệm vụ A phụ thuộc vào nhiệm vụ phụ B, C. Nghĩa là cần phải hoàn thành nhiệm vụ phụ B, C trước thì nhiệm vụ A mới có thể tiếp tục.
-Và nhiệm vụ phụ B lại phụ thuộc vào nhiệm vụ D khác.
+Giả sử ta có nhiệm vụ chính là `task A` phụ thuộc vào `task B, C`. Nghĩa là cần phải hoàn thành `task B, C` trước thì `task A` mới có thể tiếp tục.
+Và `task B` lại phụ thuộc vào `task D` khác.
 
-Mối quan hệ của toàn bộ nhiệm vụ được thể hiện như trong hình.
+Mối quan hệ của toàn bộ `task` được thể hiện như trong hình.
 
 ![](/assets/articles/2025/FunctionInMemory/1.png){: .normal }
 
 Bây giờ, ta sẽ mô phỏng quá trình hoàn thành nhiệm vụ.
-Trước hết ta sẽ thực thi Task A.
+Trước hết ta sẽ thực thi `task A`.
 
 ![](/assets/articles/2025/FunctionInMemory/2.png){: .normal }
 
-Trong quá trình thực thi task A, ta thấy task A phụ thuộc vào task B. Nên ta buộc phải tạm dừng task A và chuyển sang thực task B.
+Trong quá trình thực thi `task A`, ta thấy `task A` phụ thuộc vào `task B`. Nên ta buộc phải tạm dừng `task A` và chuyển sang thực `task B`.
 
 ![](/assets/articles/2025/FunctionInMemory/3.png){: .normal }
 
-Khi thực hiện task B, ta lại thấy task B phụ thuộc vào task D. Và ta dừng task B và chuyển sang thực thi task D.
+Khi thực hiện `task B`, ta lại thấy `task B` phụ thuộc vào `task D`. Và ta dừng `task B` và chuyển sang thực thi `task D`.
 
 ![](/assets/articles/2025/FunctionInMemory/4.png){: .normal }
 
-Khi thực thi task D, ta thấy task D không phục thuộc vào task nào hết. Cho nên sau khi thực thi xong task D ta sẽ quay lại nhiệm vụ trước đó là task B.
+Khi thực thi `task D`, ta thấy `task D` không phục thuộc vào task nào hết. Cho nên sau khi thực thi xong `task D` ta sẽ quay lại nhiệm vụ trước đó là `task B`.
 
 ![](/assets/articles/2025/FunctionInMemory/3.png){: .normal }
 
-Và sau khi task B được thi xong sẽ trở về thực thi task A.
+Và sau khi `task B` được thi xong sẽ trở về thực thi `task A`.
 
 ![](/assets/articles/2025/FunctionInMemory/2.png){: .normal }
 
-Bây giờ ta lại quay về task A, task phụ B đã xong. Tiếp theo cần hoàn thành là task C.
+Bây giờ ta lại quay về `task A`, `task B` đã xong. Tiếp theo cần hoàn thành là `task C`.
 
 ![](/assets/articles/2025/FunctionInMemory/5.png){: .normal }
 
-Giống như task D, task C không còn phụ thuộc vào task nào cả. Sau khi task C hoàn thành sẽ quay lại Task A. Và sau đó task A sẽ được thực thi hoàn toàn.
+Giống như `task D`, `task C` không còn phụ thuộc vào task nào cả. Sau khi task C hoàn thành sẽ quay lại `task A`. Và sau đó `task A` sẽ được thực thi hoàn toàn.
 Hãy cùng xem xét tiến trình hoạt động của toàn bộ nhiệm vụ:
-
 
 ![](/assets/articles/2025/FunctionInMemory/6.png){: .normal }
 
+Nếu bạn để ý kỹ, bạn sẽ thấy rằng các task tuân theo nguyên tắc **Last In, First Out**, rất phù hợp để quản lý bằng một cấu trúc dữ liệu như **ngăn xếp (stack)**.
 
-Nếu bạn để ý kỹ, bạn sẽ thấy rằng các task tuân theo nguyên tắc Last In, First Out, rất phù hợp để quản lý bằng một cấu trúc dữ liệu như ngăn xếp (stack).
-
-Nguyên tắc tương tự cũng áp dụng cho những lệnh gọi hàm. Nếu bạn thay thế task A, B, C, D thành function A, B, C, D thì bản chất vẫn không thay đổi.
+Nguyên tắc tương tự cũng áp dụng cho những lệnh gọi hàm. Nếu bạn thay thế **task A, B, C, D** thành **function A, B, C, D** thì bản chất vẫn không thay đổi.
 
 Do đó bây giờ ta biết được cấu trúc ngăn xếp dùng để lưu trữ thông tin về gọi hàm.
 
-Giống như mọi nhiệm vụ của trò chơi, mỗi hàm cũng có 1 hộp nhỏ riêng dùng để lưu trữ những thông tin cần thiết khi chạy. Những chiếc hộp nhỏ này được sắp xếp theo cấu trúc xếp chồng lên nhau. Tạo thành khung ngăn xếp (stack frame). Hộp nhỏ này là bộ nhớ bị hàm chiếm dụng khi chạy.
+Giống như mọi nhiệm vụ của trò chơi, mỗi hàm cũng có 1 hộp nhỏ riêng dùng để lưu trữ những thông tin cần thiết khi chạy. Những chiếc hộp nhỏ này được sắp xếp theo cấu trúc xếp chồng lên nhau. **Tạo thành khung ngăn xếp (stack frame)**. Hộp nhỏ này là bộ nhớ bị hàm chiếm dụng khi chạy.
 
-Vậy thông tin gì sẽ có khi một hàm được gọi?
+> Vậy thông tin gì sẽ có khi một hàm được gọi?.
+{: .prompt-info }
 
-Khi hàm A gọi hàm B, CPU sẽ ngừng thực thi các lệnh của A và chuyển sang thực thi các lệnh của B. Hành động này gọi là chuyển quyền điều khiển từ A sang B.
+Khi `func A` gọi `func B`, CPU sẽ ngừng thực thi các lệnh của A và chuyển sang thực thi các lệnh của B. Hành động này gọi là chuyển quyền điều khiển từ A sang B.
 Nói đơn giản, "quyền điều khiển" ở đây chính là quyền điều khiển luồng thực thi — tức là CPU sẽ chạy đoạn mã nào tiếp theo.
 Để thực hiện quá trình chuyển quyền điều khiển này, CPU cần hai thông tin quan trọng:
-•	Đi từ đâu? (Địa chỉ lệnh trong hàm A — để biết sau khi hàm B chạy xong thì quay lại đâu)
-•	Đi đến đâu? (Địa chỉ bắt đầu của hàm B — nơi CPU cần nhảy đến để thực thi lệnh đầu tiên của B)
+- Từ đâu đến? (Địa chỉ lệnh trong hàm A — để biết sau khi hàm B chạy xong thì quay lại đâu)
+-	Đi đến đâu? (Địa chỉ bắt đầu của hàm B — nơi CPU cần nhảy đến để thực thi lệnh đầu tiên của B)
+  
 Bạn có thể hình dung giống như đi du lịch:
-•	Bạn cần biết điểm đến (để biết phải đi đâu)
-•	Và bạn cũng cần nhớ địa chỉ nhà (để biết đường quay về sau khi chơi xong)
+- Bạn cần biết điểm đến (để biết phải đi đâu)
+- Và bạn cũng cần nhớ địa chỉ nhà (để biết đường quay về sau khi chơi xong)
+  
 Lệnh gọi hàm cũng hoạt động như vậy.
 
-Hai thông tin này đủ để CPU bắt đầu thực hiện các lệnh máy tương ứng với chức năng B và nhảy trở lại chức năng A khi chức năng B hoàn tất.
+Hai thông tin này đủ để CPU bắt đầu thực hiện các lệnh máy tương ứng với `func B` và nhảy trở lại `func A` khi `func B` hoàn tất.
 
-Vậy thông tin này được thu thập và lưu giữ như thế nào?
+> Vậy thông tin này được thu thập và lưu giữ như thế nào?
+{: .prompt-info }
 
 Bây giờ chúng ta có thể mở chiếc hộp nhỏ này ra và xem cách sử dụng nó.
 
-Giả sử hàm A gọi hàm B, như thể hiện trong hình:
+Giả sử `func A` gọi `func B`, như thể hiện trong hình:
 
 ![](/assets/articles/2025/FunctionInMemory/7.png){: .normal }
 
-Hiện tại, CPU đang thực thi một lệnh máy trong hàm A, tại địa chỉ 0x400564. Ngay sau đó, CPU gặp lệnh:
+Hiện tại, CPU đang thực thi một lệnh máy trong `func A`, tại địa chỉ `0x400564`. Ngay sau đó, CPU gặp lệnh:
+~~~asm
 call 0x400540
-Vậy lệnh máy này có ý nghĩa gì?
-Lệnh call trong hợp ngữ tương ứng với một lệnh gọi hàm trong mã nguồn cấp cao. Nó ra lệnh cho CPU chuyển quyền điều khiển đến địa chỉ 0x400540 — chính là địa chỉ bắt đầu của hàm B. Nếu bạn quan sát kỹ hình minh họa, bạn sẽ thấy địa chỉ 0x400540 thực sự là lệnh đầu tiên trong hàm B.
-Như vậy, chúng ta đã trả lời được câu hỏi: "CPU sẽ đi đâu sau khi gặp lệnh call?"
-Nhưng một câu hỏi quan trọng hơn là: "Làm sao CPU biết quay lại hàm A sau khi thực thi xong hàm B?"
-Câu trả lời nằm ở cơ chế hoạt động của lệnh call: trước khi nhảy đến hàm B, CPU sẽ đẩy địa chỉ của lệnh tiếp theo trong hàm A (sau call) vào ngăn xếp (stack). Nhờ vậy, khi hàm B thực thi xong và gặp lệnh ret, CPU sẽ lấy lại địa chỉ từ stack và tiếp tục chạy nốt phần còn lại của hàm A.
+~~~
+
+> Vậy lệnh máy này có ý nghĩa gì?
+{: .prompt-info }
+
+Lệnh `call` trong hợp ngữ tương ứng với một lệnh gọi hàm trong mã nguồn cấp cao. Nó ra lệnh cho CPU chuyển quyền điều khiển đến địa chỉ `0x400540` — chính là địa chỉ bắt đầu của `func B`. Nếu bạn quan sát kỹ hình minh họa, bạn sẽ thấy địa chỉ `0x400540` thực sự là lệnh đầu tiên trong `func B`.
+
+Như vậy, chúng ta đã trả lời được câu hỏi: **"CPU sẽ đi đâu sau khi gặp lệnh `call`?"**
+
+> Nhưng một câu hỏi quan trọng hơn là: **"Làm sao CPU biết quay lại `func B\A` sau khi thực thi xong `func B`?"**
+{: .prompt-info }
+
+Câu trả lời nằm ở cơ chế hoạt động của lệnh `call`: trước khi nhảy đến `func B`, CPU sẽ đẩy địa chỉ của lệnh tiếp theo trong `func A` (sau call) vào ngăn xếp (stack). Nhờ vậy, khi `func B` thực thi xong và gặp lệnh `ret`, *CPU sẽ lấy lại địa chỉ từ stack và tiếp tục chạy nốt phần còn lại của `func A`.*
 
 ![](/assets/articles/2025/FunctionInMemory/8.png){: .normal }
 
-Bây giờ, hộp nhỏ (stack) cho hàm A lớn hơn một chút vì địa chỉ trả về đã thêm vào:
-Bây giờ CPU bắt đầu thực hiện các lệnh máy tương ứng với chức năng B. Lưu ý rằng chức năng B cũng có hộp nhỏ riêng (khung ngăn xếp) mà bạn có thể đưa một số thông tin cần thiết vào.
+Lúc này, `stack frame` cho `func A` lớn hơn một chút vì địa chỉ trả về đã thêm vào
+Bây giờ CPU bắt đầu thực hiện các lệnh máy tương ứng với `func B`. 
+
+> Lưu ý rằng `func B` cũng có hộp nhỏ riêng (khung ngăn xếp) mà bạn có thể đưa một số thông tin cần thiết vào.
+{: .prompt-warning }
+
 
 ![](/assets/articles/2025/FunctionInMemory/9.png){: .normal }
 
-Vậy nếu trong quá trình thực thi, hàm B lại tiếp tục gọi các hàm khác thì sao?
-Thực ra, nguyên tắc vẫn giống như khi hàm A gọi hàm B: mỗi lần gọi hàm, CPU sẽ đẩy địa chỉ trả về vào stack để có thể quay lại đúng chỗ sau khi hàm con kết thúc.
-Bây giờ, hãy xem xét lệnh máy ret — thường xuất hiện ở cuối hàm B. Chức năng của lệnh ret là yêu cầu CPU nhảy đến địa chỉ trả về đã được lưu trên stack (địa chỉ trong hàm A ngay sau lệnh call). Nhờ đó, sau khi thực thi xong hàm B, CPU có thể quay trở lại hàm A và tiếp tục thực thi phần còn lại.
-Tới đây, chúng ta đã thấy cách hệ thống giải quyết được câu hỏi "tôi đến từ đâu?" trong quá trình chuyển giao quyền điều khiển giữa các hàm.
+Vậy nếu trong quá trình thực thi, `func B` lại tiếp tục gọi các hàm khác thì sao?
+Thực ra, nguyên tắc vẫn giống như khi `func A` gọi `func B`: mỗi lần gọi hàm, CPU sẽ đẩy địa chỉ trả về vào stack để có thể quay lại đúng chỗ sau khi hàm con kết thúc.
+
+Bây giờ, hãy xem xét lệnh máy `ret` — thường xuất hiện ở cuối hàm B. Chức năng của lệnh ret là yêu cầu CPU nhảy đến địa chỉ trả về đã được lưu trên stack (địa chỉ trong hàm A ngay sau lệnh call). Nhờ đó, sau khi thực thi xong hàm B, CPU có thể quay trở lại hàm A và tiếp tục thực thi phần còn lại.
+
+Tới đây, chúng ta đã thấy cách hệ thống giải quyết được câu hỏi **"Từ đâu đến?"** trong quá trình chuyển giao quyền điều khiển giữa các hàm.
 
 Truyền tham số và giá trị trả về trong lời gọi hàm
 Khi gọi một hàm và nhận giá trị trả về, không chỉ tên hàm được sử dụng, mà còn có hai yêu cầu quan trọng: truyền tham số cho hàm và nhận lại giá trị trả về sau khi hàm hoàn tất. Vậy cơ chế này được thực hiện như thế nào?
