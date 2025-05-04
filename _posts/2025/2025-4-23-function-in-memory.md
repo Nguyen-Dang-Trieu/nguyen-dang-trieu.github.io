@@ -123,47 +123,63 @@ Bây giờ CPU bắt đầu thực hiện các lệnh máy tương ứng với `
 
 ![](/assets/articles/2025/FunctionInMemory/9.png){: .normal }
 
-Vậy nếu trong quá trình thực thi, `func B` lại tiếp tục gọi các hàm khác thì sao?
+> Vậy nếu trong quá trình thực thi, `func B` lại tiếp tục gọi các hàm khác thì sao?
+{: .prompt-info }
+
 Thực ra, nguyên tắc vẫn giống như khi `func A` gọi `func B`: mỗi lần gọi hàm, CPU sẽ đẩy địa chỉ trả về vào stack để có thể quay lại đúng chỗ sau khi hàm con kết thúc.
 
-Bây giờ, hãy xem xét lệnh máy `ret` — thường xuất hiện ở cuối hàm B. Chức năng của lệnh ret là yêu cầu CPU nhảy đến địa chỉ trả về đã được lưu trên stack (địa chỉ trong hàm A ngay sau lệnh call). Nhờ đó, sau khi thực thi xong hàm B, CPU có thể quay trở lại hàm A và tiếp tục thực thi phần còn lại.
+Bây giờ, hãy xem xét lệnh máy `ret` — thường xuất hiện ở cuối hàm B. Chức năng của lệnh `ret` là yêu cầu CPU nhảy đến địa chỉ trả về đã được lưu trên stack (địa chỉ trong hàm A ngay sau lệnh `call`). Nhờ đó, sau khi thực thi xong hàm B, CPU có thể quay trở lại hàm A và tiếp tục thực thi phần còn lại.
 
 Tới đây, chúng ta đã thấy cách hệ thống giải quyết được câu hỏi **"Từ đâu đến?"** trong quá trình chuyển giao quyền điều khiển giữa các hàm.
 
-Truyền tham số và giá trị trả về trong lời gọi hàm
-Khi gọi một hàm và nhận giá trị trả về, không chỉ tên hàm được sử dụng, mà còn có hai yêu cầu quan trọng: truyền tham số cho hàm và nhận lại giá trị trả về sau khi hàm hoàn tất. Vậy cơ chế này được thực hiện như thế nào?
-Trong kiến trúc x86-64, quá trình truyền tham số và nhận giá trị trả về chủ yếu được thực hiện qua các thanh ghi (registers).
+**Truyền tham số và giá trị trả về trong lời gọi hàm**
+
+Khi gọi một hàm và nhận giá trị trả về, không chỉ tên hàm được sử dụng, mà còn có hai yêu cầu quan trọng: truyền tham số cho hàm và nhận lại giá trị trả về sau khi hàm hoàn tất. 
+
+> Vậy cơ chế này được thực hiện như thế nào?
+{: .prompt-info }
+
+Trong kiến trúc `x86-64`, quá trình truyền tham số và nhận giá trị trả về chủ yếu được thực hiện qua các thanh ghi (registers).
+
 Giả sử hàm A gọi hàm B. Trước khi thực hiện lời gọi, hàm A sẽ ghi các tham số vào các thanh ghi được quy định trước. Khi CPU bắt đầu thực thi hàm B, nó sẽ đọc các giá trị tham số trực tiếp từ những thanh ghi này.
-Tương tự, sau khi hoàn tất công việc, hàm B sẽ ghi giá trị trả về vào một thanh ghi cụ thể (thường là RAX trong x86-64). Khi CPU quay lại hàm A, giá trị trả về đã sẵn sàng trong thanh ghi để sử dụng.
+Tương tự, sau khi hoàn tất công việc, hàm B sẽ ghi giá trị trả về vào một thanh ghi cụ thể (thường là `RAX` trong `x86-64`). Khi CPU quay lại hàm A, giá trị trả về đã sẵn sàng trong thanh ghi để sử dụng.
 
 
-Khi số lượng tham số vượt quá số lượng thanh ghi
-Tuy nhiên, như bạn biết, số lượng thanh ghi là có hạn. Vậy chuyện gì xảy ra nếu hàm cần nhận nhiều tham số hơn số thanh ghi có thể chứa?
+**Khi số lượng tham số vượt quá số lượng thanh ghi**
+
+> Tuy nhiên, như bạn biết, số lượng thanh ghi là có hạn. Vậy chuyện gì xảy ra nếu hàm cần nhận nhiều tham số hơn số thanh ghi có thể chứa?
+{: .prompt-info }
+
+
 Trong trường hợp đó, các tham số dư ra sẽ được lưu vào ngăn xếp (stack). Cụ thể, chúng sẽ được đặt trong khung ngăn xếp (stack frame) của hàm gọi trước khi lệnh gọi hàm được thực hiện. Nhờ đó, hàm được gọi vẫn có thể truy cập đầy đủ tất cả các tham số – những cái nằm trong thanh ghi và cả những cái được lưu trên ngăn xếp.
-Điều này cũng khiến cấu trúc của khung ngăn xếp ngày càng phong phú, không chỉ chứa địa chỉ trả về, giá trị cũ của thanh ghi mà còn có thể chứa các tham số bổ sung.
-
+Điều này cũng khiến cấu trúc của khung ngăn xếp ngày càng mở rộng, không chỉ chứa địa chỉ trả về, giá trị cũ của thanh ghi mà còn có thể chứa các tham số bổ sung.
 
 ![](/assets/articles/2025/FunctionInMemory/10.png){: .normal }
 
-
 Từ hình vẽ ta có thể thấy khi gọi hàm B, một số tham số được đặt trong khung ngăn xếp của hàm A, và địa chỉ trả về vẫn được lưu ở đầu khung ngăn xếp của hàm A.
 
+**Biến cục bộ**
 
-Biến cục bộ
-Chúng ta biết rằng các biến được định nghĩa bên trong một hàm được gọi là biến cục bộ. Khi hàm đang chạy, các biến này sẽ được lưu trữ ở đâu?
+> Chúng ta biết rằng các biến được định nghĩa bên trong một hàm được gọi là biến cục bộ. Khi hàm đang chạy, các biến này sẽ được lưu trữ ở đâu?
+{: .prompt-info }
+
 Thực tế, các biến cục bộ có thể được lưu trong các thanh ghi. Tuy nhiên, khi số lượng biến vượt quá khả năng lưu trữ của thanh ghi, chúng sẽ được đặt trong khung ngăn xếp (stack frame).
-Vì vậy, nội dung của khung ngăn xếp sẽ trở nên phong phú hơn khi có nhiều biến cục bộ được sử dụng.
-
+Vì vậy, nội dung của khung ngăn xếp sẽ tiếp tục mở rộng khi có nhiều biến cục bộ được sử dụng.
 
 ![](/assets/articles/2025/FunctionInMemory/11.png){: .normal }
 
-
-Một số sinh viên cẩn thận có thể đặt ra câu hỏi như sau:
-Chúng ta biết rằng thanh ghi là tài nguyên chia sẻ và có thể được sử dụng bởi mọi hàm. Vì vậy, nếu các biến cục bộ của hàm A được lưu trong thanh ghi, thì khi hàm A gọi hàm B, các biến cục bộ của hàm B cũng có thể ghi đè lên cùng những thanh ghi đó.
+Ta có thể đặt ra câu hỏi như sau
+> Chúng ta biết rằng thanh ghi là tài nguyên chia sẻ và có thể được sử dụng bởi mọi hàm. Vì vậy, nếu các biến cục bộ của hàm A được lưu trong thanh ghi, thì khi hàm A gọi hàm B, các biến cục bộ của hàm B cũng có thể ghi đè lên cùng những thanh ghi đó.
 Vậy điều gì sẽ xảy ra?
+{: .prompt-info }
+
 Khi hàm B thực thi và ghi vào các thanh ghi, các giá trị ban đầu của biến cục bộ trong hàm A sẽ bị ghi đè. Sau khi hàm B kết thúc và quay lại hàm A, các giá trị cũ không còn nữa — điều này sẽ gây ra lỗi.
+
 Để tránh điều này, trước khi ghi biến cục bộ vào thanh ghi, chương trình cần lưu lại giá trị gốc của thanh ghi. Sau khi hàm được gọi (ví dụ hàm B) kết thúc, chương trình sẽ khôi phục lại giá trị ban đầu của thanh ghi để đảm bảo các biến cục bộ của hàm gọi (ví dụ hàm A) vẫn đúng.
-Câu hỏi đặt ra: Chúng ta lưu các giá trị gốc của thanh ghi ở đâu?
+
+> Câu hỏi đặt ra: Chúng ta lưu các giá trị gốc của thanh ghi ở đâu?
+{: .prompt-info }
+
 Một số bạn có thể đã đoán được: Đúng vậy, các giá trị đó được lưu trong khung ngăn xếp (stack frame) của hàm.
 
 ![](/assets/articles/2025/FunctionInMemory/12.png){: .normal }
