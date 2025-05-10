@@ -60,7 +60,7 @@ Ngoài ra, khi một hàm đang chạy trong luồng, CPU sẽ cần sử dụng
 
 Câu "những thanh ghi là riêng cho từng luồng" có nghĩa là
 
-- *Khi một luồng đang được CPU thực thi, nó sử dụng các thanh ghi như R1, R2... để lưu trữ thông tin tạm thời. Nhưng khi CPU chuyển sang thực thi luồng khác, hệ điều hành sẽ lưu lại nội dung của các thanh ghi đó (liên quan đến luồng trước), và nạp vào giá trị mới tương ứng với luồng kế tiếp.*
+- *Khi một luồng đang được CPU thực thi, nó sử dụng các thanh ghi như R1, R2... để lưu trữ thông tin tạm thời. Nhưng khi CPU chuyển sang thực thi luồng khác, hệ điều hành sẽ lưu lại nội dung của các thanh ghi đó (liên quan đến luồng trước), và nạp vào giá trị mới cho các thanh ghi tương ứng với luồng kế tiếp.*
 
 - *Điều này tạo ra ảo tưởng rằng mỗi luồng có các thanh ghi **"riêng biệt"** của nó, dù trên thực tế chỉ có một tập thanh ghi vật lý duy nhất trong CPU*
 
