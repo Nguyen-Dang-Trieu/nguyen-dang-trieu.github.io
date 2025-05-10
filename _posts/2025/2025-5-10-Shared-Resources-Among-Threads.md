@@ -36,7 +36,8 @@ Mỗi thread đều bắt đầu từ một điểm nhập (entry function) — 
 
 Khi một chương trình tạo ra một thread, hệ điều hành sẽ lên lịch để CPU bắt đầu thực thi từ hàm này. Quá trình thực thi đó tạo thành một "luồng thực thi" (execution thread), và chúng ta thường đặt cho nó một cái tên hoặc một định danh — đó chính là "thread" mà ta nói đến.
 
-Vì bản chất của việc chạy thread là thực thi hàm, vậy khi thực thi hàm thì chứa những thông tin gì?
+> Vì bản chất của việc chạy thread là thực thi hàm, vậy khi thực thi hàm thì chứa những thông tin gì❓
+{: .prompt-info }
 
 Trong bài viết "[Một hàm sẽ như thế nào trong bộ nhớ khi nó đang chạy?](https://nguyen-dang-trieu.github.io/posts/function-in-memory/)", tôi đã nói các thông tin của một hàm khi chạy sẽ được lưu trữ trong khung ngăn xếp (frame stack) chẳng hạn như biến cục bộ, tham số, dịa chỉ trả về của lệnh gọi hàm, ... 
 
