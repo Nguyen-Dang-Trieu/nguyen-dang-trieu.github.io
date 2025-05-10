@@ -186,5 +186,5 @@ Một số bạn có thể đã đoán được: Đúng vậy, các giá trị �
 
 
 ## Lời kết
-
+Qua bài đọc trên, tôi hi vọng có thể giúp ích phần nào về việc hiểu rõ hơn về những chi tiết ẩn đằng sau quá trình gọi hàm và chạy hàm. 😄
 
