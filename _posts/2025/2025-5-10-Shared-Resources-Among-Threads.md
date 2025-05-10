@@ -29,7 +29,7 @@ Cụ thể hơn:
 Nếu bạn chưa trả lời được những câu hỏi này một cách rõ ràng thì bài viết này dành cho bạn.
 
 ## 📂 Mục lục
-### Thread-private resources
+### 1. Thread-private resources
 Về bản chất, thread chính là quá trình thực thi hàm.
 
 Mỗi thread đều bắt đầu từ một điểm nhập (entry function) — đây là hàm mà CPU sẽ gọi đầu tiên để khởi động thread.
