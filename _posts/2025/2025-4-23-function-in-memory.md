@@ -1,8 +1,8 @@
 ---
 title: Một hàm sẽ như thế nào trong bộ nhớ khi nó đang chạy?
 date: 2025-4-23
-categories: [System]
-tags: [function]
+categories: [Câu hỏi]
+tags: 
 author: Trieu
 ---
 
