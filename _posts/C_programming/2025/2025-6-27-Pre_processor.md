@@ -8,7 +8,7 @@ author: Trieu
 
 ## ✅ Những directive phổ biến trong C
 | Directive                         | Use                                              | 
-| :-------------------------------- | :----------------------------------------------- | 
+| :-------------------------------- | -----------------------------------------------: | 
 | `#define`                         | Định nghĩa hằng số or macro                      | 
 | `#undef`                          | Hủy định nghĩa đã dùng `#define`                 |      
 | `#include`                        | Thêm file header                                 |   
