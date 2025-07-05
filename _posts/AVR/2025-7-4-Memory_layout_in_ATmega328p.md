@@ -196,7 +196,7 @@ Qua kết quả, tôi thấy được vùng `stack` bắt đầu tại: `0x8F8`.
 
 Câu hỏi: Tại sao vùng `stack` lại bắt đầu tại địa chỉ `0x8F8` ?
 
-![](/assets/articles/C_programming/2025/Enum/enum.png){: .normal }
+TÌM HIỂU VỀ ARDUINO CLI để trả lời những câu hỏi trên.
 
 
 ### Refrence
