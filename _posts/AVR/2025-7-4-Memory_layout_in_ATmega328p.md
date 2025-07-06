@@ -114,7 +114,7 @@ Dựa vào kết quả trên, tôi có phán đoán là vùng `.bss` của atmeg
 
 Câu hỏi: Tại vì sao `.bss` lại bắt đầu từ `0x168` ?
 
-### Vùng `heap`
+### 3. Vùng `heap`
 
 ~~~c
 uint8_t *p;
@@ -153,7 +153,7 @@ Qua kết quả trên, tôi có nhận định:
 
 Câu hỏi: Tại sao vùng `heap` lại bắt đầu tại địa chỉ `0x1F8`.
 
-## Vùng `stack`
+### 4. Vùng `stack`
 ~~~c
 
 
@@ -196,7 +196,47 @@ Qua kết quả, tôi thấy được vùng `stack` bắt đầu tại: `0x8F8`.
 
 Câu hỏi: Tại sao vùng `stack` lại bắt đầu tại địa chỉ `0x8F8` ?
 
-TÌM HIỂU VỀ ARDUINO CLI để trả lời những câu hỏi trên.
+### 5. Vùng `.rodata`
+~~~c
+const char* msg = "Hello";  // Chuỗi hằng - sẽ nằm trong .rodata (flash)
+
+void setup() {
+  Serial.begin(9600);
+  while (!Serial);
+
+  Serial.print("Address of msg pointer: 0x");
+  Serial.println((uintptr_t)&msg, HEX);
+
+  Serial.print("Address msg points to: 0x");
+  Serial.println((uintptr_t)msg, HEX);
+
+  Serial.print("First character: ");
+  Serial.println(*msg);  // In ra 'H'
+}
+
+void loop() {
+  // Don't use
+}
+
+~~~
+**Output**:
+~~~
+Address of msg pointer: 0x100
+Address msg points to: 0x15E
+First character: H
+~~~
+
+| Region | Size  | Start  | End    | 
+| :------| :---- | :------| :------|
+| Flash  | 32 KB | 0x0000	| 0x7FFF |
+| SRAM   | 2 KB  | 0x0100	| 0x08FF |    
+
+Xem kết quả
+- Địa chỉ con trỏ `0x100`: con trỏ nằm trong vùng SRAM.
+- Địa chỉ bắt đầu của chuỗi `0x15E` < `0x8000`, nằm trong vùng `0x0000 -> 0x7FFF` -> Chứng minh được const string nằm trong vùng Flash, cụ thể là `.rodata`.
+
+
+## TÌM HIỂU VỀ ARDUINO CLI để trả lời những câu hỏi trên.
 
 
 ### Refrence
