@@ -6,7 +6,7 @@ tags: []
 author: Trieu
 ---
 
-## ✅ Những directive phổ biến trong C
+## I. Những directive phổ biến trong C
 
 | Directive                         | Use                                              | 
 | :-------------------------------- | :----------------------------------------------- | 
@@ -18,7 +18,9 @@ author: Trieu
 | `#error`                          | Hiện thị lỗi khi compiler                        | 
 | `#pragma`                         | Gửi chỉ dẫn đặc biệt tới compiler                | 
 
-🧪 **Ví dụ 1:** `#if`, `#elif`, `#else`, `#endif`
+## II. Cách sử dụng
+### 1. `#if`, `#elif`, `#else`, `#endif`
+**Cách dùng:** Kiểm tra giá trị của macro.
 ~~~c
 #define VERSION 2
 
@@ -31,20 +33,75 @@ author: Trieu
 #endif
 ~~~
 
-🧪 **Ví dụ 2:** `#ifdef` , `#ifndef`
+### 2. `#ifdef` , `#ifndef`
+**Cách dùng:** Kiểm tra macro có được định nghĩa hay chưa
 ~~~c
-#define DEBUG
+#include <stdio.h>
 
-#ifdef DEBUG
+#define DEBUG   // or #define DEBUG X (X là giá trị bất kì mà ta mong muốn)
+
+int main()
+{
+    
+#ifdef DEBUG    // CÓ define DEBUG thì mới thực thi code
     printf("Debug mode\n");
 #endif
 
-#ifndef RELEASE
+#ifndef RELEASE // KHÔNG define RELEASE thì mới thực thi code 
     printf("Not release mode\n");
 #endif
+
+    printf("End!");
+    return 0;
+}
+~~~
+**Output**
+~~~
+Debug mode
+Not release mode
+End!
 ~~~
 
-🧪 **Ví dụ 3:** `#error`
+
+Nếu 
+~~~c
+Bỏ    #define DEBUG
+Thêm  #define RELEASE // or #define RELEASE X (X là giá trị bất kì mà ta mong muốn)
+~~~
+Thì Output: 
+~~~
+End!
+~~~
+
+Hoặc ta có thể sử dụng một cách viết khác thông dụng hơn
+~~~c
+#include <stdio.h>
+
+#define DEBUG
+#define RELEASE
+
+int main()
+{
+    
+#if defined(DEBUG)    
+    printf("Debug mode\n");
+#endif
+
+#if !defined(RELEASE) 
+    printf("Not release mode\n");
+#endif
+
+    printf("End!");
+    return 0;
+}
+~~~
+**OUTPUT:**
+~~~
+Debug mode
+End!
+~~~
+
+### 3. `#error`
 ~~~c
 #include <stdio.h>
 
