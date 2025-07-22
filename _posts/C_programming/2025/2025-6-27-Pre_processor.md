@@ -61,18 +61,15 @@ Debug mode
 Not release mode
 End!
 ~~~
-
-
 Nếu 
-~~~c
-Bỏ    #define DEBUG
-Thêm  #define RELEASE // or #define RELEASE X (X là giá trị bất kì mà ta mong muốn)
-~~~
+- Bỏ    ~~#define DEBUG~~
+- Thêm  #define RELEASE // or #define RELEASE X (X là giá trị bất kì mà ta mong muốn)
+~
 Thì Output: 
 ~~~
 End!
 ~~~
-
+---
 Hoặc ta có thể sử dụng một cách viết khác thông dụng hơn
 ~~~c
 #include <stdio.h>
