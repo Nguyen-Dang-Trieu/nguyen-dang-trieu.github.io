@@ -186,6 +186,34 @@ DEBUG: Error
 
 `Note`: Phía sau của `\` phải đảm bảo là không có `Tab` or `Space`.
 
+**Ví dụ 2:** Sử dụng con trỏ trong macro.
+~~~c
+#include <stdio.h>
+#include <stdbool.h>
+
+
+#define SET_VALUE(ptr, val) \
+  {                         \
+    if((ptr) != NULL)       \
+      *(ptr) = (val);       \
+  }                         \
+  
+int main()
+{
+  int a = 0;
+  int *p = &a;
+  
+  SET_VALUE(p, 1);
+  printf("Giá trị a = %d", a);
+  
+  return 0;
+}
+~~~
+**Output**
+~~~
+Giá trị a = 1
+~~~
+
 ### Reference
 - https://www.math.utah.edu/docs/info/cpp_1.html
 - https://en.wikipedia.org/wiki/C_preprocessor
